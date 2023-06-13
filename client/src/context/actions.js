@@ -32,6 +32,11 @@ export const CREATE_JOB_BEGIN = "CREATE_JOB_BEGIN";
 export const CREATE_JOB_SUCCESS = "CREATE_JOB_SUCCESS";
 export const CREATE_JOB_ERROR = "CREATE_JOB_ERROR";
 
+// CREATE_QUESTION
+export const CREATE_QUESTION_BEGIN = "CREATE_QUESTION_BEGIN";
+export const CREATE_QUESTION_SUCCESS = "CREATE_QUESTION_SUCCESS";
+export const CREATE_QUESTION_ERROR = "CREATE_QUESTION_ERROR";
+
 // get all jobs
 export const GET_JOBS_BEGIN = "GET_JOBS_BEGIN";
 export const GET_JOBS_SUCCESS = "GET_JOBS_SUCCESS";
@@ -71,3 +76,26 @@ export const SET_USER_LOADING = "SET_USER_LOADING";
 
 // user null - experimental:
 export const SET_USER_NULL = "SET_USER_NULL";
+
+// get test questions
+export const GET_TEST_QUESTIONS_BEGIN = "GET_TEST_QUESTIONS_BEGIN";
+export const GET_TEST_QUESTIONS_SUCCESS = "GET_TEST_QUESTIONS_SUCCESS";
+export const GET_TEST_QUESTIONS_ERROR = "GET_TEST_QUESTIONS_ERROR";
+
+export const INCREMENT_QUESTION = "INCREMENT_QUESTION";
+export const DECREMENT_QUESTION = "DECREMENT_QUESTION";
+
+// set modal state
+export const SET_MODAL_STATE = "SET_MODAL_STATE";
+
+// exit/end test
+export const EXIT_TEST = "EXIT_TEST";
+
+export const SUBMIT_ANSWER = "SUBMIT_ANSWER";
+
+export const SELECT_ANSWER = "SELECT_ANSWER";
+
+// get existing test
+export const GET_TEST_BEGIN = "GET_TEST_BEGIN";
+export const GET_TEST_SUCCESS = "GET_TEST_SUCCESS";
+export const GET_TEST_ERROR = "GET_TEST_ERROR";

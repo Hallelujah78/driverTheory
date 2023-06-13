@@ -1,5 +1,17 @@
 import { initialState } from "./appContext.js";
 import {
+  GET_TEST_BEGIN,
+  GET_TEST_SUCCESS,
+  GET_TEST_ERROR,
+  SELECT_ANSWER,
+  SUBMIT_ANSWER,
+  EXIT_TEST,
+  SET_MODAL_STATE,
+  INCREMENT_QUESTION,
+  DECREMENT_QUESTION,
+  GET_TEST_QUESTIONS_BEGIN,
+  GET_TEST_QUESTIONS_SUCCESS,
+  GET_TEST_QUESTIONS_ERROR,
   SET_USER_NULL,
   SET_USER_LOADING,
   GET_CURRENT_USER_BEGIN,
@@ -32,6 +44,9 @@ import {
   CREATE_JOB_BEGIN,
   CREATE_JOB_ERROR,
   CREATE_JOB_SUCCESS,
+  CREATE_QUESTION_BEGIN,
+  CREATE_QUESTION_ERROR,
+  CREATE_QUESTION_SUCCESS,
   GET_JOBS_BEGIN,
   GET_JOBS_SUCCESS,
 } from "./actions";
@@ -156,12 +171,14 @@ const reducer = (state, action) => {
     return {
       ...state,
       isEditing: false,
-      editJobId: "",
-      jobLocation: state.userLocation,
-      position: "",
-      company: "",
-      jobType: "full-time",
-      status: "pending",
+      imageURL: "",
+      editQuestionId: "",
+      questionText: "",
+      correctAnswer: "",
+      answerTwo: "",
+      answerThree: "",
+      answerFour: "",
+      questionCategory: "control of vehicle",
     };
   }
   if (action.type === CREATE_JOB_BEGIN) {
@@ -320,7 +337,117 @@ const reducer = (state, action) => {
       user: null,
     };
   }
-  throw new Error(`no such action :${action.type}`);
+  if (action.type === CREATE_QUESTION_BEGIN) {
+    return {
+      ...state,
+      isLoading: true,
+    };
+  }
+  if (action.type === CREATE_QUESTION_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false,
+      showAlert: true,
+      alertType: "success",
+      alertText: "New question created",
+    };
+  }
+  if (action.type === CREATE_QUESTION_ERROR) {
+    return {
+      ...state,
+      isLoading: false,
+      showAlert: true,
+      alertType: "danger",
+      alertText: action.payload.msg,
+    };
+  }
+  if (action.type === GET_TEST_QUESTIONS_BEGIN) {
+    return {
+      ...state,
+      isLoading: true,
+    };
+  }
+  if (action.type === GET_TEST_QUESTIONS_SUCCESS) {
+    return {
+      ...state,
+      test: action.payload.test,
+      isLoading: false,
+      testLoading: false,
+    };
+  }
+  if (action.type === GET_TEST_QUESTIONS_ERROR) {
+    return {
+      ...state,
+      isLoading: false,
+      alertText: action.payload.msg,
+      alertType: "danger",
+      showAlert: true,
+    };
+  }
+  if (action.type === INCREMENT_QUESTION) {
+    return {
+      ...state,
+      currentQuestion: state.currentQuestion + 1,
+    };
+  }
+  if (action.type === DECREMENT_QUESTION) {
+    return {
+      ...state,
+      currentQuestion: state.currentQuestion - 1,
+    };
+  }
+  if (action.type === SET_MODAL_STATE) {
+    return {
+      ...state,
+      modalAlert: !state.modalAlert,
+    };
+  }
+  if (action.type === EXIT_TEST) {
+    return {
+      ...state,
+      currentQuestion: 0,
+      test: null,
+    };
+  }
+  if (action.type === GET_TEST_BEGIN) {
+    return {
+      ...state,
+      currentQuestion: 0,
+      isLoading: true,
+      testLoading: true,
+    };
+  }
+  if (action.type === GET_TEST_SUCCESS) {
+    return {
+      ...state,
+      currentQuestion: 0,
+      test: action.payload.test,
+      testLoading: false,
+      isLoading: false,
+    };
+  }
+  if (action.type === GET_TEST_ERROR) {
+    return {
+      ...state,
+      currentQuestion: 0,
+      test: null,
+      testLoading: false,
+      isLoading: false,
+    };
+  }
+  if (action.type === SUBMIT_ANSWER) {
+    return {
+      ...state,
+      test: action.payload.test,
+    };
+  }
+  if (action.type === SELECT_ANSWER) {
+    return {
+      ...state,
+      test: [...action.payload.newTest],
+    };
+  }
+  throw new Error(`no such action: ${action.type}`);
 };
 
 export default reducer;

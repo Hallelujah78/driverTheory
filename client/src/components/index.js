@@ -10,10 +10,12 @@ import StatItem from "./StatItem.js";
 import ChartsContainer from "./ChartsContainer.js";
 import StatsContainer from "./StatsContainer.js";
 import Loading from "./Loading.js";
+import ModalAlert from "./ModalAlert.js";
 
 import SearchContainer from "./SearchContainer.js";
 
 export {
+  ModalAlert,
   Loading,
   Logo,
   FormRow,

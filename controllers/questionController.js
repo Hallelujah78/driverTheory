@@ -1,33 +1,31 @@
 import { StatusCodes } from "http-status-codes";
-import Empty from "../models/Empty.js";
+import Question from "../models/Question.js";
 import * as CustomError from "../errors/index.js";
 import User from "../models/User.js";
 import mongoose from "mongoose";
 import moment from "moment";
 
-const createEmpty = async (req, res) => {
+const createQuestion = async (req, res) => {
   // company, position, status, type, location, createdBy
-  const { company, position } = req.body;
-  if (!company || !position) {
+  const { questionText, answers, imageURL, questionCategory } = req.body;
+  if (!questionText || answers.length < 4) {
     throw new CustomError.BadRequestError(
-      "please provide company and position"
+      "please provide the question text and all answers"
     );
   }
 
-  const user = await User.findOne({ _id: req.user.userId });
-  if (!user) {
-    throw new CustomError.NotFoundError("user not found");
-  }
-  const empty = await Empty.create({
-    company,
-    position,
-    createdBy: req.user.userId,
+  const question = await Question.create({
+    questionText,
+    answers,
+    imageURL,
+    questionCategory,
   });
-  res.status(StatusCodes.CREATED).json({ empty });
+  res.status(StatusCodes.CREATED).json({ question });
 };
 
-const getAllEmptys = async (req, res) => {
-  // all emptys for specific user
+// get all questions
+const getAllQuestions = async (req, res) => {
+  // all questions for specific user
   const { userId } = req.user;
   const { status, type, search, sort } = req.query;
   const queryObject = {
@@ -42,7 +40,7 @@ const getAllEmptys = async (req, res) => {
   if (search) {
     queryObject.position = { $regex: search, $options: "i" };
   }
-  let result = Empty.find(queryObject);
+  let result = Question.find(queryObject);
   // chain sort conditions here:
   if (sort === "latest") {
     result = result.sort("-createdAt");
@@ -63,18 +61,20 @@ const getAllEmptys = async (req, res) => {
 
   result = result.skip(skip).limit(limit);
 
-  const emptys = await result;
+  const questions = await result;
 
-  const totalEmptys = await Empty.countDocuments(queryObject);
+  const totalQuestions = await Question.countDocuments(queryObject);
 
   res.status(StatusCodes.OK).json({
-    emptys,
-    totalEmptys,
-    numOfPages: Math.ceil(totalEmptys / limit),
+    questions,
+    totalQuestions,
+    numOfPages: Math.ceil(totalQuestions / limit),
   });
 };
+
+// show stats
 const showStats = async (req, res) => {
-  let stats = await Empty.aggregate([
+  let stats = await Question.aggregate([
     { $match: { createdBy: new mongoose.Types.ObjectId(req.user.userId) } },
     { $group: { _id: "$status", count: { $sum: 1 } } },
   ]);
@@ -88,7 +88,7 @@ const showStats = async (req, res) => {
     interview: stats.interview || 0,
     declined: stats.declined || 0,
   };
-  let monthlyApplications = await Empty.aggregate([
+  let monthlyApplications = await Question.aggregate([
     { $match: { createdBy: new mongoose.Types.ObjectId(req.user.userId) } },
     {
       $group: {
@@ -121,43 +121,64 @@ const showStats = async (req, res) => {
   res.status(StatusCodes.OK).json({ defaultStats, monthlyApplications });
 };
 
-const deleteEmpty = async (req, res) => {
-  const { id: emptyId } = req.params;
-  const empty = await Empty.findOne({ _id: emptyId });
-  if (!empty) {
-    throw new CustomError.NotFoundError(`no empty with id ${emptyId}`);
+const deleteQuestion = async (req, res) => {
+  const { id: questionId } = req.params;
+  const question = await Question.findOne({ _id: questionId });
+  if (!question) {
+    throw new CustomError.NotFoundError(`no question with id ${questionId}`);
   }
-  // checkPermissions(req.user, empty.createdBy);
+  // checkPermissions(req.user, question.createdBy);
 
-  await Empty.deleteOne({ _id: emptyId });
+  await Question.deleteOne({ _id: questionId });
 
-  res.status(StatusCodes.OK).json({ msg: "empty deleted successfully!" });
+  res.status(StatusCodes.OK).json({ msg: "question deleted successfully!" });
 };
 
-const updateEmpty = async (req, res) => {
-  const { id: emptyId } = req.params;
+// update question
+
+const updateQuestion = async (req, res) => {
+  const { id: questionId } = req.params;
   const { company, position } = req.body;
 
   if (!company || !position) {
     throw new CustomError.BadRequestError("please provide all values");
   }
-  const empty = await Empty.findOne({ _id: emptyId });
+  const question = await Question.findOne({ _id: questionId });
 
-  if (!empty) {
-    throw new CustomError.NotFoundError(`empty with id ${emptyId} not found`);
+  if (!question) {
+    throw new CustomError.NotFoundError(
+      `question with id ${questionId} not found`
+    );
   }
 
-  // checkPermissions(req.user, empty.createdBy);
+  // checkPermissions(req.user, question.createdBy);
 
-  const updatedEmpty = await Empty.findOneAndUpdate(
-    { _id: emptyId },
+  const updatedQuestion = await Question.findOneAndUpdate(
+    { _id: questionId },
     req.body,
     {
       new: true,
       runValidators: true,
     }
   );
-  res.status(StatusCodes.OK).json({ updatedEmpty });
+  res.status(StatusCodes.OK).json({ updatedQuestion });
 };
 
-export { getAllEmptys, showStats, deleteEmpty, updateEmpty, createEmpty };
+const getTestQuestions = async (req, res) => {
+  const { testType } = req.body;
+  // if (!testType) {
+  //   throw new CustomError.BadRequestError("must provide test type");
+  // }
+  const testQuestions = await Question.find({});
+
+  res.status(StatusCodes.OK).json({ testQuestions });
+};
+
+export {
+  getTestQuestions,
+  getAllQuestions,
+  showStats,
+  deleteQuestion,
+  updateQuestion,
+  createQuestion,
+};

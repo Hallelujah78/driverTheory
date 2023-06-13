@@ -3,6 +3,15 @@ import reducer from "./reducer";
 import axios from "axios";
 
 import {
+  GET_TEST_BEGIN,
+  GET_TEST_SUCCESS,
+  GET_TEST_ERROR,
+  SELECT_ANSWER,
+  SUBMIT_ANSWER,
+  EXIT_TEST,
+  SET_MODAL_STATE,
+  INCREMENT_QUESTION,
+  DECREMENT_QUESTION,
   SET_USER_NULL,
   SET_USER_LOADING,
   GET_CURRENT_USER_BEGIN,
@@ -14,12 +23,16 @@ import {
   EDIT_JOB_BEGIN,
   EDIT_JOB_ERROR,
   EDIT_JOB_SUCCESS,
+  EDIT_QUESTION_BEGIN,
+  EDIT_QUESTION_ERROR,
+  EDIT_QUESTION_SUCCESS,
   DELETE_JOB_BEGIN,
   DELETE_JOB_ERROR,
   CLEAR_VALUES,
   DISPLAY_ALERT,
   CLEAR_ALERT,
   SET_EDIT_JOB,
+  SET_EDIT_QUESTION,
   REGISTER_USER_BEGIN,
   REGISTER_USER_ERROR,
   REGISTER_USER_SUCCESS,
@@ -35,11 +48,24 @@ import {
   CREATE_JOB_BEGIN,
   CREATE_JOB_ERROR,
   CREATE_JOB_SUCCESS,
+  CREATE_QUESTION_BEGIN,
+  CREATE_QUESTION_ERROR,
+  CREATE_QUESTION_SUCCESS,
   GET_JOBS_SUCCESS,
   GET_JOBS_BEGIN,
+  GET_QUESTIONS_SUCCESS,
+  GET_QUESTIONS_BEGIN,
+  GET_TEST_QUESTIONS_BEGIN,
+  GET_TEST_QUESTIONS_SUCCESS,
+  GET_TEST_QUESTIONS_ERROR,
 } from "./actions";
 
 const initialState = {
+  testLoading: true,
+  modalAlert: false,
+  currentQuestion: 0,
+  currentSelection: null,
+  test: null,
   isError: false,
   pathName: "",
   isRegistered: false,
@@ -50,26 +76,34 @@ const initialState = {
   alertText: "",
   alertType: "",
   user: null,
-  userLocation: "",
-  jobLocation: "",
+
   showSidebar: false,
-  // job related
+  // question related
   isEditing: false,
-  editJobId: "",
-  position: "",
-  company: "",
-  jobTypeOptions: ["full-time", "part-time", "remote", "internship"],
-  jobType: "full-time",
-  statusOptions: ["pending", "interview", "declined"],
-  status: "pending",
-  // get all jobs
-  jobs: [],
-  totalJobs: 0,
+
+  //question related
+  editQuestionId: "",
+  questionCategoryOptions: [
+    "control of vehicle",
+    "legal matters/rules of the road",
+    "managing risk",
+    "safe and socially responsible driving",
+    "technical matters",
+  ],
+  questionCategory: "control of vehicle",
+  correctAnswer: "",
+  answerTwo: "",
+  answerThree: "",
+  answerFour: "",
+  questionText: "",
+  imageURL: "",
+  // get all questions
+  questions: [],
+  totalQuestions: 0,
   page: 1,
   numOfPages: 1,
   // stats
-  stats: {},
-  monthlyApplications: [],
+
   // search functionality
   search: "",
   searchStatus: "all",
@@ -217,14 +251,11 @@ const AppProvider = ({ children }) => {
     });
     try {
       const { data } = await authFetch.patch("/auth/updateUser", currentUser);
-      const {
-        user,
-        user: { location },
-      } = data;
+      const { user } = data;
 
       dispatch({
         type: UPDATE_USER_SUCCESS,
-        payload: { user, location },
+        payload: { user },
       });
     } catch (error) {
       if (error.response.status !== 401) {
@@ -243,29 +274,43 @@ const AppProvider = ({ children }) => {
     });
   };
 
-  const createJob = async () => {
+  // start of create question
+  const createQuestion = async () => {
     dispatch({
-      type: CREATE_JOB_BEGIN,
+      type: CREATE_QUESTION_BEGIN,
     });
     try {
-      const { position, status, company, jobLocation, jobType } = state;
-      await authFetch.post("/jobs", {
-        position,
-        status,
-        company,
-        jobLocation,
-        jobType,
+      const {
+        questionCategory,
+        questionText,
+        correctAnswer,
+        answerTwo,
+        answerThree,
+        answerFour,
+        imageURL,
+      } = state;
+      const answers = [
+        { answer: correctAnswer, isCorrect: true },
+        { answer: answerTwo, isCorrect: false },
+        { answer: answerThree, isCorrect: false },
+        { answer: answerFour, isCorrect: false },
+      ];
+      await authFetch.post("/questions", {
+        questionText,
+        answers,
+        imageURL,
+        questionCategory,
       });
 
       dispatch({
-        type: CREATE_JOB_SUCCESS,
+        type: CREATE_QUESTION_SUCCESS,
       });
 
       dispatch({ type: CLEAR_VALUES });
     } catch (error) {
       if (error.response.status !== 401) {
         dispatch({
-          type: CREATE_JOB_ERROR,
+          type: CREATE_QUESTION_ERROR,
           payload: { msg: error.response.data.msg },
         });
       }
@@ -273,11 +318,12 @@ const AppProvider = ({ children }) => {
 
     clearAlert();
   };
+  // end of create question
 
-  const getJobs = async () => {
+  const getQuestions = async () => {
     // search, searchType, searchStatus, sort
     const { search, searchType, searchStatus, sort, page } = state;
-    let url = `/jobs?sort=${sort}&type=${searchType}&status=${searchStatus}&page=${page}`;
+    let url = `/questions?sort=${sort}&type=${searchType}&status=${searchStatus}&page=${page}`;
 
     if (search.length > 0) {
       url = url + `&search=${search}`;
@@ -285,10 +331,10 @@ const AppProvider = ({ children }) => {
     dispatch({ type: GET_JOBS_BEGIN });
     try {
       const { data } = await authFetch.get(url);
-      const { jobs, totalJobs, numOfPages } = data;
+      const { questions, totalQuestions, numOfPages } = data;
       dispatch({
         type: GET_JOBS_SUCCESS,
-        payload: { jobs, totalJobs, numOfPages },
+        payload: { questions, totalQuestions, numOfPages },
       });
     } catch (error) {
       console.log("GET_JOBS_ERROR");
@@ -296,27 +342,33 @@ const AppProvider = ({ children }) => {
     clearAlert();
   };
 
-  const setEditJob = (id) => {
+  const setEditQuestion = (id) => {
     dispatch({
       type: SET_EDIT_JOB,
       payload: { id },
     });
   };
 
-  const editJob = async () => {
-    // very similar to add job or create job
+  const editQuestion = async () => {
+    // very similar to add question or create question
     dispatch({ type: EDIT_JOB_BEGIN });
 
     try {
-      const { position, company, jobLocation, status, jobType, editJobId } =
-        state;
-
-      await authFetch.patch(`/jobs/${editJobId}`, {
+      const {
         position,
         company,
-        location: jobLocation,
+        questionLocation,
         status,
-        type: jobType,
+        questionType,
+        editQuestionId,
+      } = state;
+
+      await authFetch.patch(`/questions/${editQuestionId}`, {
+        position,
+        company,
+        location: questionLocation,
+        status,
+        type: questionType,
       });
       dispatch({ type: EDIT_JOB_SUCCESS });
       dispatch({ type: CLEAR_VALUES });
@@ -331,11 +383,11 @@ const AppProvider = ({ children }) => {
     clearAlert();
   };
 
-  const deleteJob = async (id) => {
+  const deleteQuestion = async (id) => {
     dispatch({ type: DELETE_JOB_BEGIN });
     try {
-      await authFetch.delete(`/jobs/${id}`);
-      getJobs();
+      await authFetch.delete(`/questions/${id}`);
+      getQuestions();
     } catch (error) {
       console.log("DELETE_JOB_ERROR");
       dispatch({
@@ -349,7 +401,7 @@ const AppProvider = ({ children }) => {
   const showStats = async () => {
     dispatch({ type: SHOW_STATS_BEGIN });
     try {
-      const { data } = await authFetch.get("/jobs/stats");
+      const { data } = await authFetch.get("/questions/stats");
       dispatch({
         type: SHOW_STATS_SUCCESS,
         payload: {
@@ -387,6 +439,122 @@ const AppProvider = ({ children }) => {
     }
   };
 
+  const createNewTest = async (testCategory, numQuestions) => {
+    dispatch({ type: GET_TEST_QUESTIONS_BEGIN });
+    try {
+      const { data } = await authFetch.post("/test", {
+        testCategory,
+        numQuestions,
+      });
+
+      const { test } = data.test.questions;
+
+      dispatch({
+        type: GET_TEST_QUESTIONS_SUCCESS,
+        payload: {
+          test,
+        },
+      });
+    } catch (error) {
+      console.log("GET_TEST_QUESTIONS_ERROR");
+      dispatch({
+        type: GET_TEST_QUESTIONS_ERROR,
+        payload: { msg: error.response.data.msg },
+      });
+    }
+    clearAlert();
+  };
+
+  const getTest = async () => {
+    dispatch({ type: GET_TEST_BEGIN });
+    try {
+      const { data } = await authFetch.get("/test");
+
+      dispatch({
+        type: GET_TEST_SUCCESS,
+        payload: {
+          test: data.test[0].questions,
+        },
+      });
+    } catch (error) {
+      console.log("GET_TEST__ERROR");
+      dispatch({
+        type: GET_TEST_ERROR,
+        payload: { msg: error.response.data.msg },
+      });
+    }
+    clearAlert();
+  };
+
+  const incrementQuestion = () => {
+    if (state.currentQuestion === state.test.length - 1) {
+      return;
+    }
+    dispatch({
+      type: INCREMENT_QUESTION,
+    });
+  };
+  const decrementQuestion = () => {
+    dispatch({
+      type: DECREMENT_QUESTION,
+    });
+  };
+  const setModalState = () => {
+    dispatch({
+      type: SET_MODAL_STATE,
+    });
+  };
+  const exitTest = async () => {
+    // get and delete test associated with user
+    try {
+      await authFetch.delete("/test");
+    } catch (error) {
+      console.log(error);
+    }
+
+    dispatch({
+      type: EXIT_TEST,
+    });
+  };
+
+  const submitAnswer = async (index, currentQuestion) => {
+    const questionId = state.test[state.currentQuestion]._id;
+    // update context by submitting answer locally - provides better feedback to user and better user experience
+    const newTest = [...state.test];
+    newTest[currentQuestion].userAnswer = index;
+
+    if (newTest[currentQuestion].question.answers[index].isCorrect) {
+      newTest[currentQuestion].isCorrect = true;
+    }
+    dispatch({
+      type: SUBMIT_ANSWER,
+      payload: { test: newTest },
+    });
+    // now we can update the database and update context again with our response
+    try {
+      const { data } = await authFetch.patch("/test", {
+        questionId,
+        index,
+        currentQuestion,
+      });
+
+      dispatch({
+        type: SUBMIT_ANSWER,
+        payload: { test: data.test.questions },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const selectAnswer = (index) => {
+    const newTest = [...state.test];
+    newTest[state.currentQuestion].selected = index;
+    dispatch({
+      type: SELECT_ANSWER,
+      payload: { newTest },
+    });
+  };
+
   useEffect(
     () => {
       getCurrentUser();
@@ -399,6 +567,13 @@ const AppProvider = ({ children }) => {
     <AppContext.Provider
       value={{
         ...state,
+        getTest,
+        selectAnswer,
+        submitAnswer,
+        exitTest,
+        setModalState,
+        incrementQuestion,
+        decrementQuestion,
         displayAlert,
         registerUser,
         loginUser,
@@ -407,14 +582,15 @@ const AppProvider = ({ children }) => {
         updateUser,
         handleChange,
         clearValues,
-        createJob,
-        getJobs,
-        setEditJob,
-        deleteJob,
-        editJob,
+        createQuestion,
+        getQuestions,
+        setEditQuestion,
+        deleteQuestion,
+        editQuestion,
         showStats,
         clearFilters,
         changePage,
+        createNewTest,
       }}
     >
       {children}

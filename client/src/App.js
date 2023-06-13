@@ -1,4 +1,5 @@
 import {
+  Test,
   Landing,
   Register,
   Error,
@@ -7,7 +8,8 @@ import {
   ForgotPassword,
 } from "./pages";
 import {
-  AddJob,
+  Practice,
+  AddQuestion,
   AllJobs,
   Profile,
   SharedLayout,
@@ -28,11 +30,20 @@ function App() {
             </ProtectedRoute>
           }
         >
-          <Route index element={<Stats />}></Route>
+          <Route element={<Stats />}></Route>
           <Route path="all-jobs" element={<AllJobs />}></Route>
-          <Route path="add-job" element={<AddJob />}></Route>
+          <Route index path="add-question" element={<AddQuestion />}></Route>
+          <Route index path="practice" element={<Practice />}></Route>
           <Route path="profile" element={<Profile />}></Route>
         </Route>
+        <Route
+          path="randomized-practice"
+          element={
+            <ProtectedRoute>
+              <Test />
+            </ProtectedRoute>
+          }
+        ></Route>
         <Route path="/register" element={<Register />} />
         <Route path="/user/verify-email" element={<Verify />} />
         <Route path="/landing" element={<Landing />} />

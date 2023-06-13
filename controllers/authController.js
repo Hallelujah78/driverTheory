@@ -30,7 +30,7 @@ const login = async (req, res) => {
   if (!user.isVerified) {
     throw new CustomError.UnauthenticatedError("please verify your email");
   }
-  // const token = user.createJWT();
+
   const tokenUser = createTokenUser(user);
 
   let refreshToken = "";

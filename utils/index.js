@@ -8,6 +8,7 @@ import { attachCookiesToResponse, createJWT, isTokenValid } from "./jwt.js";
 import attachCookie from "./attachCookie.js";
 import sendVerificationEmailSG from "./sendgrid/sendVerificationEmailSG.js";
 import sendResetPasswordEmailSG from "./sendgrid/sendResetPasswordEmailSG.js";
+import shuffleArray from "./shuffleArray.js";
 
 export {
   sendVerificationEmailSG,
@@ -21,4 +22,5 @@ export {
   sendVerificationEmail,
   sendResetPasswordEmail,
   attachCookiesToResponse,
+  shuffleArray,
 };

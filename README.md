@@ -1,4 +1,4 @@
-Frontend and backend built as part of John Smilga's MERN stack course on Udemy.
+Frontend and backend originally built as part of John Smilga's MERN stack course on Udemy. Massively changed at this point as I have taken what we built in the course and essentially used it as a base for my own application. Added new models, controllers, and routes on the backend. Added new pages and components and completely gutted and repurposed routes, appContext, actions and reducer functionality.
 
 I have added:
 
@@ -11,7 +11,7 @@ I have added:
 - implemented sendgrid for emails in production env
 - ensured test user can't change password
 
-To Do:
+To Do (from original Jobify MERN project):
 
 - implement password strength checker for registration and reset password
 - app should fail gracefully on econnrefused, i.e. navigate to landing
@@ -20,3 +20,15 @@ To Do:
 - some issues with alert duration
 - login, register, reset password, verify email can probably be a shared layout
 - should probably move text and message from sendResetPasswordSG and sendEmailVerificationSG to separate file and import
+
+To Do for current DriveL driver theory MCQ app:
+
+- add answer shuffling to each question on backend so that correct answer is not always the first answer displayed - do once at test creation
+- ~~submitting an answer should update the Atlas database in addition to appContext.~~ ~~Have done this but issue with delay from server regarding styling of the selected answer.~~ DONE
+- ~~display if the question is right or wrong upon answering.~~ DONE
+- handle user navigating away from tests by using browser back/forward buttons or simply closing the browser mid test
+- when all questions in a test have been submitted, a button to submit test should be made visible
+- should not be possible to go to the next question until the current question has been answered, but user can go back and forth through answers already submitted
+- add enough questions so that we can randomly select a proportionate amount from each category to create a 20 question test
+- for each user there can only be one Test document. If they exit a test early without completing it, any Test documents should be deleted. We'll have to handle the case where a user may log in from a PC start a test, and then later log in from a phone and starts another test. The easiest way to handle this would be to check for an existing Test doc before creating our new Test and deleting existing Test docs.
+- allow user to flag questions

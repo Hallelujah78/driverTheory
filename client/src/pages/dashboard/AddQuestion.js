@@ -2,7 +2,7 @@ import { useAppContext } from "../../context/appContext";
 import Wrapper from "../../assets/wrappers/DashboardFormPage";
 import { FormRow, Alert, FormRowSelect } from "../../components/index.js";
 
-const AddJob = () => {
+const AddQuestion = () => {
   const {
     user,
     showAlert,
@@ -13,20 +13,32 @@ const AddJob = () => {
     editJobId,
     position,
     company,
-    jobTypeOptions,
-    jobType,
-    statusOptions,
-    status,
     jobLocation,
     handleChange,
     clearValues,
     createJob,
+    createQuestion,
+    questionCategory,
+    questionCategoryOptions,
+    questionText,
+    correctAnswer,
+    answerTwo,
+    answerThree,
+    answerFour,
     editJob,
+    editQuestion,
+    imageURL,
   } = useAppContext();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!position || !company || !jobLocation) {
+    if (
+      !questionText ||
+      !correctAnswer ||
+      !answerTwo ||
+      !answerThree ||
+      !answerFour
+    ) {
       displayAlert();
       return;
     }
@@ -35,7 +47,7 @@ const AddJob = () => {
       editJob();
       return;
     }
-    createJob();
+    createQuestion();
   };
 
   const handleJobChange = (e) => {
@@ -45,47 +57,68 @@ const AddJob = () => {
   return (
     <Wrapper>
       <form className="form">
-        <h3>{isEditing ? "edit job" : "add job"} </h3>
+        <h3>{isEditing ? "edit question" : "add question"} </h3>
         {showAlert && <Alert />}
         <div className="form-center">
-          {/* position */}
+          {/* question text */}
           <FormRow
+            labelText="question text"
             type="text"
-            name="position"
-            value={position}
+            name="questionText"
+            value={questionText}
             handleChange={handleJobChange}
           />
-          {/* company */}
+          {/* imageURL */}
           <FormRow
+            labelText="image URL"
             type="text"
-            name="company"
-            value={company}
+            name="imageURL"
+            value={imageURL}
             handleChange={handleJobChange}
           />
-          {/* location */}
+
+          {/* answer one*/}
           <FormRow
-            labelText="job location"
+            labelText="correct answer"
             type="text"
-            name="jobLocation"
-            value={jobLocation}
+            name="correctAnswer"
+            value={correctAnswer}
             handleChange={handleJobChange}
           />
-          {/* this is my code here for the FormRowSelect - may not be correct */}
-          {/* job type */}
+          {/* answer two */}
+          <FormRow
+            labelText="answer two"
+            type="text"
+            name="answerTwo"
+            value={answerTwo}
+            handleChange={handleJobChange}
+          />
+          {/* answer three */}
+          <FormRow
+            labelText="answer three"
+            type="text"
+            name="answerThree"
+            value={answerThree}
+            handleChange={handleJobChange}
+          />
+          {/* answer four */}
+          <FormRow
+            labelText="answer four"
+            type="text"
+            name="answerFour"
+            value={answerFour}
+            handleChange={handleJobChange}
+          />
+
+          {/* question category */}
           <FormRowSelect
-            labelText="job type"
-            name="jobType"
-            list={jobTypeOptions}
-            value={jobType}
+            labelText="question category"
+            name="questionCategory"
+            list={questionCategoryOptions}
+            value={questionCategory}
             handleChange={handleJobChange}
           />
-          {/* job status */}
-          <FormRowSelect
-            name="status"
-            list={statusOptions}
-            value={status}
-            handleChange={handleJobChange}
-          />
+
           <div className="btn-container">
             <button
               disabled={isLoading}
@@ -111,4 +144,4 @@ const AddJob = () => {
     </Wrapper>
   );
 };
-export default AddJob;
+export default AddQuestion;
