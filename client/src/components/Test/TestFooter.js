@@ -4,6 +4,7 @@ import { TbArrowBigLeftLine, TbArrowBigRightLine } from "react-icons/tb";
 const TestFooter = () => {
   const { currentQuestion, incrementQuestion, decrementQuestion, test } =
     useAppContext();
+  const { userAnswer } = test[currentQuestion];
 
   const handleClick = (e) => {
     if (e.currentTarget.classList.contains("prev") && currentQuestion !== 0) {
@@ -11,7 +12,8 @@ const TestFooter = () => {
     }
     if (
       e.currentTarget.classList.contains("next") &&
-      currentQuestion < test.length - 1
+      currentQuestion < test.length - 1 &&
+      userAnswer !== null
     ) {
       incrementQuestion();
     }
@@ -36,7 +38,9 @@ const TestFooter = () => {
                 : (e) => handleClick(e)
             }
             className={
-              currentQuestion === test?.length - 1 ? "gray next" : "next"
+              currentQuestion === test?.length - 1 || userAnswer === null
+                ? "gray next"
+                : "next"
             }
           >
             <p>next</p>
