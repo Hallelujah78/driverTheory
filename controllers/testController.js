@@ -2,7 +2,7 @@ import { StatusCodes } from "http-status-codes";
 import Question from "../models/Question.js";
 import Test from "../models/Test.js";
 import * as CustomError from "../errors/index.js";
-
+import { shuffleArray } from "../utils/index.js";
 import mongoose from "mongoose";
 import moment from "moment";
 
@@ -20,6 +20,7 @@ const createTest = async (req, res) => {
   let questions = [];
 
   for (const question in testQuestions) {
+    shuffleArray(testQuestions[question].answers);
     let testQuestion = {
       question: testQuestions[question],
       userAnswer: "",
