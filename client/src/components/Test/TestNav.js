@@ -17,6 +17,7 @@ const TestNav = () => {
         <div className="container">
           <TbCircleLetterX className="exit" onClick={() => handleClick()} />
           <h3>Practice Paper</h3>
+
           <h3>
             Q<span> {currentQuestion + 1}</span>
           </h3>
@@ -34,7 +35,7 @@ const Wrapper = styled.nav`
   justify-content: center;
   box-shadow: 0 1px 0px 0px rgba(0, 0, 0, 0.1);
   .exit {
-    font-size: 3rem;
+    font-size: 2.5rem;
     color: white;
   }
 
@@ -44,6 +45,7 @@ const Wrapper = styled.nav`
     justify-content: space-between;
     h3 {
       margin: auto 0;
+      font-size: 1.5rem;
     }
   }
 
