@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import styled from "styled-components";
 import TestNav from "../components/Test/TestNav.js";
 import TestFooter from "../components/Test/TestFooter.js";
@@ -14,9 +14,9 @@ const initialState = {
 };
 
 const Test = () => {
-  let location = useLocation();
   const navigate = useNavigate();
   const {
+    creatingTest,
     exitTest,
     test,
     isLoading,
@@ -38,7 +38,7 @@ const Test = () => {
   };
 
   useEffect(() => {
-    if (!test) {
+    if (!test && !creatingTest) {
       getTest();
     }
   }, []);
@@ -51,6 +51,17 @@ const Test = () => {
           <Loading center />
         </div>
 
+        <TestFooter />
+      </Wrapper>
+    );
+  }
+
+  if (!isLoading && !test && !creatingTest) {
+    return (
+      <Wrapper className="full-page">
+        <TestNav />
+        <div>There is no test data...</div>
+        <Link to="/practice">practice</Link>
         <TestFooter />
       </Wrapper>
     );

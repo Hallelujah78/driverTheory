@@ -6,11 +6,25 @@ import { shuffleArray } from "../utils/index.js";
 import mongoose from "mongoose";
 import moment from "moment";
 
+const setIsResult = async (user) => {
+  const completeTests = await Test.find({
+    user,
+    isResult: false,
+    isComplete: true,
+  });
+  if (completeTests.length < 1) {
+    return;
+  }
+  completeTests.forEach(async (test) => {
+    test.isResult = true;
+    await test.save();
+  });
+};
+
 // create test
 const createTest = async (req, res) => {
-  // will expect test category and number of questions (in some cases) to create test
   const user = req.user.userId;
-
+  setIsResult(user);
   const { testCategory: category, numQuestions } = req.body;
   if (!category) {
     throw new CustomError.BadRequestError("please provide the test category");
@@ -45,7 +59,13 @@ const getTest = async (req, res) => {
   // get test for specific user
   const user = req.user.userId;
 
-  const test = await Test.find({ user });
+  const test = await Test.find({ user, isResult: false });
+  console.log(test.length);
+  if (!test || test?.length < 1) {
+    throw new CustomError.NotFoundError(
+      "there are no active tests to complete"
+    );
+  }
 
   res.status(StatusCodes.OK).json({ test });
 };
@@ -100,15 +120,16 @@ const showStats = async (req, res) => {
 };
 
 const deleteTest = async (req, res) => {
-  const test = await Test.findOne({ user: req.user.userId });
-  if (!test) {
-    throw new CustomError.NotFoundError(`no test found`);
+  setIsResult(req.user.userId);
+  const tests = await Test.find({ user: req.user.userId, isComplete: false });
+  if (!tests) {
+    throw new CustomError.NotFoundError(`no tests found`);
   }
   // checkPermissions(req.user, question.createdBy);
 
-  await Test.deleteOne({ _id: test._id });
+  await Test.deleteMany({ user: req.user.userId, isComplete: false });
 
-  res.status(StatusCodes.OK).json({ msg: "test deleted successfully!" });
+  res.status(StatusCodes.OK).json({ msg: "tests deleted successfully!" });
 };
 
 // update test
@@ -121,7 +142,7 @@ const updateTest = async (req, res) => {
       "please provide the question ID and the index of the current question"
     );
   }
-  const test = await Test.findOne({ user: req.user.userId });
+  const test = await Test.findOne({ user: req.user.userId, isComplete: false });
 
   if (!test) {
     throw new CustomError.NotFoundError(`test not found`);
@@ -130,6 +151,9 @@ const updateTest = async (req, res) => {
   // checkPermissions(req.user, question.createdBy);
 
   test.questions[currentQuestion].userAnswer = index;
+  if (currentQuestion + 1 === test.questions.length) {
+    test.isComplete = true;
+  }
   const updatedTest = await test.save();
   res.status(StatusCodes.OK).json({ test: updatedTest });
 };

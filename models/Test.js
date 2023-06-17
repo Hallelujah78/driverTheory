@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const TestQuestionSchema = new mongoose.Schema({
+export const TestQuestionSchema = new mongoose.Schema({
   // the test questions which include questions and whether the answer is correct etc
   question: {
     type: {},
@@ -27,6 +27,14 @@ const TestSchema = new mongoose.Schema(
     questions: {
       type: [TestQuestionSchema],
       required: true,
+    },
+    isComplete: {
+      type: Boolean,
+      default: false,
+    },
+    isResult: {
+      type: Boolean,
+      default: false,
     },
   },
   { timestamps: true }

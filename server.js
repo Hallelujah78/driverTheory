@@ -16,6 +16,8 @@ import connectDB from "./db/connect.js";
 import authRouter from "./routes/authRoutes.js";
 import questionRouter from "./routes/questionRoutes.js";
 import testRouter from "./routes/testRoutes.js";
+import resultRouter from "./routes/resultRoutes.js";
+
 import notFoundMiddleware from "./middleware/not-found.js";
 import errorHandlerMiddleware from "./middleware/error-handler.js";
 
@@ -40,6 +42,7 @@ app.get("/", (req, res) => {
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/questions", questionRouter);
 app.use("/api/v1/test", testRouter);
+app.use("/api/v1/results", resultRouter);
 app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "./client/build", "index.html"));
 });

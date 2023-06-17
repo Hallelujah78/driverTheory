@@ -9,7 +9,7 @@ const PracticePaper = () => {
 
   const handleClick = () => {
     createNewTest("practice", 20);
-    navigate("/randomized-practice", { state: { fromPractice: true } });
+    navigate("/randomized-practice");
   };
 
   if (isLoading) {

@@ -99,3 +99,6 @@ export const SELECT_ANSWER = "SELECT_ANSWER";
 export const GET_TEST_BEGIN = "GET_TEST_BEGIN";
 export const GET_TEST_SUCCESS = "GET_TEST_SUCCESS";
 export const GET_TEST_ERROR = "GET_TEST_ERROR";
+
+// set test as complete
+export const SET_TEST_COMPLETE = "SET_TEST_COMPLETE";

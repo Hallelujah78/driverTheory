@@ -1,5 +1,6 @@
 import { initialState } from "./appContext.js";
 import {
+  SET_TEST_COMPLETE,
   GET_TEST_BEGIN,
   GET_TEST_SUCCESS,
   GET_TEST_ERROR,
@@ -365,6 +366,9 @@ const reducer = (state, action) => {
     return {
       ...state,
       isLoading: true,
+      creatingTest: true,
+      testLoading: true,
+      test: null,
     };
   }
   if (action.type === GET_TEST_QUESTIONS_SUCCESS) {
@@ -373,15 +377,19 @@ const reducer = (state, action) => {
       test: action.payload.test,
       isLoading: false,
       testLoading: false,
+      creatingTest: false,
     };
   }
   if (action.type === GET_TEST_QUESTIONS_ERROR) {
     return {
       ...state,
+      test: null,
       isLoading: false,
       alertText: action.payload.msg,
       alertType: "danger",
       showAlert: true,
+      creatingTest: false,
+      testLoading: false,
     };
   }
   if (action.type === INCREMENT_QUESTION) {
@@ -407,6 +415,9 @@ const reducer = (state, action) => {
       ...state,
       currentQuestion: 0,
       test: null,
+      testLoading: true,
+      creatingTest: false,
+      isLoading: false,
     };
   }
   if (action.type === GET_TEST_BEGIN) {
@@ -424,6 +435,7 @@ const reducer = (state, action) => {
       test: action.payload.test,
       testLoading: false,
       isLoading: false,
+      isComplete: action.payload.isComplete,
     };
   }
   if (action.type === GET_TEST_ERROR) {
@@ -433,18 +445,26 @@ const reducer = (state, action) => {
       test: null,
       testLoading: false,
       isLoading: false,
+      isComplete: false,
     };
   }
   if (action.type === SUBMIT_ANSWER) {
     return {
       ...state,
       test: action.payload.test,
+      isComplete: action.payload.isComplete,
     };
   }
   if (action.type === SELECT_ANSWER) {
     return {
       ...state,
       test: [...action.payload.newTest],
+    };
+  }
+  if (action.type === SET_TEST_COMPLETE) {
+    return {
+      ...state,
+      isComplete: true,
     };
   }
   throw new Error(`no such action: ${action.type}`);

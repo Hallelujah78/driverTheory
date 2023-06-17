@@ -7,8 +7,13 @@ import {
 } from "react-icons/tb";
 import { AiOutlineFileDone } from "react-icons/ai";
 const TestFooter = () => {
-  const { currentQuestion, incrementQuestion, decrementQuestion, test } =
-    useAppContext();
+  const {
+    currentQuestion,
+    incrementQuestion,
+    decrementQuestion,
+    test,
+    isComplete,
+  } = useAppContext();
 
   const handleClick = (e) => {
     if (e.currentTarget.classList.contains("prev") && currentQuestion !== 0) {
@@ -38,16 +43,9 @@ const TestFooter = () => {
             <TbFlag className="nav-btn" />
             <p>flag</p>
           </div>
-          <div
-            className={
-              currentQuestion === test?.length - 1 &&
-              test?.[currentQuestion].userAnswer !== null
-                ? "mark"
-                : "hidden mark"
-            }
-          >
+          <div className={isComplete ? "results" : "hidden results"}>
             <AiOutlineFileDone className="nav-btn" />
-            <p>mark</p>
+            <p>Results</p>
           </div>
           <div
             onClick={
@@ -89,7 +87,7 @@ const Wrapper = styled.footer`
       justify-content: space-between;
       .prev,
       .next,
-      .mark,
+      .results,
       .flag {
         cursor: pointer;
         display: grid;
@@ -102,12 +100,7 @@ const Wrapper = styled.footer`
           margin: 0 auto;
         }
       }
-      .submit-button {
-        background-color: var(--primary-500);
-        border: none;
-        color: white;
-        cursor: pointer;
-      }
+
       .hidden {
         visibility: hidden;
       }

@@ -8,7 +8,7 @@ const sendResetPasswordEmail = async ({
 }) => {
   const resetPasswordLink = `${origin}/user/reset-password?token=${passwordToken}&email=${email}`;
 
-  const text = `RESET PASSWORD\nGavan,\nYou are receiving this message because you requested that your password be reset.\n\nYou can reset your password using the link below:\n${resetPasswordLink}\n\nRegards,\nThe Jobify Team\n\nYou are receiving this email because you have registered with our site. Make sure our messages get to your inbox (and not your bulk or junk folders).\nPrivacy Policy: ${origin}`;
+  const text = `RESET PASSWORD\n${name},\nYou are receiving this message because you requested that your password be reset.\n\nYou can reset your password using the link below:\n${resetPasswordLink}\n\nRegards,\nThe Jobify Team\n\nYou are receiving this email because you have registered with our site. Make sure our messages get to your inbox (and not your bulk or junk folders).\nPrivacy Policy: ${origin}`;
   const message = `<!DOCTYPE html
   PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office"

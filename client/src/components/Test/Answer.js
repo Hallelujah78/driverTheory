@@ -3,7 +3,7 @@ import { AiOutlineCheck, AiOutlineClose } from "react-icons/ai";
 import { useAppContext } from "../../context/appContext.js";
 const Answer = ({ answer, handleClick, index }) => {
   const { test, currentQuestion } = useAppContext();
-  const { userAnswer, isCorrect, selected, question } = test[currentQuestion];
+  const { userAnswer, selected, question } = test[currentQuestion];
 
   const ENUM_STATES = {
     correct: <AiOutlineCheck className="correct" />,
@@ -13,14 +13,13 @@ const Answer = ({ answer, handleClick, index }) => {
 
   const renderIcons = (question) => {
     let option;
-    console.log(question.answers[index].isCorrect);
+
     // if the question answer is true (correct)
     if (question.answers[index].isCorrect) {
       option = "correct";
     } else {
       option = "incorrect";
     }
-    console.log(ENUM_STATES[option]);
     return ENUM_STATES[option];
   };
 

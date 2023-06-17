@@ -3,6 +3,7 @@ import reducer from "./reducer";
 import axios from "axios";
 
 import {
+  SET_TEST_COMPLETE,
   GET_TEST_BEGIN,
   GET_TEST_SUCCESS,
   GET_TEST_ERROR,
@@ -61,6 +62,8 @@ import {
 } from "./actions";
 
 const initialState = {
+  creatingTest: false,
+  isComplete: false,
   testLoading: true,
   modalAlert: false,
   currentQuestion: 0,
@@ -447,13 +450,11 @@ const AppProvider = ({ children }) => {
         numQuestions,
       });
 
-      const { test } = data.test.questions;
+      const test = data.test.questions;
 
       dispatch({
         type: GET_TEST_QUESTIONS_SUCCESS,
-        payload: {
-          test,
-        },
+        payload: { test },
       });
     } catch (error) {
       console.log("GET_TEST_QUESTIONS_ERROR");
@@ -465,23 +466,31 @@ const AppProvider = ({ children }) => {
     clearAlert();
   };
 
+  const setTestComplete = () => {
+    dispatch({
+      type: SET_TEST_COMPLETE,
+    });
+  };
+
   const getTest = async () => {
     dispatch({ type: GET_TEST_BEGIN });
     try {
       const { data } = await authFetch.get("/test");
-
       dispatch({
         type: GET_TEST_SUCCESS,
         payload: {
           test: data.test[0].questions,
+          isComplete: data.test[0].isComplete,
         },
       });
     } catch (error) {
-      console.log("GET_TEST__ERROR");
-      dispatch({
-        type: GET_TEST_ERROR,
-        payload: { msg: error.response.data.msg },
-      });
+      console.log("GET_TEST_ERROR");
+      if (error.response.status !== 401) {
+        console.log(error.response.data.msg);
+        dispatch({
+          type: GET_TEST_ERROR,
+        });
+      }
     }
     clearAlert();
   };
@@ -505,11 +514,12 @@ const AppProvider = ({ children }) => {
     });
   };
   const exitTest = async () => {
-    // get and delete test associated with user
+    // get and delete all incomplete tests associated with user
     try {
       await authFetch.delete("/test");
     } catch (error) {
       console.log(error);
+      console.log("EXIT_TEST_ERROR");
     }
 
     dispatch({
@@ -540,10 +550,14 @@ const AppProvider = ({ children }) => {
 
       dispatch({
         type: SUBMIT_ANSWER,
-        payload: { test: data.test.questions },
+        payload: {
+          test: data.test.questions,
+          isComplete: data.test.isComplete,
+        },
       });
     } catch (error) {
       console.log(error);
+      console.log("SUBMIT_ANSWER_ERROR");
     }
   };
   const selectAnswer = (index) => {
@@ -567,6 +581,7 @@ const AppProvider = ({ children }) => {
     <AppContext.Provider
       value={{
         ...state,
+        setTestComplete,
         getTest,
         selectAnswer,
         submitAnswer,
