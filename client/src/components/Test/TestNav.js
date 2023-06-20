@@ -5,7 +5,7 @@ import { TbCircleLetterX } from "react-icons/tb";
 import { useAppContext } from "../../context/appContext.js";
 
 const TestNav = () => {
-  const { user, currentQuestion, setModalState } = useAppContext();
+  const { currentQuestion, setModalState } = useAppContext();
 
   const handleClick = () => {
     setModalState();

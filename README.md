@@ -27,7 +27,7 @@ To Do for current DriveL driver theory MCQ app:
 - ~~submitting an answer should update the Atlas database in addition to appContext.~~ ~~Have done this but issue with delay from server regarding styling of the selected answer.~~ DONE
 - ~~display if the question is right or wrong upon answering.~~ DONE
 - handle user navigating away from tests by using browser back/forward buttons or simply closing the browser mid test
-- when all questions in a test have been submitted, the test should be automatically submitted
+- ~~when all questions in a test have been submitted, the test should be automatically submitted~~
 - when a test has been submitted, the user can review their results by category and question
 - when the user is reviewing their results by question (a list of the questions) - they can click on the question in the list and see the question as it appeared in the test with their answer
 - ~~should not be possible to go to the next question until the current question has been answered, but user can go back and forth through answers already submitted~~ DONE

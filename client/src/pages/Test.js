@@ -46,6 +46,13 @@ const Test = () => {
   if (testLoading || isLoading) {
     return (
       <Wrapper className="full-page">
+        {modalAlert && (
+          <ModalAlert
+            {...values}
+            handleClickOne={handleClickOne}
+            handleClickTwo={handleClickTwo}
+          />
+        )}
         <TestNav />
         <div className="loading-container">
           <Loading center />
@@ -59,9 +66,21 @@ const Test = () => {
   if (!isLoading && !test && !creatingTest) {
     return (
       <Wrapper className="full-page">
+        {modalAlert && (
+          <ModalAlert
+            {...values}
+            handleClickOne={handleClickOne}
+            handleClickTwo={handleClickTwo}
+          />
+        )}
         <TestNav />
-        <div>There is no test data...</div>
-        <Link to="/practice">practice</Link>
+        <div className="loading-container">
+          <h4>There is no test data...</h4>
+          <Link className="btn" to="/practice">
+            back to practice
+          </Link>
+        </div>
+
         <TestFooter />
       </Wrapper>
     );

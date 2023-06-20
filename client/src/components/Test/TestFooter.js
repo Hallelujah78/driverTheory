@@ -16,6 +16,9 @@ const TestFooter = () => {
   } = useAppContext();
 
   const handleClick = (e) => {
+    if (!test || !test.length) {
+      return;
+    }
     if (e.currentTarget.classList.contains("prev") && currentQuestion !== 0) {
       decrementQuestion();
     }
@@ -55,7 +58,8 @@ const TestFooter = () => {
             }
             className={
               currentQuestion === test?.length - 1 ||
-              test?.[currentQuestion].userAnswer === null
+              test?.[currentQuestion].userAnswer === null ||
+              !test
                 ? "gray next"
                 : "next"
             }
