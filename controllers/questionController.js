@@ -6,8 +6,8 @@ import mongoose from "mongoose";
 import moment from "moment";
 
 const createQuestion = async (req, res) => {
-  // company, position, status, type, location, createdBy
   const { questionText, answers, imageURL, questionCategory } = req.body;
+  console.log(questionCategory);
   if (!questionText || answers.length < 4) {
     throw new CustomError.BadRequestError(
       "please provide the question text and all answers"
@@ -18,7 +18,7 @@ const createQuestion = async (req, res) => {
     questionText,
     answers,
     imageURL,
-    questionCategory,
+    category: questionCategory,
   });
   res.status(StatusCodes.CREATED).json({ question });
 };

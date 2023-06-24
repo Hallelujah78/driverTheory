@@ -43,18 +43,26 @@ const createTest = async (req, res) => {
 
   for (let question in testQuestions) {
     const questionId = testQuestions[question]._id.toString();
-
-    let isFlaggedStatus = findUserQuestion({
+    let isFlaggedStatus;
+    let userQuestion = findUserQuestion({
       id: questionId,
       userQuestionData,
-    }).isFlagged;
+    });
+
+    isFlaggedStatus = userQuestion?.isFlagged;
+
+    if (!userQuestion) {
+      const question = { question: questionId };
+      userQuestionData.questions.push(question);
+      await userQuestionData.save();
+    }
 
     shuffleArray(testQuestions[question].answers);
     let testQuestion = {
       question: testQuestions[question],
       userAnswer: "",
       isCorrect: false,
-      isFlagged: isFlaggedStatus,
+      isFlagged: isFlaggedStatus || false,
     };
     questions.push(testQuestion);
   }

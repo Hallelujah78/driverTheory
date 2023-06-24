@@ -33,5 +33,5 @@ To Do for current DriveL driver theory MCQ app:
 - ~~should not be possible to go to the next question until the current question has been answered, but user can go back and forth through answers already submitted~~ DONE
 - add functionality to 'results' button
 - add enough questions so that we can randomly select a proportionate amount from each category to create a 20 question test
-- for each user there can only be one Test document. If they exit a test early without completing it, any Test documents should be deleted. We'll have to handle the case where a user may log in from a PC start a test, and then later log in from a phone and start another test. The easiest way to handle this would be to check for an existing Test doc before creating our new Test and deleting existing Test docs.
-- allow user to flag questions
+- ~~for each user there can only be one Test document. If they exit a test early without completing it, any Test documents should be deleted. We'll have to handle the case where a user may log in from a PC start a test, and then later log in from a phone and start another test. The easiest way to handle this would be to check for an existing Test doc before creating our new Test and deleting existing Test docs.~~ Done - Not tested with multiple machines, but works when exiting a test early on the same machine.
+- ~~allow user to flag questions~~ Done
