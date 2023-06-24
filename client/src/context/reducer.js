@@ -1,5 +1,6 @@
 import { initialState } from "./appContext.js";
 import {
+  TOGGLE_IS_FLAGGED,
   SET_TEST_COMPLETE,
   GET_TEST_BEGIN,
   GET_TEST_SUCCESS,
@@ -465,6 +466,11 @@ const reducer = (state, action) => {
     return {
       ...state,
       isComplete: true,
+    };
+  }
+  if (action.type === TOGGLE_IS_FLAGGED) {
+    return {
+      ...state,
     };
   }
   throw new Error(`no such action: ${action.type}`);

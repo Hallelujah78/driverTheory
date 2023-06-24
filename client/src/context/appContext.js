@@ -3,6 +3,7 @@ import reducer from "./reducer";
 import axios from "axios";
 
 import {
+  TOGGLE_IS_FLAGGED,
   SET_TEST_COMPLETE,
   GET_TEST_BEGIN,
   GET_TEST_SUCCESS,
@@ -569,6 +570,24 @@ const AppProvider = ({ children }) => {
     });
   };
 
+  const toggleIsFlagged = async (questionId) => {
+    // we update the context
+    state.test[state.currentQuestion].isFlagged =
+      !state.test[state.currentQuestion].isFlagged;
+    const flag = state.test[state.currentQuestion].isFlagged;
+
+    // then we update the test and the UserQuestionData on the backend
+    try {
+      const { data } = await authFetch.patch("/test/flagged", {
+        questionId,
+      });
+      dispatch({ type: TOGGLE_IS_FLAGGED });
+    } catch (error) {
+      console.log("TOGGLE_IS_FLAGGED_ERROR");
+      console.log(error);
+    }
+  };
+
   useEffect(
     () => {
       getCurrentUser();
@@ -606,6 +625,7 @@ const AppProvider = ({ children }) => {
         clearFilters,
         changePage,
         createNewTest,
+        toggleIsFlagged,
       }}
     >
       {children}

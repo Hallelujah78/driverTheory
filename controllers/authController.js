@@ -122,7 +122,6 @@ const updateUser = async (req, res) => {
 };
 
 const getCurrentUser = async (req, res) => {
-  console.log(req.user.userId);
   const user = await User.findOne({ _id: req.user.userId });
   const tokenUser = createTokenUser(user);
   res.status(StatusCodes.OK).json({ user: tokenUser, location: user.location });

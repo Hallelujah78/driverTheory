@@ -9,6 +9,7 @@ export const TestQuestionSchema = new mongoose.Schema({
   userAnswer: { type: Number, default: null },
   isCorrect: { type: Boolean },
   selected: { type: Number, default: null },
+  isFlagged: { type: Boolean, default: false },
 });
 
 const TestSchema = new mongoose.Schema(

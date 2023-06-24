@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const QuestionHistorySchema = new mongoose.Schema({
   question: { type: mongoose.Types.ObjectId, ref: "Question", required: true },
-  timesSeen: { type: Number, default: 0 },
+  numTimesAnswered: { type: Number, default: 0 },
   lastAnswerCorrect: { type: Boolean, default: true },
   isFlagged: { type: Boolean, default: false },
 });

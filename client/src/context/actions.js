@@ -102,3 +102,6 @@ export const GET_TEST_ERROR = "GET_TEST_ERROR";
 
 // set test as complete
 export const SET_TEST_COMPLETE = "SET_TEST_COMPLETE";
+
+// toggle isFlagged status on questions
+export const TOGGLE_IS_FLAGGED = "TOGGLE_IS_FLAGGED";

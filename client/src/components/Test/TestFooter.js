@@ -13,6 +13,7 @@ const TestFooter = () => {
     decrementQuestion,
     test,
     isComplete,
+    toggleIsFlagged,
   } = useAppContext();
 
   const handleClick = (e) => {
@@ -29,6 +30,10 @@ const TestFooter = () => {
     ) {
       incrementQuestion();
     }
+    if (e.currentTarget.classList.contains("flag")) {
+      const questionId = test[currentQuestion].question._id;
+      toggleIsFlagged(questionId);
+    }
   };
 
   return (
@@ -42,9 +47,14 @@ const TestFooter = () => {
             <TbArrowBigLeftLine className="nav-btn" />
             <p>prev</p>
           </div>
-          <div className="flag">
+          <div
+            className={
+              test?.[currentQuestion].isFlagged ? "flag flag-true" : "flag"
+            }
+            onClick={(e) => handleClick(e)}
+          >
             <TbFlag className="nav-btn" />
-            <p>flag</p>
+            <p>{test?.[currentQuestion].isFlagged ? "unflag" : "flag"}</p>
           </div>
           <div className={isComplete ? "results" : "hidden results"}>
             <AiOutlineFileDone className="nav-btn" />
@@ -100,9 +110,13 @@ const Wrapper = styled.footer`
           font-size: 2.5rem;
           align-self: center;
         }
+
         p {
           margin: 0 auto;
         }
+      }
+      .flag-true {
+        color: lightgreen;
       }
 
       .hidden {
