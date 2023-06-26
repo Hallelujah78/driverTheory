@@ -2,7 +2,7 @@ import { StatusCodes } from "http-status-codes";
 import Question from "../models/Question.js";
 import Test from "../models/Test.js";
 import * as CustomError from "../errors/index.js";
-import { shuffleArray } from "../utils/index.js";
+import { shuffleArray, createResults } from "../utils/index.js";
 import mongoose from "mongoose";
 import moment from "moment";
 import {
@@ -34,7 +34,7 @@ const createTest = async (req, res) => {
   if (!category) {
     throw new CustomError.BadRequestError("please provide the test category");
   }
-  const testQuestions = await Question.find({}).limit(5);
+  const testQuestions = await Question.find({}).limit(12);
   const userQuestionData = await UserQuestionData.findOne({
     user: req.user.userId,
   });
@@ -90,19 +90,9 @@ const getTest = async (req, res) => {
       "there are no active tests to complete"
     );
   }
+  let results = {};
   if (test.isComplete && !test.isResult) {
-    const resultData = await Test.aggregate([
-      { $unwind: "$questions" },
-      {
-        $match: {
-          user: new mongoose.Types.ObjectId(req.user.userId),
-          isComplete: true,
-          isResult: false,
-        },
-      },
-      { $group: { _id: "$questions.question.category", count: { $sum: 1 } } },
-    ]);
-    console.log(resultData);
+    results = createResults(test);
   }
 
   res.status(StatusCodes.OK).json({ test });
@@ -138,7 +128,7 @@ const showStats = async (req, res) => {
       },
     },
     { $sort: { "_id.year": -1, "_id.month": -1 } },
-    { $limit: 6 },
+    { $limit: 12 },
   ]);
   monthlyApplications = monthlyApplications
     .map((item) => {

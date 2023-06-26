@@ -9,6 +9,7 @@ import attachCookie from "./attachCookie.js";
 import sendVerificationEmailSG from "./sendgrid/sendVerificationEmailSG.js";
 import sendResetPasswordEmailSG from "./sendgrid/sendResetPasswordEmailSG.js";
 import shuffleArray from "./shuffleArray.js";
+import createResults from "./createResults.js";
 
 export {
   sendVerificationEmailSG,
@@ -23,4 +24,5 @@ export {
   sendResetPasswordEmail,
   attachCookiesToResponse,
   shuffleArray,
+  createResults,
 };
