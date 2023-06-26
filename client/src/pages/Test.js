@@ -6,7 +6,7 @@ import TestFooter from "../components/Test/TestFooter.js";
 import { Loading, ModalAlert } from "../components/index.js";
 import { useAppContext } from "../context/appContext.js";
 import Question from "../components/Test/Question.js";
-
+import { NoData } from "../components/index.js";
 const initialState = {
   modalText: "Exiting the test now will mean that your progress will be lost!",
   buttonText1: "cancel",
@@ -74,12 +74,11 @@ const Test = () => {
           />
         )}
         <TestNav />
-        <div className="loading-container">
-          <h4>There is no test data...</h4>
-          <Link className="btn" to="/practice">
-            back to practice
-          </Link>
-        </div>
+        <NoData
+          linkText="Back to Practice"
+          message="There is no test data..."
+          linkTo="/practice"
+        />
 
         <TestFooter />
       </Wrapper>

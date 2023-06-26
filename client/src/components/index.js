@@ -11,8 +11,10 @@ import ChartsContainer from "./ChartsContainer.js";
 import StatsContainer from "./StatsContainer.js";
 import Loading from "./Loading.js";
 import ModalAlert from "./ModalAlert.js";
-
+import NoData from "./NoData.js";
+import QuestionListItem from "./QuestionListItem.js";
 import SearchContainer from "./SearchContainer.js";
+import CategoryListItem from "./CategoryListItem.js";
 
 export {
   ModalAlert,
@@ -29,4 +31,7 @@ export {
   StatsContainer,
   StatItem,
   ChartsContainer,
+  NoData,
+  QuestionListItem,
+  CategoryListItem,
 };

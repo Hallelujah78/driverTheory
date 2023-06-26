@@ -16,7 +16,10 @@ import {
   Stats,
   ProtectedRoute,
 } from "./pages/dashboard/index.js";
+
+import { QuestionList, Categories } from "./pages/Results/index.js";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import ResultsSharedLayout from "./pages/Results/SharedLayout";
 
 function App() {
   return (
@@ -30,10 +33,11 @@ function App() {
             </ProtectedRoute>
           }
         >
+          <Route index path="practice" element={<Practice />}></Route>
           <Route element={<Stats />}></Route>
           <Route path="all-jobs" element={<AllJobs />}></Route>
           <Route index path="add-question" element={<AddQuestion />}></Route>
-          <Route index path="practice" element={<Practice />}></Route>
+
           <Route path="profile" element={<Profile />}></Route>
         </Route>
         <Route
@@ -44,6 +48,17 @@ function App() {
             </ProtectedRoute>
           }
         ></Route>
+        <Route
+          path="results"
+          element={
+            <ProtectedRoute>
+              <ResultsSharedLayout />
+            </ProtectedRoute>
+          }
+        >
+          <Route index element={<Categories />}></Route>
+          <Route path="question-list" element={<QuestionList />}></Route>
+        </Route>
         <Route path="/register" element={<Register />} />
         <Route path="/user/verify-email" element={<Verify />} />
         <Route path="/landing" element={<Landing />} />

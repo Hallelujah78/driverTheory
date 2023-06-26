@@ -34,7 +34,7 @@ const createTest = async (req, res) => {
   if (!category) {
     throw new CustomError.BadRequestError("please provide the test category");
   }
-  const testQuestions = await Question.find({});
+  const testQuestions = await Question.find({}).limit(5);
   const userQuestionData = await UserQuestionData.findOne({
     user: req.user.userId,
   });
@@ -83,12 +83,26 @@ const getTest = async (req, res) => {
   // get test for specific user
   const user = req.user.userId;
 
-  const test = await Test.find({ user, isResult: false });
+  const test = await Test.findOne({ user, isResult: false });
 
   if (!test || test?.length < 1) {
     throw new CustomError.NotFoundError(
       "there are no active tests to complete"
     );
+  }
+  if (test.isComplete && !test.isResult) {
+    const resultData = await Test.aggregate([
+      { $unwind: "$questions" },
+      {
+        $match: {
+          user: new mongoose.Types.ObjectId(req.user.userId),
+          isComplete: true,
+          isResult: false,
+        },
+      },
+      { $group: { _id: "$questions.question.category", count: { $sum: 1 } } },
+    ]);
+    console.log(resultData);
   }
 
   res.status(StatusCodes.OK).json({ test });
@@ -181,8 +195,8 @@ const updateTest = async (req, res) => {
     test.isComplete = true;
     updateUserQuestionData({ user: req.user.userId, test });
   }
-
   await test.save();
+
   res.status(StatusCodes.OK).json({ test });
 };
 

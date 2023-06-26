@@ -6,6 +6,8 @@ import {
   TbArrowBigRightLine,
 } from "react-icons/tb";
 import { AiOutlineFileDone } from "react-icons/ai";
+import { Link } from "react-router-dom";
+
 const TestFooter = () => {
   const {
     currentQuestion,
@@ -56,10 +58,15 @@ const TestFooter = () => {
             <TbFlag className="nav-btn" />
             <p>{test?.[currentQuestion].isFlagged ? "unflag" : "flag"}</p>
           </div>
-          <div className={isComplete ? "results" : "hidden results"}>
+
+          <Link
+            to="/results"
+            className={isComplete ? "results" : "hidden results"}
+          >
             <AiOutlineFileDone className="nav-btn" />
             <p>Results</p>
-          </div>
+          </Link>
+
           <div
             onClick={
               currentQuestion === test?.length - 1
@@ -103,6 +110,7 @@ const Wrapper = styled.footer`
       .next,
       .results,
       .flag {
+        color: white;
         cursor: pointer;
         display: grid;
         grid-template-rows: 1fr 1fr;

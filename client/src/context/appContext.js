@@ -480,8 +480,8 @@ const AppProvider = ({ children }) => {
       dispatch({
         type: GET_TEST_SUCCESS,
         payload: {
-          test: data.test[0].questions,
-          isComplete: data.test[0].isComplete,
+          test: data.test.questions,
+          isComplete: data.test.isComplete,
         },
       });
     } catch (error) {

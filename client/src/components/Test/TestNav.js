@@ -1,26 +1,56 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { ModalAlert } from "../../components/index.js";
+import { useLocation, useNavigate } from "react-router";
 import { TbCircleLetterX } from "react-icons/tb";
+import { useState } from "react";
 
 import { useAppContext } from "../../context/appContext.js";
 
+const initialState = {
+  modalText: "Exiting the test now will mean that your progress will be lost!",
+  buttonText1: "cancel",
+  buttonText2: "continue",
+};
 const TestNav = () => {
-  const { currentQuestion, setModalState } = useAppContext();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { currentQuestion, setModalState, modalAlert, exitTest } =
+    useAppContext();
+  const [values, setValues] = useState(initialState);
 
   const handleClick = () => {
     setModalState();
   };
 
+  const handleClickOne = () => {
+    setModalState();
+  };
+
+  const handleClickTwo = () => {
+    setModalState();
+    exitTest();
+    navigate("/practice");
+  };
+
   return (
     <Wrapper>
+      {modalAlert && (
+        <ModalAlert
+          {...values}
+          handleClickOne={handleClickOne}
+          handleClickTwo={handleClickTwo}
+        />
+      )}
       <div className="nav-center">
         <div className="container">
           <TbCircleLetterX className="exit" onClick={() => handleClick()} />
           <h3>Practice Paper</h3>
 
-          <h3>
-            Q<span> {currentQuestion + 1}</span>
-          </h3>
+          {location.pathname === "/randomized-practice" && (
+            <h3>
+              Q<span> {currentQuestion + 1}</span>
+            </h3>
+          )}
         </div>
       </div>
     </Wrapper>
