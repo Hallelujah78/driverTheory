@@ -63,6 +63,7 @@ import {
 } from "./actions";
 
 const initialState = {
+  results: null,
   creatingTest: false,
   isComplete: false,
   testLoading: true,
@@ -482,6 +483,7 @@ const AppProvider = ({ children }) => {
         payload: {
           test: data.test.questions,
           isComplete: data.test.isComplete,
+          results: data.results,
         },
       });
     } catch (error) {

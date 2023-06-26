@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { useEffect } from "react";
 
 const Categories = () => {
-  const { test, getTest, creatingTest, isLoading } = useAppContext();
+  const { test, getTest, creatingTest, isLoading, results } = useAppContext();
 
   useEffect(() => {
     if (!test && !creatingTest) {
@@ -12,24 +12,23 @@ const Categories = () => {
     }
   }, []);
 
-  if (isLoading) {
+  if (isLoading || !results) {
     return <p>loading...</p>;
   }
   return (
     <Wrapper>
-      <div className="totals">Totals</div>
+      <div className="totals">
+        <h1>
+          {results.correct}/{results.totalQuestions}
+        </h1>
+        <h2>{results.pass}</h2>
+      </div>
       <div className="categories">
-        {[
-          ...new Set(
-            test?.map((question) => {
-              return question?.question.category;
-            })
-          ),
-        ].map((category, index) => {
-          return (
-            <CategoryListItem key={index} test={test} category={category} />
-          );
-        })}
+        <div className="cat-container">
+          {results?.categories.map((category, index) => {
+            return <CategoryListItem key={index} {...category} />;
+          })}
+        </div>
       </div>
     </Wrapper>
   );
@@ -48,6 +47,10 @@ const Wrapper = styled.section`
     border-top: gray solid 5px;
   }
   .categories {
-    border: red solid 1px;
+    display: grid;
+    place-content: center;
+  }
+  .cat-container {
+    max-width: 90vw;
   }
 `;

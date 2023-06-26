@@ -95,7 +95,7 @@ const getTest = async (req, res) => {
     results = createResults(test);
   }
 
-  res.status(StatusCodes.OK).json({ test });
+  res.status(StatusCodes.OK).json({ test, results });
 };
 
 // show stats

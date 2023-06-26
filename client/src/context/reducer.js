@@ -437,6 +437,7 @@ const reducer = (state, action) => {
       testLoading: false,
       isLoading: false,
       isComplete: action.payload.isComplete,
+      results: action.payload.results,
     };
   }
   if (action.type === GET_TEST_ERROR) {
@@ -447,6 +448,7 @@ const reducer = (state, action) => {
       testLoading: false,
       isLoading: false,
       isComplete: false,
+      results: null,
     };
   }
   if (action.type === SUBMIT_ANSWER) {
