@@ -15,7 +15,8 @@ import NoData from "./NoData.js";
 import QuestionListItem from "./QuestionListItem.js";
 import SearchContainer from "./SearchContainer.js";
 import CategoryListItem from "./CategoryListItem.js";
-
+import TestButtons from "./TestButtons.js";
+import ResultsButtons from "./ResultsButtons.js";
 export {
   ModalAlert,
   Loading,
@@ -34,4 +35,6 @@ export {
   NoData,
   QuestionListItem,
   CategoryListItem,
+  TestButtons,
+  ResultsButtons,
 };

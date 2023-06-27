@@ -370,6 +370,7 @@ const reducer = (state, action) => {
       creatingTest: true,
       testLoading: true,
       test: null,
+      results: null,
     };
   }
   if (action.type === GET_TEST_QUESTIONS_SUCCESS) {
@@ -456,6 +457,7 @@ const reducer = (state, action) => {
       ...state,
       test: action.payload.test,
       isComplete: action.payload.isComplete,
+      results: action.payload.results,
     };
   }
   if (action.type === SELECT_ANSWER) {

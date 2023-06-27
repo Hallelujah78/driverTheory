@@ -1,12 +1,7 @@
 import styled from "styled-components";
 import { useAppContext } from "../../context/appContext";
-import {
-  TbFlag,
-  TbArrowBigLeftLine,
-  TbArrowBigRightLine,
-} from "react-icons/tb";
-import { AiOutlineFileDone } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import { TestButtons, ResultsButtons } from "../index.js";
 
 const TestFooter = () => {
   const {
@@ -17,6 +12,8 @@ const TestFooter = () => {
     isComplete,
     toggleIsFlagged,
   } = useAppContext();
+
+  const location = useLocation();
 
   const handleClick = (e) => {
     if (!test || !test.length) {
@@ -42,48 +39,23 @@ const TestFooter = () => {
     <Wrapper>
       <div className="footer-center">
         <div className="button-container">
-          <div
-            onClick={currentQuestion < 1 ? null : (e) => handleClick(e)}
-            className={currentQuestion < 1 ? "gray prev" : "prev"}
-          >
-            <TbArrowBigLeftLine className="nav-btn" />
-            <p>prev</p>
-          </div>
-          <div
-            className={
-              test?.[currentQuestion].isFlagged ? "flag flag-true" : "flag"
-            }
-            onClick={(e) => handleClick(e)}
-          >
-            <TbFlag className="nav-btn" />
-            <p>{test?.[currentQuestion].isFlagged ? "unflag" : "flag"}</p>
-          </div>
-
-          <Link
-            to="/results"
-            className={isComplete ? "results" : "hidden results"}
-          >
-            <AiOutlineFileDone className="nav-btn" />
-            <p>Results</p>
-          </Link>
-
-          <div
-            onClick={
-              currentQuestion === test?.length - 1
-                ? null
-                : (e) => handleClick(e)
-            }
-            className={
-              currentQuestion === test?.length - 1 ||
-              test?.[currentQuestion].userAnswer === null ||
-              !test
-                ? "gray next"
-                : "next"
-            }
-          >
-            <TbArrowBigRightLine className="nav-btn" />
-            <p>next</p>
-          </div>
+          {location.pathname === "/randomized-practice" && (
+            <TestButtons
+              isComplete={isComplete}
+              handleClick={handleClick}
+              currentQuestion={currentQuestion}
+              test={test}
+            />
+          )}
+          {location.pathname === "/results" ||
+          location.pathname === "/results/question-list" ? (
+            <ResultsButtons
+              isComplete={isComplete}
+              handleClick={handleClick}
+              currentQuestion={currentQuestion}
+              test={test}
+            />
+          ) : null}
         </div>
       </div>
     </Wrapper>
@@ -115,16 +87,17 @@ const Wrapper = styled.footer`
         display: grid;
         grid-template-rows: 1fr 1fr;
         .nav-btn {
+          margin-top: 0.25rem;
           font-size: 2.5rem;
           align-self: center;
         }
 
         p {
-          margin: 0 auto;
+          margin: 0.5rem auto;
         }
       }
       .flag-true {
-        color: lightgreen;
+        color: var(--green-dark);
       }
 
       .hidden {

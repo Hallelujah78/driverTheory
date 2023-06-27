@@ -181,13 +181,18 @@ const updateTest = async (req, res) => {
   test.questions[currentQuestion].isCorrect =
     test.questions[currentQuestion].question.answers[index].isCorrect;
 
+  let results = {};
   if (currentQuestion + 1 === test.questions.length) {
     test.isComplete = true;
     updateUserQuestionData({ user: req.user.userId, test });
+    results = createResults(test);
+    console.log(results);
+  } else {
+    results = null;
   }
   await test.save();
 
-  res.status(StatusCodes.OK).json({ test });
+  res.status(StatusCodes.OK).json({ test, results });
 };
 
 const toggleFlagged = async (req, res) => {

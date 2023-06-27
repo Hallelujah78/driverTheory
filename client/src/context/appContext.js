@@ -550,12 +550,13 @@ const AppProvider = ({ children }) => {
         index,
         currentQuestion,
       });
-
+      console.log(data.results);
       dispatch({
         type: SUBMIT_ANSWER,
         payload: {
           test: data.test.questions,
           isComplete: data.test.isComplete,
+          results: data.results ? data.results : null,
         },
       });
     } catch (error) {
