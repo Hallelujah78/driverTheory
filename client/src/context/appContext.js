@@ -60,6 +60,7 @@ import {
   GET_TEST_QUESTIONS_BEGIN,
   GET_TEST_QUESTIONS_SUCCESS,
   GET_TEST_QUESTIONS_ERROR,
+  SET_CURRENT_QUESTION,
 } from "./actions";
 
 const initialState = {
@@ -591,6 +592,13 @@ const AppProvider = ({ children }) => {
     }
   };
 
+  const setCurrentQuestion = (index) => {
+    dispatch({
+      type: SET_CURRENT_QUESTION,
+      payload: { index },
+    });
+  };
+
   useEffect(
     () => {
       getCurrentUser();
@@ -603,6 +611,7 @@ const AppProvider = ({ children }) => {
     <AppContext.Provider
       value={{
         ...state,
+        setCurrentQuestion,
         setTestComplete,
         getTest,
         selectAnswer,

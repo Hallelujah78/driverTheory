@@ -1,27 +1,10 @@
 import styled from "styled-components";
-import { AiOutlineCheck, AiOutlineClose } from "react-icons/ai";
+import { renderIcons } from "../../utils/renderIcons.js";
 import { useAppContext } from "../../context/appContext.js";
+
 const Answer = ({ answer, handleClick, index }) => {
   const { test, currentQuestion } = useAppContext();
   const { userAnswer, selected, question } = test[currentQuestion];
-
-  const ENUM_STATES = {
-    correct: <AiOutlineCheck className="correct" />,
-    incorrect: <AiOutlineClose className="incorrect" />,
-    default: null,
-  };
-
-  const renderIcons = (question) => {
-    let option;
-
-    // if the question answer is true (correct)
-    if (question.answers[index].isCorrect) {
-      option = "correct";
-    } else {
-      option = "incorrect";
-    }
-    return ENUM_STATES[option];
-  };
 
   return (
     <Wrapper>
@@ -41,7 +24,7 @@ const Answer = ({ answer, handleClick, index }) => {
           }}
         >
           {answer}
-          {userAnswer !== null ? renderIcons(question) : null}
+          {userAnswer !== null ? renderIcons(question, index) : null}
         </span>
       </label>
     </Wrapper>
@@ -76,14 +59,6 @@ const Wrapper = styled.div`
     color: white;
     background-color: var(--primary-500);
     opacity: 0.8;
-  }
-  .correct {
-    color: green;
-    font-size: 2rem;
-  }
-  .incorrect {
-    color: red;
-    font-size: 2rem;
   }
 `;
 

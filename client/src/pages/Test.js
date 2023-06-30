@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import TestNav from "../components/Test/TestNav.js";
 import TestFooter from "../components/Test/TestFooter.js";
@@ -104,6 +104,7 @@ const Test = () => {
 export default Test;
 
 const Wrapper = styled.div`
+  margin: calc(var(--nav-height) + 1.5rem) auto 1.5rem auto;
   .loading-container {
     height: calc(100vh - var(--nav-height) * 2);
     display: grid;

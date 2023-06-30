@@ -58,6 +58,9 @@ const TestNav = () => {
 };
 
 const Wrapper = styled.nav`
+  width: 100%;
+  position: fixed;
+  top: 0;
   color: white;
   height: var(--nav-height);
   display: flex;
@@ -100,13 +103,13 @@ const Wrapper = styled.nav`
     box-shadow: var(--shadow-2);
   }
 
-  @media (min-width: 992px) {
+  /* @media (min-width: 992px) {
     position: sticky;
     top: 0;
 
     .nav-center {
       width: 90%;
     }
-  }
+  } */
 `;
 export default TestNav;

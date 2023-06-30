@@ -51,6 +51,7 @@ import {
   CREATE_QUESTION_SUCCESS,
   GET_JOBS_BEGIN,
   GET_JOBS_SUCCESS,
+  SET_CURRENT_QUESTION,
 } from "./actions";
 
 const reducer = (state, action) => {
@@ -371,6 +372,7 @@ const reducer = (state, action) => {
       testLoading: true,
       test: null,
       results: null,
+      isComplete: false,
     };
   }
   if (action.type === GET_TEST_QUESTIONS_SUCCESS) {
@@ -475,6 +477,13 @@ const reducer = (state, action) => {
   if (action.type === TOGGLE_IS_FLAGGED) {
     return {
       ...state,
+    };
+  }
+
+  if (action.type === SET_CURRENT_QUESTION) {
+    return {
+      ...state,
+      currentQuestion: action.payload.index,
     };
   }
   throw new Error(`no such action: ${action.type}`);

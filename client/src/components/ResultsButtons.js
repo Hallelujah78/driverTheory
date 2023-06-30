@@ -1,25 +1,44 @@
-import { Link } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
+import { TbList, TbBrowser, TbCategory } from "react-icons/tb";
+import styled from "styled-components";
 
 const ResultsButtons = () => {
   return (
     <>
       <div>
-        <Link to="/randomized-practice" className="questions">
+        <Link to="/randomized-practice" className="link">
+          <TbBrowser className="nav-btn" />
           <p>questions</p>
         </Link>
       </div>
       <div>
-        <Link to="/results/question-list" className="questions">
+        <NavLink
+          end
+          to="/results/question-list"
+          className={({ isActive }) =>
+            isActive ? "nav-link active" : "nav-link"
+          }
+        >
+          <TbList className="nav-btn" />
           <p>question list</p>
-        </Link>
+        </NavLink>
       </div>
 
       <div>
-        <Link to="/results" className="results">
+        <NavLink
+          end
+          to="/results"
+          className={({ isActive }) =>
+            isActive ? "nav-link active" : "nav-link"
+          }
+        >
+          <TbCategory className="nav-btn" />
           <p>categories</p>
-        </Link>
+        </NavLink>
       </div>
     </>
   );
 };
 export default ResultsButtons;
+
+const Wrapper = styled.div``;

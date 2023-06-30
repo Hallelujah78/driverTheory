@@ -17,9 +17,7 @@ const Categories = () => {
   if (isLoading) {
     return (
       <Wrapper>
-        <div className="loading-container">
-          <Loading center />
-        </div>
+        <Loading center />
       </Wrapper>
     );
   }
@@ -73,6 +71,7 @@ const Wrapper = styled.section`
   display: grid;
   grid-template-rows: 1fr 4fr;
   height: calc(100vh - var(--nav-height) * 2);
+  margin-top: calc(var(--nav-height));
 
   .overview {
     background: var(--primary-500);
@@ -131,10 +130,5 @@ const Wrapper = styled.section`
   .cat-container {
     margin-top: 2rem;
     max-width: 90vw;
-  }
-  .loading-container {
-    height: calc(100vh - var(--nav-height) * 2);
-    display: grid;
-    place-content: center;
   }
 `;

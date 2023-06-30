@@ -25,15 +25,11 @@ const TestButtons = ({ currentQuestion, isComplete, handleClick, test }) => {
         <TbFlag className="nav-btn" />
         <p>{test?.[currentQuestion].isFlagged ? "unflag" : "flag"}</p>
       </div>
-      <div>
-        <Link
-          to="/results"
-          className={isComplete ? "results" : "hidden results"}
-        >
-          <TbNotes className="nav-btn" />
-          <p>results</p>
-        </Link>
-      </div>
+
+      <Link to="/results" className={isComplete ? "results" : "results hidden"}>
+        <TbNotes className="nav-btn" />
+        <p>results</p>
+      </Link>
 
       <div
         onClick={

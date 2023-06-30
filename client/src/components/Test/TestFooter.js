@@ -71,6 +71,7 @@ const Wrapper = styled.footer`
   position: fixed;
   color: white;
   bottom: 0;
+
   .footer-center {
     width: var(--fluid-width);
     margin: 0 auto;
@@ -81,31 +82,39 @@ const Wrapper = styled.footer`
       .prev,
       .next,
       .results,
-      .flag {
+      .flag,
+      .nav-link,
+      .link {
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+        height: 100%;
         color: white;
         cursor: pointer;
         display: grid;
         grid-template-rows: 1fr 1fr;
         .nav-btn {
-          margin-top: 0.25rem;
+          margin: 0.25rem auto 0 auto;
           font-size: 2.5rem;
-          align-self: center;
-        }
-
-        p {
-          margin: 0.5rem auto;
         }
       }
       .flag-true {
         color: var(--green-dark);
       }
-
-      .hidden {
-        visibility: hidden;
-      }
     }
+  }
+
+  .hidden {
+    visibility: hidden;
+  }
+  div {
+    height: 100%;
   }
   .gray {
     opacity: 0.5;
+  }
+  p {
+    font-size: 1rem;
+    margin: 0.25rem auto 0 auto;
+    line-height: 1.15;
   }
 `;

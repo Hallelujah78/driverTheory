@@ -28,12 +28,16 @@ To Do for current DriveL driver theory MCQ app:
 - ~~display if the question is right or wrong upon answering.~~ DONE
 - handle user navigating away from tests by using browser back/forward buttons or simply closing the browser mid test
 - ~~when all questions in a test have been submitted, the test should be automatically submitted~~
-- when a test has been submitted, the user can review their results by category and question
-- when the user is reviewing their results by question (a list of the questions) - they can click on the question in the list and see the question as it appeared in the test with their answer
+- ~~when a test has been submitted, the user can review their results by category and question~~ DONE
+- ~~when the user is reviewing their results by question (a list of the questions) - they can click on the question in the list and see the question as it appeared in the test with their answer~~ DONE
 - ~~should not be possible to go to the next question until the current question has been answered, but user can go back and forth through answers already submitted~~ DONE
 - ~~add functionality to 'results' button~~ DONE
 - ~~add enough questions so that we can randomly select a proportionate amount from each category to create a 20 question test~~ DONE
 - ~~for each user there can only be one Test document. If they exit a test early without completing it, any Test documents should be deleted. We'll have to handle the case where a user may log in from a PC start a test, and then later log in from a phone and start another test. The easiest way to handle this would be to check for an existing Test doc before creating our new Test and deleting existing Test docs.~~ Done - Not tested with multiple machines, but works when exiting a test early on the same machine.
 - ~~allow user to flag questions~~ Done
-- CSS fixes needed: 'results' text for the results icon appears out of vertical alignment with text for other buttons
+- ~~CSS fixes needed: 'results' text for the results icon appears out of vertical alignment with text for other buttons~~ DONE
 - CSS fixes needed: for questions with no image, the question text should span the entire width of the question container
+- CSS fixes needed: I used NavLinks for two of the buttons in the Results. The active class is not being applied correctly.
+- CSS fixes needed: the Categories page and the Test page both have vertical scrolling enabled even though the content is not overflowing. The QuestionList page is the only page that requires scrolling. Needs a fix.
+- pages that do have scroll need to load at the top. This will be fixed with the CSS fix above.
+- There is an issue with being logged into the app on multiple devices and attempting to create a new test on both of them. Possibly due to the deletion of abandoned tests upon creation of a new test.
