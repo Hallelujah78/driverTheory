@@ -16,28 +16,17 @@ To Do (from original Jobify MERN project):
 - implement password strength checker for registration and reset password
 - app should fail gracefully on econnrefused, i.e. navigate to landing
 - user 'name' should be capitalized for emails, store as title case?
-- ~~logout button should be hidden when user moves mouse from it, navigates to a different tab, or clicks elsewhere in the application~~ DONE
 - some issues with alert duration
 - login, register, reset password, verify email can probably be a shared layout
 - should probably move text and message from sendResetPasswordSG and sendEmailVerificationSG to separate file and import
 
 To Do for current DriveL driver theory MCQ app:
+\*\* indicates must be done before hosting site or pushing it to Portfolio
 
-- ~~add answer shuffling to each question on backend so that correct answer is not always the first answer displayed - do once at test creation~~ DONE
-- ~~submitting an answer should update the Atlas database in addition to appContext.~~ ~~Have done this but issue with delay from server regarding styling of the selected answer.~~ DONE
-- ~~display if the question is right or wrong upon answering.~~ DONE
 - handle user navigating away from tests by using browser back/forward buttons or simply closing the browser mid test
-- ~~when all questions in a test have been submitted, the test should be automatically submitted~~
-- ~~when a test has been submitted, the user can review their results by category and question~~ DONE
-- ~~when the user is reviewing their results by question (a list of the questions) - they can click on the question in the list and see the question as it appeared in the test with their answer~~ DONE
-- ~~should not be possible to go to the next question until the current question has been answered, but user can go back and forth through answers already submitted~~ DONE
-- ~~add functionality to 'results' button~~ DONE
-- ~~add enough questions so that we can randomly select a proportionate amount from each category to create a 20 question test~~ DONE
-- ~~for each user there can only be one Test document. If they exit a test early without completing it, any Test documents should be deleted. We'll have to handle the case where a user may log in from a PC start a test, and then later log in from a phone and start another test. The easiest way to handle this would be to check for an existing Test doc before creating our new Test and deleting existing Test docs.~~ Done - Not tested with multiple machines, but works when exiting a test early on the same machine.
-- ~~allow user to flag questions~~ Done
-- ~~CSS fixes needed: 'results' text for the results icon appears out of vertical alignment with text for other buttons~~ DONE
-- CSS fixes needed: for questions with no image, the question text should span the entire width of the question container
-- ~~CSS fixes needed: I used NavLinks for two of the buttons in the Results. The active class is not being applied correctly.~~ DONE
-- ~~CSS fixes needed: the Categories page and the Test page both have vertical scrolling enabled even though the content is not overflowing. The QuestionList page is the only page that requires scrolling. Needs a fix.~~
 - There is an issue with being logged into the app on multiple devices and attempting to create a new test on both of them. Possibly due to the deletion of abandoned tests upon creation of a new test.
-- modal message needs to be defined when modal is called
+- ModalAlert code duplication between ResultsSharedLayout and Test
+- \*\* we will need permissions - the 'add question' page should only be accessible to admins
+- create code to generate different types of test. A practice test consists of 20 questions, a mock theory test consists of 40 questions.
+- \*\* work on the charting functionality
+- \*\* must set up a test user so people can demo the app without signing up, Test user will probably be an admin. Will not be able to add questions, Will not be able to update profile. Will be able to take tests and view results.

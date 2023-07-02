@@ -70,7 +70,7 @@ export default Categories;
 const Wrapper = styled.section`
   display: grid;
   grid-template-rows: 1fr 4fr;
-  /* height: calc(100vh - var(--nav-height) * 2); */
+
   margin-top: calc(var(--nav-height));
 
   .overview {

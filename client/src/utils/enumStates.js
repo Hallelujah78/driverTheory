@@ -1,8 +1,8 @@
 import { AiOutlineCheck, AiOutlineClose } from "react-icons/ai";
 
 const ENUM_STATES = {
-  correct: <AiOutlineCheck className="correct" />,
-  incorrect: <AiOutlineClose className="incorrect" />,
+  correct: <AiOutlineCheck className="icon-correct" />,
+  incorrect: <AiOutlineClose className="icon-incorrect" />,
   default: null,
 };
 

@@ -45,9 +45,15 @@ html {
     --green-light: #d1e7dd;
     --green-dark: #0f5132;
 
+    --green-flagged:
+        #dbf7c8;
+
+
     /* fonts  */
-    --headingFont: 'Roboto Condensed', Sans-Serif;
-    --bodyFont: 'Cabin', Sans-Serif;
+    --headingFont: 'Roboto Condensed',
+        Sans-Serif;
+    --bodyFont: 'Cabin',
+        Sans-Serif;
     --small-text: 0.875rem;
     --extra-small-text: 0.7em;
     /* rest of the vars */
@@ -64,7 +70,8 @@ html {
     --correct: green;
     --incorrect: red;
     /* box shadow*/
-    --shadow-1: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    --shadow-1: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
+        0 1px 2px 0 rgba(0, 0, 0, 0.06);
     --shadow-2: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
         0 2px 4px -1px rgba(0, 0, 0, 0.06);
     --shadow-3: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
@@ -358,12 +365,12 @@ ul {
     }
 }
 
-.correct {
+.icon-correct {
     color: var(--correct);
     font-size: 2rem;
 }
 
-.incorrect {
+.icon-incorrect {
     color: var(--incorrect);
     font-size: 2rem;
 }

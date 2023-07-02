@@ -7,6 +7,7 @@ import { Loading, ModalAlert } from "../components/index.js";
 import { useAppContext } from "../context/appContext.js";
 import Question from "../components/Test/Question.js";
 import { NoData } from "../components/index.js";
+
 const initialState = {
   modalText: "Exiting the test now will mean that your progress will be lost!",
   buttonText1: "cancel",
@@ -16,6 +17,7 @@ const initialState = {
 const Test = () => {
   const navigate = useNavigate();
   const {
+    isComplete,
     creatingTest,
     exitTest,
     test,
@@ -27,6 +29,18 @@ const Test = () => {
   } = useAppContext();
   const [values, setValues] = useState(initialState);
 
+  const handleExit = () => {
+    if (isComplete) {
+      setValues({ ...values, modalText: "Are you sure you want to exit?" });
+    }
+    if (!isLoading && !test && !creatingTest) {
+      exitTest();
+      navigate("/");
+      return;
+    }
+    setModalState();
+  };
+
   const handleClickOne = () => {
     setModalState();
   };
@@ -34,7 +48,7 @@ const Test = () => {
   const handleClickTwo = () => {
     setModalState();
     exitTest();
-    navigate("/practice");
+    navigate("/");
   };
 
   useEffect(() => {
@@ -53,7 +67,7 @@ const Test = () => {
             handleClickTwo={handleClickTwo}
           />
         )}
-        <TestNav />
+        <TestNav handleExit={handleExit} setValues={setValues} />
         <div className="loading-container">
           <Loading center />
         </div>
@@ -73,11 +87,11 @@ const Test = () => {
             handleClickTwo={handleClickTwo}
           />
         )}
-        <TestNav />
+        <TestNav handleExit={handleExit} {...values} setValues={setValues} />
         <NoData
           linkText="Back to Practice"
           message="There is no test data..."
-          linkTo="/practice"
+          linkTo="/"
         />
 
         <TestFooter />
@@ -94,7 +108,7 @@ const Test = () => {
           handleClickTwo={handleClickTwo}
         />
       )}
-      <TestNav />
+      <TestNav handleExit={handleExit} {...values} setValues={setValues} />
       {test && <Question />}
 
       <TestFooter />

@@ -1,49 +1,19 @@
 import styled from "styled-components";
-import { ModalAlert } from "../../components/index.js";
+// import { ModalAlert } from "../../components/index.js";
 import { useLocation, useNavigate } from "react-router";
 import { TbCircleLetterX } from "react-icons/tb";
-import { useState } from "react";
 
 import { useAppContext } from "../../context/appContext.js";
 
-const initialState = {
-  modalText: "Exiting the test now will mean that your progress will be lost!",
-  buttonText1: "cancel",
-  buttonText2: "continue",
-};
-const TestNav = () => {
-  const navigate = useNavigate();
+const TestNav = ({ handleExit, setValues }) => {
   const location = useLocation();
-  const { currentQuestion, setModalState, modalAlert, exitTest } =
-    useAppContext();
-  const [values, setValues] = useState(initialState);
-
-  const handleClick = () => {
-    setModalState();
-  };
-
-  const handleClickOne = () => {
-    setModalState();
-  };
-
-  const handleClickTwo = () => {
-    setModalState();
-    exitTest();
-    navigate("/practice");
-  };
+  const { currentQuestion } = useAppContext();
 
   return (
     <Wrapper>
-      {modalAlert && (
-        <ModalAlert
-          {...values}
-          handleClickOne={handleClickOne}
-          handleClickTwo={handleClickTwo}
-        />
-      )}
       <div className="nav-center">
         <div className="container">
-          <TbCircleLetterX className="exit" onClick={() => handleClick()} />
+          <TbCircleLetterX className="exit" onClick={() => handleExit()} />
           <h3>Practice Paper</h3>
 
           {location.pathname === "/randomized-practice" && (

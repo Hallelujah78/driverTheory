@@ -99,7 +99,7 @@ const Wrapper = styled.footer`
         }
       }
       .flag-true {
-        color: var(--green-dark);
+        color: var(--green-flagged);
       }
       a {
         overflow: visible;

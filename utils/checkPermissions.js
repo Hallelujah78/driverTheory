@@ -1,6 +1,6 @@
 import { UnauthorizedError } from "../errors/index.js";
 
-const checkPermissions = (requestUser, resourceUserId) => {
+const checkPermissions = (requestingUser, resourceUserId) => {
   // if (request.user.role === "admin") return;
   if (user.userId !== resourceUserId.toString()) {
     throw new CustomError.UnauthorizedError(

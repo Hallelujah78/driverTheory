@@ -8,12 +8,12 @@ const authenticateUser = async (req, res, next) => {
   try {
     if (accessToken) {
       const payload = isTokenValid(accessToken);
-      const testUser = payload.user.userId === "646675908850bf9555767c0e";
+      const testUser = payload.user.userId === "64a1e2270a99ce52bf49867a";
       req.user = { userId: payload.user.userId, testUser };
       return next();
     }
     const payload = isTokenValid(refreshToken);
-    const testUser = payload.user.userId === "646675908850bf9555767c0e";
+    const testUser = payload.user.userId === "64a1e2270a99ce52bf49867a";
     const existingToken = await Token.findOne({
       user: payload.user.userId,
       refreshToken: payload.refreshToken,
@@ -43,7 +43,7 @@ const authSingleCookie = async (req, res, next) => {
   try {
     const payload = jwt.verify(token, process.env.JWT_SECRET);
 
-    const testUser = payload.userId === "646675908850bf9555767c0e";
+    const testUser = payload.userId === "64a1e2270a99ce52bf49867a";
     req.user = { userId: payload.userId, testUser };
 
     next();

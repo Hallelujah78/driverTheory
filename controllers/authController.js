@@ -8,6 +8,8 @@ import {
   attachCookiesToResponse,
   sendResetPasswordEmailSG,
   sendVerificationEmailSG,
+  sendResetPasswordEmail,
+  sendVerificationEmail,
 } from "../utils/index.js";
 import crypto from "crypto";
 
@@ -72,20 +74,15 @@ const register = async (req, res) => {
   const verificationToken = crypto.randomBytes(40).toString("hex");
 
   const user = await User.create({ name, email, password, verificationToken });
-
-  await sendVerificationEmailSG({ user, origin });
+  if (process.env.NODE_ENV === "production") {
+    await sendVerificationEmailSG({ user, origin });
+  } else {
+    await sendVerificationEmail({ user, origin });
+  }
 
   res.status(StatusCodes.CREATED).json({
     msg: "Success! please check your email and verify your account",
   });
-};
-
-const logoutUserOld = async (req, res) => {
-  res.cookie("token", "logout", {
-    httpOnly: true,
-    expires: new Date(Date.now()),
-  });
-  res.status(StatusCodes.OK).json({ msg: "user logged out" });
 };
 
 const logoutUser = async (req, res) => {
@@ -105,26 +102,25 @@ const logoutUser = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
-  const { email, name, lastName, location } = req.body;
-  if (!email || !name || !lastName || !location) {
+  const { email, name } = req.body;
+  if (!email || !name) {
     throw new CustomError.BadRequestError("please provide all values");
   }
   const user = await User.findOne({ _id: req.user.userId });
   user.email = email;
   user.name = name;
-  user.lastName = lastName;
-  user.location = location;
+
   await user.save();
   const token = user.createJWT();
   const tokenUser = createTokenUser(user);
   attachCookie({ res, token });
-  res.status(StatusCodes.OK).json({ user: tokenUser, location: user.location });
+  res.status(StatusCodes.OK).json({ user: tokenUser });
 };
 
 const getCurrentUser = async (req, res) => {
   const user = await User.findOne({ _id: req.user.userId });
   const tokenUser = createTokenUser(user);
-  res.status(StatusCodes.OK).json({ user: tokenUser, location: user.location });
+  res.status(StatusCodes.OK).json({ user: tokenUser });
 };
 
 const verifyEmail = async (req, res) => {
@@ -149,7 +145,6 @@ const verifyEmail = async (req, res) => {
     return res.status(StatusCodes.OK).json({
       msg: "account verified",
       user: tokenUser,
-      location: user.location,
     });
   }
   // tokens don't match
@@ -159,7 +154,6 @@ const verifyEmail = async (req, res) => {
       return res.status(StatusCodes.OK).json({
         msg: "You have already verified your account!",
         user: tokenUser,
-        location: user.location,
       });
     } else {
       throw new CustomError.UnauthenticatedError(
@@ -183,13 +177,21 @@ const forgotPassword = async (req, res) => {
     user.passwordToken = crypto.randomBytes(70).toString("hex");
     user.passwordTokenExpirationDate = new Date(Date.now() + 60 * 1000 * 10);
     await user.save();
-
-    sendResetPasswordEmailSG({
-      email,
-      passwordToken: user.passwordToken,
-      origin,
-      name: user.name,
-    });
+    if (process.env.NODE_ENV === "production") {
+      sendResetPasswordEmailSG({
+        email,
+        passwordToken: user.passwordToken,
+        origin,
+        name: user.name,
+      });
+    } else {
+      sendResetPasswordEmail({
+        email,
+        passwordToken: user.passwordToken,
+        origin,
+        name: user.name,
+      });
+    }
   }
   res
     .status(StatusCodes.OK)
