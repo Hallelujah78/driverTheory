@@ -40,13 +40,14 @@ const Question = () => {
           <div className="text-container">
             <p>{questionText}</p>
           </div>
-          {imageURL ? (
-            <div className="image-container">
-              <img src={imageURL} />
-            </div>
-          ) : (
-            <div className="image-fill"></div>
-          )}
+          {
+            imageURL ? (
+              <div className="image-container">
+                <img src={imageURL} />
+              </div>
+            ) : null
+            // <div className="image-fill"></div>
+          }
         </div>
         <div className="answer-container">
           {answers.map((item, index) => {
@@ -62,6 +63,7 @@ export default Question;
 
 const Wrapper = styled.div`
   .question-container {
+    min-height: 150px;
     padding-top: 1rem;
     width: var(--fluid-width);
     margin: 0 auto;
@@ -70,6 +72,7 @@ const Wrapper = styled.div`
     justify-content: space-evenly;
     .text-container {
       width: 50%;
+      text-align: center;
     }
     img {
       width: 125px;

@@ -16,7 +16,7 @@ To Do (from original Jobify MERN project):
 - implement password strength checker for registration and reset password
 - app should fail gracefully on econnrefused, i.e. navigate to landing
 - user 'name' should be capitalized for emails, store as title case?
-- logout button should be hidden when user moves mouse from it, navigates to a different tab, or clicks elsewhere in the application
+- ~~logout button should be hidden when user moves mouse from it, navigates to a different tab, or clicks elsewhere in the application~~ DONE
 - some issues with alert duration
 - login, register, reset password, verify email can probably be a shared layout
 - should probably move text and message from sendResetPasswordSG and sendEmailVerificationSG to separate file and import
@@ -37,7 +37,7 @@ To Do for current DriveL driver theory MCQ app:
 - ~~allow user to flag questions~~ Done
 - ~~CSS fixes needed: 'results' text for the results icon appears out of vertical alignment with text for other buttons~~ DONE
 - CSS fixes needed: for questions with no image, the question text should span the entire width of the question container
-- CSS fixes needed: I used NavLinks for two of the buttons in the Results. The active class is not being applied correctly.
-- CSS fixes needed: the Categories page and the Test page both have vertical scrolling enabled even though the content is not overflowing. The QuestionList page is the only page that requires scrolling. Needs a fix.
-- pages that do have scroll need to load at the top. This will be fixed with the CSS fix above.
+- ~~CSS fixes needed: I used NavLinks for two of the buttons in the Results. The active class is not being applied correctly.~~ DONE
+- ~~CSS fixes needed: the Categories page and the Test page both have vertical scrolling enabled even though the content is not overflowing. The QuestionList page is the only page that requires scrolling. Needs a fix.~~
 - There is an issue with being logged into the app on multiple devices and attempting to create a new test on both of them. Possibly due to the deletion of abandoned tests upon creation of a new test.
+- modal message needs to be defined when modal is called

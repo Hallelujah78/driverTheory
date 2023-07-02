@@ -26,6 +26,8 @@ const Wrapper = styled.div`
   &:hover {
     cursor: pointer;
   }
+  margin-top: 1rem;
+
   border: 1px solid var(--grey-500);
   max-height: 3rem;
   width: 90vw;

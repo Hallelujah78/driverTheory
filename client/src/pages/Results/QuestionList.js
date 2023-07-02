@@ -44,17 +44,22 @@ const QuestionList = () => {
           />
         );
       })}
+      <div className="whitespace"></div>
     </Wrapper>
   );
 };
 export default QuestionList;
 
 const Wrapper = styled.section`
-  min-height: calc(100vh - var(--nav-height) * 2);
+  height: 100vh;
+
   width: 90vw;
+  margin-top: calc(var(--nav-height) + 2rem);
+  margin-left: auto;
+  margin-right: auto;
   display: grid;
-  grid-template-rows: repeat(1fr);
-  margin: calc(var(--nav-height) + 1.5rem) auto 1.5rem auto;
-  overflow: auto;
-  flex-grow: 1;
+  grid-template-columns: 1fr;
+  .whitespace {
+    height: 10rem;
+  }
 `;

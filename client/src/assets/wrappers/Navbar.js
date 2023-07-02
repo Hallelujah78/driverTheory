@@ -38,6 +38,14 @@ const Wrapper = styled.nav`
     position: relative;
     box-shadow: var(--shadow-2);
   }
+  .toggle-logout-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0 0.5rem;
+    position: relative;
+    box-shadow: var(--shadow-2);
+  }
 
   .dropdown {
     position: absolute;

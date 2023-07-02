@@ -7,13 +7,13 @@ const links = [
   {
     id: 1,
     text: "stats",
-    path: "/",
+    path: "stats",
     icon: <IoBarChartSharp />,
   },
   {
     id: 2,
     text: "Practice",
-    path: "practice",
+    path: "/",
     icon: <MdQueryStats />,
   },
   {

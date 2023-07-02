@@ -16,14 +16,14 @@ const Categories = () => {
 
   if (isLoading) {
     return (
-      <Wrapper>
+      <Wrapper className="full-page">
         <Loading center />
       </Wrapper>
     );
   }
   if (!isLoading && !test && !creatingTest) {
     return (
-      <Wrapper>
+      <Wrapper className="full-page">
         <NoData
           linkText="Back to Practice"
           message="There are no results..."
@@ -33,7 +33,7 @@ const Categories = () => {
     );
   }
   return (
-    <Wrapper>
+    <Wrapper className="full-page">
       <header className="overview">
         <div className="overview-center">
           <div className="pass">
@@ -70,7 +70,7 @@ export default Categories;
 const Wrapper = styled.section`
   display: grid;
   grid-template-rows: 1fr 4fr;
-  height: calc(100vh - var(--nav-height) * 2);
+  /* height: calc(100vh - var(--nav-height) * 2); */
   margin-top: calc(var(--nav-height));
 
   .overview {

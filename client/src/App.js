@@ -33,10 +33,10 @@ function App() {
             </ProtectedRoute>
           }
         >
-          <Route index path="practice" element={<Practice />}></Route>
-          <Route element={<Stats />}></Route>
+          <Route index element={<Practice />}></Route>
+          <Route path="stats" element={<Stats />}></Route>
           <Route path="all-jobs" element={<AllJobs />}></Route>
-          <Route index path="add-question" element={<AddQuestion />}></Route>
+          <Route path="add-question" element={<AddQuestion />}></Route>
 
           <Route path="profile" element={<Profile />}></Route>
         </Route>

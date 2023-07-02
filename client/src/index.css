@@ -328,12 +328,8 @@ ul {
 }
 
 .full-page {
-    height: 100vh;
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-    overflow-y: auto;
-    margin-bottom: calc(var(--nav-height) + 3rem);
+    height: calc(100vh - var(--nav-height) * 2);
+
 }
 
 .coffee-info {

@@ -104,7 +104,7 @@ const Test = () => {
 export default Test;
 
 const Wrapper = styled.div`
-  margin: calc(var(--nav-height) + 1.5rem) auto 1.5rem auto;
+  margin: calc(var(--nav-height) + 1.5rem) auto 0rem auto;
   .loading-container {
     height: calc(100vh - var(--nav-height) * 2);
     display: grid;

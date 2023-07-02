@@ -85,20 +85,31 @@ const Wrapper = styled.footer`
       .flag,
       .nav-link,
       .link {
-        margin-top: 0.5rem;
-        margin-bottom: 0.5rem;
+        /* margin-top: 0.25rem; */
+        /* margin-bottom: 0.25rem; */
         height: 100%;
         color: white;
         cursor: pointer;
         display: grid;
         grid-template-rows: 1fr 1fr;
+        justify-content: center;
         .nav-btn {
-          margin: 0.25rem auto 0 auto;
+          margin: 0.5rem auto 0 auto;
           font-size: 2.5rem;
         }
       }
       .flag-true {
         color: var(--green-dark);
+      }
+      a {
+        overflow: visible;
+        white-space: nowrap;
+      }
+      .active {
+        color: var(--grey-300);
+        background: var(--primary-600);
+        border-radius: 50%;
+        width: 5rem;
       }
     }
   }
