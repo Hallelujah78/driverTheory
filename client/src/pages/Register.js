@@ -96,7 +96,7 @@ const Register = () => {
           disabled={isLoading}
           onClick={() => {
             loginUser({
-              name: "test user",
+              name: "Testuser",
               email: "testuser@test.com",
               password: "secret",
             });
