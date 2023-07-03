@@ -1,10 +1,16 @@
 import { NavLink } from "react-router-dom";
 import links from "../utils/links";
+import { useAppContext } from "../context/appContext";
 
 const NavLinks = ({ toggleSidebar }) => {
+  const { user } = useAppContext();
   return (
     <div className="nav-links">
       {links.map((link) => {
+        const { role } = user;
+        if (role !== "admin" && link.adminOnly) {
+          return;
+        }
         return (
           <NavLink
             onClick={toggleSidebar}

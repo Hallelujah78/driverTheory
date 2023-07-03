@@ -1,6 +1,11 @@
 import { useAppContext } from "../../context/appContext";
 import Wrapper from "../../assets/wrappers/DashboardFormPage";
-import { FormRow, Alert, FormRowSelect } from "../../components/index.js";
+import {
+  FormRow,
+  Alert,
+  FormRowSelect,
+  Unauthorized,
+} from "../../components/index.js";
 
 const AddQuestion = () => {
   const {
@@ -10,13 +15,8 @@ const AddQuestion = () => {
     updateUser,
     isLoading,
     isEditing,
-    editJobId,
-    position,
-    company,
-    jobLocation,
     handleChange,
     clearValues,
-    createJob,
     createQuestion,
     questionCategory,
     questionCategoryOptions,
@@ -26,7 +26,6 @@ const AddQuestion = () => {
     answerThree,
     answerFour,
     editJob,
-    editQuestion,
     imageURL,
   } = useAppContext();
 
@@ -53,6 +52,15 @@ const AddQuestion = () => {
   const handleJobChange = (e) => {
     handleChange({ name: e.target.name, value: e.target.value });
   };
+
+  if (user.role !== "admin") {
+    return (
+      <Unauthorized
+        message="You do not have permission to access this page. Redirecting ..."
+        navigateTo="/"
+      />
+    );
+  }
 
   return (
     <Wrapper>

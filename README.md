@@ -28,6 +28,6 @@ To Do for current DriveL driver theory MCQ app:
 - ModalAlert code duplication between ResultsSharedLayout and Test
 - \*\* we will need permissions - the 'add question' page should only be accessible to admins
 - create code to generate different types of test. A practice test consists of 20 questions, a mock theory test consists of 40 questions.
-- \*\* work on the charting functionality
+- \*\* work on the charting/stats functionality
 - ~~\*\* must set up a test user so people can demo the app without signing up, Test user is an admin. Will not be able to add questions, Will not be able to update profile. Will be able to take tests and view results.~~
 - ~~in my haste to get the app working, I failed to implement createUserQuestionData properly. There is a route and controller on the backend, but there is no request from the frontend. Therefore, at the moment I can only do this by making a request from Postman for a particular user. This means that newly registered users can't create tests! Fix ASAP.~~ DONE

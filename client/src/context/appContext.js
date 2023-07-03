@@ -216,14 +216,12 @@ const AppProvider = ({ children }) => {
     try {
       const { data } = await axios.post("/api/v1/auth/login", currentUser);
 
-      const {
-        user,
-        user: { location },
-      } = data;
+      const { user } = data;
+      console.log(user);
 
       dispatch({
         type: LOGIN_USER_SUCCESS,
-        payload: { user, location },
+        payload: { user },
       });
     } catch (error) {
       dispatch({

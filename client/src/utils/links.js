@@ -6,24 +6,28 @@ import { ImProfile } from "react-icons/im";
 const links = [
   {
     id: 1,
+    adminOnly: false,
     text: "stats",
     path: "stats",
     icon: <IoBarChartSharp />,
   },
   {
     id: 2,
+    adminOnly: false,
     text: "Practice",
     path: "/",
     icon: <MdQueryStats />,
   },
   {
     id: 3,
+    adminOnly: true,
     text: "add question",
     path: "add-question",
     icon: <FaWpforms />,
   },
   {
     id: 4,
+    adminOnly: false,
     text: "profile",
     path: "profile",
     icon: <ImProfile />,

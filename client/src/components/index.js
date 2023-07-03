@@ -17,6 +17,7 @@ import SearchContainer from "./SearchContainer.js";
 import CategoryListItem from "./CategoryListItem.js";
 import TestButtons from "./TestButtons.js";
 import ResultsButtons from "./ResultsButtons.js";
+import Unauthorized from "./Unauthorized.js";
 export {
   ModalAlert,
   Loading,
@@ -37,4 +38,5 @@ export {
   CategoryListItem,
   TestButtons,
   ResultsButtons,
+  Unauthorized,
 };
