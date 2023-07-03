@@ -4,6 +4,7 @@ import validator from "validator";
 import jwt from "jsonwebtoken";
 
 const UserSchema = new mongoose.Schema({
+  userQuestionData: { type: Boolean, default: false },
   passwordToken: { type: String },
   passwordTokenExpirationDate: { type: Date },
   verificationToken: { type: String },

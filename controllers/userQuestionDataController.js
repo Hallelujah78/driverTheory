@@ -4,26 +4,6 @@ import Question from "../models/Question.js";
 import * as CustomError from "../errors/index.js";
 import { findUserQuestion } from "../utils/userQuestionData.js";
 
-const createUserQuestionData = async (req, res) => {
-  const user = req.user.userId;
-  let userQuestionData = await UserQuestionData.findOne({ user });
-  if (userQuestionData) {
-    return res
-      .status(StatusCodes.OK)
-      .json({ msg: "user question data already exists" });
-  }
-  const questionIds = await Question.find({}, { _id: 1 });
-
-  let questions = [];
-  for (const id in questionIds) {
-    let question = { question: questionIds[id]._id };
-    questions.push(question);
-  }
-  userQuestionData = await UserQuestionData.create({ user, questions });
-
-  res.status(StatusCodes.CREATED).json({ userQuestionData });
-};
-
 const deleteUserQuestionData = async (req, res) => {
   const { id: questionDataId } = req.params;
   const questionData = await UserQuestionData.findOne({ _id: questionDataId });
@@ -59,8 +39,4 @@ const toggleIsFlaggedStatus = async (req, res) => {
     .json({ msg: "flagged status updated successfully" });
 };
 
-export {
-  deleteUserQuestionData,
-  createUserQuestionData,
-  toggleIsFlaggedStatus,
-};
+export { deleteUserQuestionData, toggleIsFlaggedStatus };

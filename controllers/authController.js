@@ -10,6 +10,7 @@ import {
   sendVerificationEmailSG,
   sendResetPasswordEmail,
   sendVerificationEmail,
+  createUserQuestionData,
 } from "../utils/index.js";
 import crypto from "crypto";
 
@@ -31,6 +32,12 @@ const login = async (req, res) => {
   }
   if (!user.isVerified) {
     throw new CustomError.UnauthenticatedError("please verify your email");
+  }
+
+  if (!user.userQuestionData) {
+    createUserQuestionData(user._id);
+    user.userQuestionData = true;
+    await user.save();
   }
 
   const tokenUser = createTokenUser(user);

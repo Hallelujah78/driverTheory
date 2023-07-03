@@ -1,4 +1,5 @@
 import UserQuestionData from "../models/UserQuestionData.js";
+import Question from "../models/Question.js";
 
 const updateUserQuestionData = async ({ user, test }) => {
   const { questions: testQuestions } = test;
@@ -23,4 +24,20 @@ const findUserQuestion = ({ id, userQuestionData }) => {
   return updateItem;
 };
 
-export { updateUserQuestionData, findUserQuestion };
+const createUserQuestionData = async (user) => {
+  console.log(user);
+  let userQuestionData = await UserQuestionData.findOne({ user });
+  if (userQuestionData) {
+    return;
+  }
+  const questionIds = await Question.find({}, { _id: 1 });
+
+  let questions = [];
+  for (const id in questionIds) {
+    let question = { question: questionIds[id]._id };
+    questions.push(question);
+  }
+  userQuestionData = await UserQuestionData.create({ user, questions });
+};
+
+export { updateUserQuestionData, findUserQuestion, createUserQuestionData };
