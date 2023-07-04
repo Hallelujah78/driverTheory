@@ -7,7 +7,7 @@ const links = [
   {
     id: 1,
     adminOnly: false,
-    text: "stats",
+    text: "results",
     path: "stats",
     icon: <IoBarChartSharp />,
   },
