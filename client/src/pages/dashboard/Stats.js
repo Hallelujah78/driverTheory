@@ -7,10 +7,6 @@ const Stats = () => {
   const { isLoading } = useAppContext();
   const navigate = useNavigate();
 
-  const handleClick = () => {
-    navigate("/randomized-practice");
-  };
-
   if (isLoading) {
     return <Loading center />;
   }
@@ -18,11 +14,24 @@ const Stats = () => {
     <Wrapper>
       <h3>Results</h3>
       <div className="button-container">
-        <button className="btn btn-block">Overview</button>
-        <button onClick={() => handleClick()} className="btn btn-block">
+        <button
+          onClick={() => navigate("/stats/overview")}
+          className="btn btn-block"
+        >
+          Overview
+        </button>
+        <button
+          onClick={() => navigate("/stats/graphs")}
+          className="btn btn-block"
+        >
           Graphs
         </button>
-        <button className="btn btn-block">Previous Test Results</button>
+        <button
+          onClick={() => navigate("/stats/previous-tests")}
+          className="btn btn-block"
+        >
+          Previous Test Results
+        </button>
       </div>
     </Wrapper>
   );

@@ -16,6 +16,12 @@ import {
   Stats,
   ProtectedRoute,
 } from "./pages/dashboard/index.js";
+import {
+  Graphs,
+  Overview,
+  PreviousTests,
+  AggResultsSharedLayout,
+} from "./pages/aggregatedResults/index.js";
 
 import { QuestionList, Categories } from "./pages/Results/index.js";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -59,6 +65,20 @@ function App() {
           <Route index element={<Categories />}></Route>
           <Route path="question-list" element={<QuestionList />}></Route>
         </Route>
+
+        <Route
+          path="stats"
+          element={
+            <ProtectedRoute>
+              <AggResultsSharedLayout />
+            </ProtectedRoute>
+          }
+        >
+          <Route path="overview" element={<Overview />}></Route>
+          <Route path="graphs" element={<Graphs />}></Route>
+          <Route path="previous-tests" element={<PreviousTests />}></Route>
+        </Route>
+
         <Route path="/register" element={<Register />} />
         <Route path="/user/verify-email" element={<Verify />} />
         <Route path="/landing" element={<Landing />} />
