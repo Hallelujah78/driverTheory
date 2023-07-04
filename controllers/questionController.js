@@ -6,6 +6,13 @@ import mongoose from "mongoose";
 import moment from "moment";
 
 const createQuestion = async (req, res) => {
+  const user = await User.findOne({ _id: req.user.userId });
+
+  if (user.role !== "admin") {
+    throw new CustomError.UnauthorizedError(
+      "You are not authorized to add questions!"
+    );
+  }
   const { questionText, answers, imageURL, questionCategory } = req.body;
   console.log(questionCategory);
   if (!questionText || answers.length < 4) {

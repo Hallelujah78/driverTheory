@@ -18,7 +18,6 @@ const Unauthorized = ({ message, navigateTo }) => {
   );
 };
 export default Unauthorized;
-
 const Wrapper = styled.div`
   height: 40vh;
   display: grid;

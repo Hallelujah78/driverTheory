@@ -2,9 +2,7 @@ import Wrapper from "../assets/wrappers/RegisterPage";
 import { useState, useEffect } from "react";
 import { Alert, FormRow, Logo } from "../components";
 import { useAppContext } from "../context/appContext";
-import { useNavigate, Link } from "react-router-dom";
-
-// globalContext and useNavigate later
+import { useNavigate, Link, useLocation } from "react-router-dom";
 
 const initialState = {
   name: "",
@@ -57,7 +55,7 @@ const Register = () => {
   }, [user, navigate]);
   return (
     <Wrapper className="full-page">
-      <form className="form" onSubmit={onSubmit}>
+      <form className="form" id="login" name="login" onSubmit={onSubmit}>
         <Logo />
         {/* controls H3 content */}
         <h3>{values.isMember ? "Login" : "Register"}</h3>
@@ -67,6 +65,7 @@ const Register = () => {
         {/* name field */}
         {!values.isMember && (
           <FormRow
+            id="name"
             type="text"
             name="name"
             handleChange={handleChange}
@@ -75,6 +74,7 @@ const Register = () => {
         )}
         {/* email field */}
         <FormRow
+          id="email"
           type="email"
           name="email"
           handleChange={handleChange}
@@ -82,10 +82,12 @@ const Register = () => {
         />
         {/* password field */}
         <FormRow
+          id="password"
           type="password"
           name="password"
           handleChange={handleChange}
           value={values.password}
+          autocomplete={values.isMember ? "current-password" : "new-password"}
         />
         <button type="submit" disabled={isLoading} className="btn btn-block">
           submit
