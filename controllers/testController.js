@@ -34,7 +34,7 @@ const createTest = async (req, res) => {
   if (!category) {
     throw new CustomError.BadRequestError("please provide the test category");
   }
-  const testQuestions = await Question.find({}).limit(12);
+  const testQuestions = await Question.find({}).limit(10);
   const userQuestionData = await UserQuestionData.findOne({
     user: req.user.userId,
   });
