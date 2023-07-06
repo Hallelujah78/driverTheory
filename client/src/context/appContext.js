@@ -141,17 +141,11 @@ const AppProvider = ({ children }) => {
       }
 
       if (status === 401 && !state.user) {
-        // backend 401
-        // if there is no user
-        // setUserLoading to false (default true)
-        // no need to logoutUser()
         setUserLoadingFalse();
         return Promise.reject(error);
       }
 
       if (status === 401 && state.user) {
-        // if status 401 and userIsLoading (true)
-        // logoutUser
         logoutUser();
       }
       return Promise.reject(error);
@@ -636,6 +630,7 @@ const AppProvider = ({ children }) => {
         changePage,
         createNewTest,
         toggleIsFlagged,
+        authFetch,
       }}
     >
       {children}

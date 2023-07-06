@@ -11,11 +11,7 @@ const OverviewListItem = ({ title, total, numerator }) => {
             style={{
               height: "100%",
               width: `${(numerator / total) * 100}%`,
-              backgroundColor: `${
-                (numerator / total) * 100 >= 87.5
-                  ? "var(--green-dark)"
-                  : "var(--red-dark)"
-              }`,
+              backgroundColor: "var(--primary-700)",
             }}
           ></div>
         </div>
@@ -31,7 +27,10 @@ export default OverviewListItem;
 const Wrapper = styled.div`
   font-size: 1.1rem;
   width: 80vw;
-
+  margin-bottom: 1.5rem;
+  .title {
+    text-align: left;
+  }
   .numerator-total {
     text-align: right;
   }
