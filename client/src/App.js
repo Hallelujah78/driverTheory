@@ -67,6 +67,15 @@ function App() {
         </Route>
 
         <Route
+          path="stats/previous-tests/:testId"
+          element={
+            <ProtectedRoute>
+              <Test />
+            </ProtectedRoute>
+          }
+        ></Route>
+
+        <Route
           path="stats"
           element={
             <ProtectedRoute>

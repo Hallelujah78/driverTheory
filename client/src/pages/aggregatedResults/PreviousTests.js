@@ -47,7 +47,7 @@ const PreviousTests = () => {
       <div className="categories">
         <div className="cat-container">
           {previousTests?.map((test, index) => {
-            return <TestListItem key={index} {...test} />;
+            return <TestListItem key={test.testId} {...test} />;
           })}
         </div>
       </div>

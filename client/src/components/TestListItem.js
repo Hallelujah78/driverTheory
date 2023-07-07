@@ -1,8 +1,25 @@
 import styled from "styled-components";
-
-const TestListItem = ({ category, correctAns, totalQuestions, pass, date }) => {
+import { useNavigate } from "react-router-dom";
+const TestListItem = ({
+  category,
+  correctAns,
+  totalQuestions,
+  pass,
+  date,
+  testId,
+}) => {
+  const navigate = useNavigate();
+  const handleClick = (e) => {
+    const testId = e.currentTarget.id;
+    navigate(`/stats/previous-tests/${testId}`);
+  };
   return (
-    <Wrapper>
+    <Wrapper
+      id={testId}
+      onClick={(e) => {
+        handleClick(e);
+      }}
+    >
       <div className="title">
         <div className="category">
           {category.charAt(0).toUpperCase() + category.slice(1)} -{" "}
@@ -33,6 +50,7 @@ const TestListItem = ({ category, correctAns, totalQuestions, pass, date }) => {
 export default TestListItem;
 
 const Wrapper = styled.div`
+  cursor: pointer;
   border: 1px gray solid;
   font-size: 1.1rem;
   width: 80vw;

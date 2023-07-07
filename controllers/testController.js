@@ -236,6 +236,7 @@ const getAllTestResults = async (req, res) => {
       totalQuestions: test.questions.length,
       pass: false,
       date: moment(test.createdAt).format("MMM D, YYYY"),
+      testId: test._id,
     };
 
     summaryResult.pass =
