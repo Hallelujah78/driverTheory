@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { renderIconsBool } from "../utils/renderIcons";
 import { useNavigate } from "react-router-dom";
 const QuestionListItem = ({
-  test,
   question,
   isCorrect,
   index,

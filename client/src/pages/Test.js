@@ -3,10 +3,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import TestNav from "../components/Test/TestNav.js";
 import TestFooter from "../components/Test/TestFooter.js";
-import { Loading, ModalAlert } from "../components/index.js";
 import { useAppContext } from "../context/appContext.js";
 import Question from "../components/Test/Question.js";
-import { NoData } from "../components/index.js";
+import { NoData, Loading, ModalAlert } from "../components/index.js";
 
 const initialState = {
   modalText: "Exiting the test now will mean that your progress will be lost!",
@@ -81,7 +80,7 @@ const Test = () => {
           <Loading center />
         </div>
 
-        <TestFooter testId={testId} />
+        <TestFooter />
       </Wrapper>
     );
   }
@@ -103,7 +102,7 @@ const Test = () => {
           linkTo={testId ? "/stats/previous-tests" : "/"}
         />
 
-        <TestFooter testId={testId} />
+        <TestFooter />
       </Wrapper>
     );
   }

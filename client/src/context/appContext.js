@@ -25,16 +25,12 @@ import {
   EDIT_JOB_BEGIN,
   EDIT_JOB_ERROR,
   EDIT_JOB_SUCCESS,
-  EDIT_QUESTION_BEGIN,
-  EDIT_QUESTION_ERROR,
-  EDIT_QUESTION_SUCCESS,
   DELETE_JOB_BEGIN,
   DELETE_JOB_ERROR,
   CLEAR_VALUES,
   DISPLAY_ALERT,
   CLEAR_ALERT,
   SET_EDIT_JOB,
-  SET_EDIT_QUESTION,
   REGISTER_USER_BEGIN,
   REGISTER_USER_ERROR,
   REGISTER_USER_SUCCESS,
@@ -47,16 +43,11 @@ import {
   UPDATE_USER_ERROR,
   UPDATE_USER_SUCCESS,
   HANDLE_CHANGE,
-  CREATE_JOB_BEGIN,
-  CREATE_JOB_ERROR,
-  CREATE_JOB_SUCCESS,
   CREATE_QUESTION_BEGIN,
   CREATE_QUESTION_ERROR,
   CREATE_QUESTION_SUCCESS,
   GET_JOBS_SUCCESS,
   GET_JOBS_BEGIN,
-  GET_QUESTIONS_SUCCESS,
-  GET_QUESTIONS_BEGIN,
   GET_TEST_QUESTIONS_BEGIN,
   GET_TEST_QUESTIONS_SUCCESS,
   GET_TEST_QUESTIONS_ERROR,
@@ -82,11 +73,8 @@ const initialState = {
   alertText: "",
   alertType: "",
   user: null,
-
   showSidebar: false,
-  // question related
   isEditing: false,
-
   //question related
   editQuestionId: "",
   questionCategoryOptions: [
@@ -108,8 +96,6 @@ const initialState = {
   totalQuestions: 0,
   page: 1,
   numOfPages: 1,
-  // stats
-
   // search functionality
   search: "",
   searchStatus: "all",

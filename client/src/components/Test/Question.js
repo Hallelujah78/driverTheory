@@ -1,17 +1,11 @@
 import styled from "styled-components";
-
 import { useAppContext } from "../../context/appContext";
-
 import Answer from "./Answer.js";
 
 const Question = () => {
-  const { getTest, test, currentQuestion, submitAnswer, selectAnswer } =
-    useAppContext();
+  const { test, currentQuestion, submitAnswer, selectAnswer } = useAppContext();
 
   const {
-    userAnswer,
-    isCorrect,
-    selected,
     question: { imageURL, questionText, answers },
   } = test?.[currentQuestion] ?? {};
 

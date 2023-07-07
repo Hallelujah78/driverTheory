@@ -1,9 +1,8 @@
-import { CategoryListItem } from "../../components/index.js";
 import { useAppContext } from "../../context/appContext.js";
 import styled from "styled-components";
 import { useEffect } from "react";
 import { TbThumbDown, TbThumbUp } from "react-icons/tb";
-import { Loading, NoData } from "../../components/index.js";
+import { Loading, NoData, CategoryListItem } from "../../components/index.js";
 
 const Categories = () => {
   const { test, getTest, creatingTest, isLoading, results } = useAppContext();

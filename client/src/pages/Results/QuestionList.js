@@ -1,8 +1,7 @@
 import { useEffect } from "react";
 import styled from "styled-components";
 import { useAppContext } from "../../context/appContext";
-import { QuestionListItem } from "../../components/index.js";
-import { Loading, NoData } from "../../components/index.js";
+import { Loading, NoData, QuestionListItem } from "../../components/index.js";
 
 const QuestionList = () => {
   const { test, getTest, creatingTest, isLoading, setCurrentQuestion } =

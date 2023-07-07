@@ -2,9 +2,8 @@ import Wrapper from "../assets/wrappers/VerifyPage.js";
 import { useAppContext } from "../context/appContext.js";
 import { useEffect, useState } from "react";
 import { useLocation, Link, useNavigate } from "react-router-dom";
-import { Loading } from "../components/index.js";
 import axios from "axios";
-import { Logo, Alert } from "../components/index.js";
+import { Logo, Alert, Loading } from "../components/index.js";
 
 const Verify = () => {
   const navigate = useNavigate();

@@ -3,7 +3,7 @@ import { useAppContext } from "../../context/appContext";
 import { useLocation } from "react-router-dom";
 import { TestButtons, ResultsButtons, PreviousTestButtons } from "../index.js";
 
-const TestFooter = ({ testId }) => {
+const TestFooter = () => {
   const {
     currentQuestion,
     incrementQuestion,

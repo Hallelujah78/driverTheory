@@ -1,7 +1,7 @@
 import Wrapper from "../assets/wrappers/ResetPassword";
 import { useAppContext } from "../context/appContext";
 import { Logo } from "../components";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { FormRow, Alert } from "../components/index.js";
 import { useState } from "react";
 import axios from "axios";
@@ -12,7 +12,7 @@ const ResetPassword = () => {
   const [newPassword, setNewPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState("");
-  const { isLoading, displayAlert, showAlert } = useAppContext();
+  const { displayAlert, showAlert } = useAppContext();
 
   const handleChange = (e) => {
     e.preventDefault();

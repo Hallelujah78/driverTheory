@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const CategoryListItem = ({ category, total, incorrect, correct }) => {
+const CategoryListItem = ({ category, total, correct }) => {
   return (
     <Wrapper>
       <div className="category">{category}</div>

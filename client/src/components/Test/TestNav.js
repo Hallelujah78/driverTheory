@@ -1,11 +1,10 @@
 import styled from "styled-components";
-// import { ModalAlert } from "../../components/index.js";
 import { useLocation, useNavigate } from "react-router";
 import { TbCircleLetterX } from "react-icons/tb";
 
 import { useAppContext } from "../../context/appContext.js";
 
-const TestNav = ({ handleExit, setValues }) => {
+const TestNav = ({ handleExit }) => {
   const location = useLocation();
   const { currentQuestion } = useAppContext();
 

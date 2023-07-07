@@ -2,16 +2,9 @@ import {
   TbFlag,
   TbArrowBigLeftLine,
   TbArrowBigRightLine,
-  TbNotes,
 } from "react-icons/tb";
-import { Link } from "react-router-dom";
 
-const PreviousTestButtons = ({
-  currentQuestion,
-  isComplete,
-  handleClick,
-  test,
-}) => {
+const PreviousTestButtons = ({ currentQuestion, handleClick, test }) => {
   return (
     <>
       <div
@@ -30,11 +23,6 @@ const PreviousTestButtons = ({
         <TbFlag className="nav-btn" />
         <p>{test?.[currentQuestion].isFlagged ? "unflag" : "flag"}</p>
       </div>
-
-      {/* <Link to="/results" className={isComplete ? "results" : "results hidden"}>
-        <TbNotes className="nav-btn" />
-        <p>results</p>
-      </Link> */}
 
       <div
         onClick={
