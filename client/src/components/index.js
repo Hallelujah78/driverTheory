@@ -19,6 +19,7 @@ import TestButtons from "./TestButtons.js";
 import ResultsButtons from "./ResultsButtons.js";
 import Unauthorized from "./Unauthorized.js";
 import OverviewListItem from "./OverviewListItem.js";
+import TestListItem from "./TestListItem.js";
 export {
   ModalAlert,
   Loading,
@@ -41,4 +42,5 @@ export {
   ResultsButtons,
   Unauthorized,
   OverviewListItem,
+  TestListItem,
 };

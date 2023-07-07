@@ -26,7 +26,6 @@ const setIsResult = async (user) => {
   });
 };
 
-// create test
 const createTest = async (req, res) => {
   const user = req.user.userId;
   setIsResult(user);
@@ -76,11 +75,7 @@ const createTest = async (req, res) => {
   res.status(StatusCodes.CREATED).json({ test });
 };
 
-// end of createTest
-
-// get test
 const getTest = async (req, res) => {
-  // get test for specific user
   const user = req.user.userId;
 
   const test = await Test.findOne({ user, isResult: false });
@@ -94,11 +89,9 @@ const getTest = async (req, res) => {
   if (test.isComplete && !test.isResult) {
     results = createResults(test);
   }
-
   res.status(StatusCodes.OK).json({ test, results });
 };
 
-// show stats
 const showStats = async (req, res) => {
   let stats = await Question.aggregate([
     { $match: { createdBy: new mongoose.Types.ObjectId(req.user.userId) } },
@@ -153,14 +146,9 @@ const deleteTest = async (req, res) => {
   if (!tests) {
     throw new CustomError.NotFoundError(`no tests found`);
   }
-  // checkPermissions(req.user, question.createdBy);
-
   await Test.deleteMany({ user: req.user.userId, isComplete: false });
-
   res.status(StatusCodes.OK).json({ msg: "tests deleted successfully!" });
 };
-
-// update test
 
 const updateTest = async (req, res) => {
   const { questionId, index, currentQuestion } = req.body;
@@ -200,7 +188,6 @@ const toggleFlagged = async (req, res) => {
   if (!questionId) {
     throw new CustomError.BadRequestError("please provide a question ID");
   }
-
   const test = await Test.findOne({
     user: req.user.userId,
     isResult: false,
@@ -208,7 +195,6 @@ const toggleFlagged = async (req, res) => {
   const updateItem = test.questions.find((item) => {
     return questionId === item.question._id.toString();
   });
-
   updateItem.isFlagged = !updateItem.isFlagged;
   await test.save();
 
@@ -228,4 +214,45 @@ const toggleFlagged = async (req, res) => {
   res.status(StatusCodes.OK).json({ test });
 };
 
-export { getTest, deleteTest, updateTest, createTest, toggleFlagged };
+const getAllTestResults = async (req, res) => {
+  const userId = req.user.userId;
+
+  const prevTests = await Test.find(
+    { user: userId, isResult: true },
+    "_id category questions.isCorrect questions.isFlagged questions.question._id createdAt"
+  );
+
+  let prevTestArray = [];
+
+  prevTests.map((test, index) => {
+    let summaryResult = {
+      category: test.category,
+      correctAns: test.questions.reduce((acc, curr) => {
+        if (curr.isCorrect) {
+          acc = acc + 1;
+        }
+        return acc;
+      }, 0),
+      totalQuestions: test.questions.length,
+      pass: false,
+      date: moment(test.createdAt).format("MMM D, YYYY"),
+    };
+
+    summaryResult.pass =
+      summaryResult.correctAns / summaryResult.totalQuestions >= 0.875
+        ? true
+        : false;
+    prevTestArray.push(summaryResult);
+  });
+
+  res.status(StatusCodes.OK).json({ prevTestArray });
+};
+
+export {
+  getTest,
+  deleteTest,
+  updateTest,
+  createTest,
+  toggleFlagged,
+  getAllTestResults,
+};

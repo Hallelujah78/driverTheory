@@ -1,20 +1,19 @@
 import styled from "styled-components";
-
-import { useLocation, useNavigate } from "react-router";
 import { TbCircleLetterX } from "react-icons/tb";
+import { useLocation } from "react-router-dom";
 
-import { useAppContext } from "../context/appContext.js";
-
-const StatsNav = ({ handleExit, setValues }) => {
+const StatsNav = ({ handleExit }) => {
   const location = useLocation();
-  const {} = useAppContext();
-
   return (
     <Wrapper>
       <div className="nav-center">
         <div className="container">
           <TbCircleLetterX className="exit" onClick={() => handleExit()} />
-          <h3>Results</h3>
+          <h3>
+            {location.pathname === "/stats/previous-tests"
+              ? "Previous Results"
+              : "Results"}
+          </h3>
         </div>
       </div>
     </Wrapper>

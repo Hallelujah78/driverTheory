@@ -7,6 +7,7 @@ import {
   createTest,
   getTest,
   toggleFlagged,
+  getAllTestResults,
 } from "../controllers/testController.js";
 
 const router = express.Router();
@@ -17,5 +18,6 @@ router
   .delete(authenticateUser, deleteTest)
   .patch(authenticateUser, updateTest);
 router.route("/flagged").patch(authenticateUser, toggleFlagged);
+router.route("/prev-results").get(authenticateUser, getAllTestResults);
 
 export default router;

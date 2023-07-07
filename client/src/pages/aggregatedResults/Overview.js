@@ -2,7 +2,7 @@ import { OverviewListItem } from "../../components/index.js";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { useAppContext } from "../../context/appContext.js";
-import { TbThumbDown, TbThumbUp } from "react-icons/tb";
+
 import { Loading, NoData } from "../../components/index.js";
 
 const Overview = () => {
@@ -57,6 +57,7 @@ const Overview = () => {
           })}
         </div>
       </div>
+      <div className="filler"></div>
     </Wrapper>
   );
 };
@@ -65,7 +66,6 @@ export default Overview;
 const Wrapper = styled.section`
   display: grid;
   grid-template-rows: 1fr 4fr;
-
   margin-top: calc(var(--nav-height));
 
   .overview {
