@@ -25,7 +25,6 @@ const findUserQuestion = ({ id, userQuestionData }) => {
 };
 
 const createUserQuestionData = async (user) => {
-  console.log(user);
   let userQuestionData = await UserQuestionData.findOne({ user });
   if (userQuestionData) {
     return;

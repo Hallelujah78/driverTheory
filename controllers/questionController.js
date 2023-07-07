@@ -14,7 +14,7 @@ const createQuestion = async (req, res) => {
     );
   }
   const { questionText, answers, imageURL, questionCategory } = req.body;
-  console.log(questionCategory);
+
   if (!questionText || answers.length < 4) {
     throw new CustomError.BadRequestError(
       "please provide the question text and all answers"

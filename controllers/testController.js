@@ -77,7 +77,17 @@ const createTest = async (req, res) => {
 
 const getTest = async (req, res) => {
   const user = req.user.userId;
+  const { testId } = req.params;
 
+  if (testId) {
+    const test = await Test.findOne({ user, _id: testId });
+    if (!test || test?.length < 1) {
+      throw new CustomError.NotFoundError("there is no test with that ID");
+    }
+    return res.status(StatusCodes.OK).json({ test });
+  }
+
+  // if no testId below this line
   const test = await Test.findOne({ user, isResult: false });
 
   if (!test || test?.length < 1) {
@@ -174,7 +184,6 @@ const updateTest = async (req, res) => {
     test.isComplete = true;
     updateUserQuestionData({ user: req.user.userId, test });
     results = createResults(test);
-    console.log(results);
   } else {
     results = null;
   }

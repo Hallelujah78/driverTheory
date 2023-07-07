@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { useAppContext } from "../../context/appContext";
 import { useLocation } from "react-router-dom";
-import { TestButtons, ResultsButtons } from "../index.js";
+import { TestButtons, ResultsButtons, PreviousTestButtons } from "../index.js";
 
-const TestFooter = () => {
+const TestFooter = ({ testId }) => {
   const {
     currentQuestion,
     incrementQuestion,
@@ -56,6 +56,14 @@ const TestFooter = () => {
               test={test}
             />
           ) : null}
+          {location.pathname.includes("/stats/previous-tests/") && (
+            <PreviousTestButtons
+              isComplete={isComplete}
+              handleClick={handleClick}
+              currentQuestion={currentQuestion}
+              test={test}
+            />
+          )}
         </div>
       </div>
     </Wrapper>
@@ -85,8 +93,6 @@ const Wrapper = styled.footer`
       .flag,
       .nav-link,
       .link {
-        /* margin-top: 0.25rem; */
-        /* margin-bottom: 0.25rem; */
         height: 100%;
         color: white;
         cursor: pointer;

@@ -211,7 +211,6 @@ const AppProvider = ({ children }) => {
       const { data } = await axios.post("/api/v1/auth/login", currentUser);
 
       const { user } = data;
-      console.log(user);
 
       dispatch({
         type: LOGIN_USER_SUCCESS,
@@ -348,7 +347,6 @@ const AppProvider = ({ children }) => {
   };
 
   const editQuestion = async () => {
-    // very similar to add question or create question
     dispatch({ type: EDIT_JOB_BEGIN });
 
     try {
@@ -467,16 +465,20 @@ const AppProvider = ({ children }) => {
     });
   };
 
-  const getTest = async () => {
+  const getTest = async (testId = null) => {
+    let URL = "/test";
+    if (testId) {
+      URL = `/test/previous-tests/${testId}`;
+    }
     dispatch({ type: GET_TEST_BEGIN });
     try {
-      const { data } = await authFetch.get("/test");
+      const { data } = await authFetch.get(URL);
       dispatch({
         type: GET_TEST_SUCCESS,
         payload: {
           test: data.test.questions,
           isComplete: data.test.isComplete,
-          results: data.results,
+          results: data?.results,
         },
       });
     } catch (error) {

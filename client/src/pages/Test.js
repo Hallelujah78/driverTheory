@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import TestNav from "../components/Test/TestNav.js";
 import TestFooter from "../components/Test/TestFooter.js";
@@ -28,8 +28,14 @@ const Test = () => {
     setModalState,
   } = useAppContext();
   const [values, setValues] = useState(initialState);
+  const testId = useParams().testId;
 
   const handleExit = () => {
+    if (testId) {
+      exitTest();
+      navigate("/stats/previous-tests");
+      return;
+    }
     if (isComplete) {
       setValues({ ...values, modalText: "Are you sure you want to exit?" });
     }
@@ -52,10 +58,13 @@ const Test = () => {
   };
 
   useEffect(() => {
-    if (!test && !creatingTest) {
+    if (!test && !creatingTest && !testId) {
       getTest();
     }
-  }, []);
+    if (testId) {
+      getTest(testId);
+    }
+  }, [testId]);
 
   if (testLoading || isLoading) {
     return (
@@ -72,12 +81,12 @@ const Test = () => {
           <Loading center />
         </div>
 
-        <TestFooter />
+        <TestFooter testId={testId} />
       </Wrapper>
     );
   }
 
-  if (!isLoading && !test && !creatingTest) {
+  if (!isLoading && !test && !creatingTest && !!testId) {
     return (
       <Wrapper className="full-page">
         {modalAlert && (
@@ -91,10 +100,10 @@ const Test = () => {
         <NoData
           linkText="Back to Practice"
           message="There is no test data..."
-          linkTo="/"
+          linkTo={testId ? "/stats/previous-tests" : "/"}
         />
 
-        <TestFooter />
+        <TestFooter testId={testId} />
       </Wrapper>
     );
   }
