@@ -1,4 +1,13 @@
+import { ChartsContainer } from "../../components/index.js";
+import styled from "styled-components";
 const Graphs = () => {
-  return <div>Graphs</div>;
+  return (
+    <Wrapper>
+      <h1>Graphs</h1>
+      <ChartsContainer />
+    </Wrapper>
+  );
 };
 export default Graphs;
+
+const Wrapper = styled.section``;
