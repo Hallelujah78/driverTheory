@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useAppContext } from "../../context/appContext";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { TestButtons, ResultsButtons, PreviousTestButtons } from "../index.js";
 
 const TestFooter = () => {
@@ -12,7 +12,7 @@ const TestFooter = () => {
     isComplete,
     toggleIsFlagged,
   } = useAppContext();
-
+  const testId = useParams().testId;
   const location = useLocation();
 
   const handleClick = (e) => {
@@ -31,7 +31,7 @@ const TestFooter = () => {
     }
     if (e.currentTarget.classList.contains("flag")) {
       const questionId = test[currentQuestion].question._id;
-      toggleIsFlagged(questionId);
+      toggleIsFlagged(questionId, testId);
     }
   };
 

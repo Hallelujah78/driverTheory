@@ -81,9 +81,28 @@ const getTest = async (req, res) => {
 
   if (testId) {
     const test = await Test.findOne({ user, _id: testId });
+
     if (!test || test?.length < 1) {
       throw new CustomError.NotFoundError("there is no test with that ID");
     }
+    const userQuestionData = await UserQuestionData.findOne({ user });
+
+    if (!userQuestionData) {
+      throw new CustomError.NotFoundError(
+        "there is no user question data for this user"
+      );
+    }
+    if (userQuestionData.updatedAt - test.updatedAt > 10000) {
+      test.questions.map((question) => {
+        const userQuestion = findUserQuestion({
+          id: question.question._id.toString(),
+          userQuestionData,
+        });
+        question.isFlagged = userQuestion.isFlagged;
+      });
+      await test.save();
+    }
+
     return res.status(StatusCodes.OK).json({ test });
   }
 
@@ -193,14 +212,27 @@ const updateTest = async (req, res) => {
 };
 
 const toggleFlagged = async (req, res) => {
-  const { questionId } = req.body;
+  const { questionId, testId } = req.body;
+  const user = req.user.userId;
+
   if (!questionId) {
-    throw new CustomError.BadRequestError("please provide a question ID");
+    throw new CustomError.BadRequestError(
+      "please provide a question ID and a test ID"
+    );
   }
-  const test = await Test.findOne({
-    user: req.user.userId,
-    isResult: false,
-  });
+  let test;
+  if (testId) {
+    test = await Test.findOne({ user, _id: testId });
+    if (!test || test?.length < 1) {
+      throw new CustomError.NotFoundError("there is no test with that ID");
+    }
+  } else {
+    test = await Test.findOne({
+      user: req.user.userId,
+      isResult: false,
+    });
+  }
+
   const updateItem = test.questions.find((item) => {
     return questionId === item.question._id.toString();
   });
