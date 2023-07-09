@@ -122,51 +122,66 @@ const getTest = async (req, res) => {
 };
 
 const showStats = async (req, res) => {
-  let stats = await Question.aggregate([
-    { $match: { createdBy: new mongoose.Types.ObjectId(req.user.userId) } },
-    { $group: { _id: "$status", count: { $sum: 1 } } },
-  ]);
-  stats = stats.reduce((acc, curr) => {
-    const { _id: title, count } = curr;
-    acc[title] = count;
-    return acc;
-  }, {});
-  const defaultStats = {
-    pending: stats.pending || 0,
-    interview: stats.interview || 0,
-    declined: stats.declined || 0,
-  };
-  let monthlyApplications = await Question.aggregate([
-    { $match: { createdBy: new mongoose.Types.ObjectId(req.user.userId) } },
+  const testStats = await Test.aggregate([
+    { $match: { user: new mongoose.Types.ObjectId(req.user.userId) } },
     {
       $group: {
         _id: {
-          year: {
-            $year: "$createdAt",
+          category: "$category",
+          correct: {
+            $sum: {
+              $size: {
+                $filter: { input: "$questions.isCorrect", cond: "$$this" },
+              },
+            },
           },
-          month: { $month: "$createdAt" },
+          total: {
+            $sum: {
+              $size: "$questions.isCorrect",
+            },
+          },
+          createdAt: "$createdAt",
+          date: {
+            month: { $month: "$createdAt" },
+            day: { $dayOfMonth: "$createdAt" },
+            year: { $year: "$createdAt" },
+          },
         },
-        count: { $sum: 1 },
       },
     },
-    { $sort: { "_id.year": -1, "_id.month": -1 } },
-    { $limit: 12 },
+    { $project: { tempScore: { $divide: ["$_id.correct", "$_id.total"] } } },
+    { $project: { score: { $multiply: ["$tempScore", 100] } } },
+    { $sort: { "_id.createdAt": 1 } },
   ]);
-  monthlyApplications = monthlyApplications
-    .map((item) => {
-      const {
-        _id: { year, month },
-        count,
-      } = item;
-      const date = moment()
-        .month(month - 1)
-        .year(year)
-        .format("MMM Y");
-      return { date, count };
-    })
-    .reverse();
+  let stats = [];
+  testStats.map((test) => {
+    const {
+      category,
+      correct,
+      total,
+      createdAt,
+      date: { month, day, year },
+    } = test._id;
+    stats.push({
+      category,
+      correct,
+      total,
+      date: `${
+        moment()
+          .month(month - 1)
+          .format("MMM") +
+        " " +
+        day +
+        ", " +
+        moment().year(year).format("YY")
+      }`,
 
-  res.status(StatusCodes.OK).json({ defaultStats, monthlyApplications });
+      score: test.score,
+      createdAt,
+    });
+  });
+
+  res.status(StatusCodes.OK).json({ stats });
 };
 
 const deleteTest = async (req, res) => {
@@ -265,7 +280,7 @@ const getAllTestResults = async (req, res) => {
 
   let prevTestArray = [];
 
-  prevTests.map((test, index) => {
+  prevTests.map((test) => {
     let summaryResult = {
       category: test.category,
       correctAns: test.questions.reduce((acc, curr) => {
@@ -297,4 +312,5 @@ export {
   createTest,
   toggleFlagged,
   getAllTestResults,
+  showStats,
 };

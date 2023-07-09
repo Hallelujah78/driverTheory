@@ -8,6 +8,7 @@ import {
   getTest,
   toggleFlagged,
   getAllTestResults,
+  showStats,
 } from "../controllers/testController.js";
 
 const router = express.Router();
@@ -20,5 +21,6 @@ router
 router.route("/flagged").patch(authenticateUser, toggleFlagged);
 router.route("/prev-results").get(authenticateUser, getAllTestResults);
 router.route("/previous-tests/:testId").get(authenticateUser, getTest);
+router.route("/showStats").get(authenticateUser, showStats);
 
 export default router;

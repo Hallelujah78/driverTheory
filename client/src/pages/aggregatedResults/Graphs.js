@@ -3,7 +3,6 @@ import styled from "styled-components";
 const Graphs = () => {
   return (
     <Wrapper>
-      <h1>Graphs</h1>
       <ChartsContainer />
     </Wrapper>
   );

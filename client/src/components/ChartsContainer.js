@@ -1,21 +1,32 @@
-import { useState } from "react";
-
+import { useState, useEffect } from "react";
 import LineChart from "./LineChart.js";
-
 import Wrapper from "../assets/wrappers/ChartsContainer.js";
-
+import { useAppContext } from "../context/appContext.js";
 const ChartsContainer = () => {
-  const data = [
-    { count: 87.5, date: "Jan 2020" },
-    { count: 40, date: "Feb 2020" },
-    { count: 67.8, date: "Mar 2020" },
-    { count: 85, date: "Apr 2020" },
-    { count: 42, date: "May 2020" },
-    { count: 60, date: "Jun 2020" },
-  ];
+  const [data, setData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const { authFetch } = useAppContext();
+
+  const getStats = async () => {
+    const { data } = await authFetch.get("/test/showStats");
+
+    setData(data.stats);
+  };
+
+  useEffect(() => {
+    if (!data) {
+      getStats();
+    }
+    setIsLoading(false);
+  });
+
+  if (isLoading || !data) {
+    return <div>loading </div>;
+  }
+
   return (
     <Wrapper>
-      <h4>Monthly Applications</h4>
+      <h4>Test Scores</h4>
 
       <LineChart data={data} />
     </Wrapper>
