@@ -28,7 +28,24 @@ app.use(express.static(path.resolve(__dirname, "./client/build")));
 app.use(express.json());
 app.use(cookieParser(process.env.JWT_SECRET));
 
-app.use(helmet());
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      //  "default-src" used as fallback for any undeclared directives
+      "default-src": ["'self'"],
+
+      "style-src": ["'self'", "'unsafe-inline'", "fonts.googleapis.com"],
+      "font-src": [
+        "'self'",
+        "fonts.googleapis.com",
+        "fonts.gstatic.com",
+        "res.cloudinary.com/",
+      ],
+      "img-src": ["'self'", "data:", "https://res.cloudinary.com"],
+    },
+    reportOnly: true,
+  })
+);
 app.use(xss());
 app.use(mongoSanitize());
 if (process.env.NODE_ENV !== "production") {
