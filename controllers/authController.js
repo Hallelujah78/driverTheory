@@ -14,7 +14,12 @@ import {
 } from "../utils/index.js";
 import crypto from "crypto";
 
-const origin = "http://localhost:3000";
+let origin;
+if (process.env.NODE_ENV === "production") {
+  origin = "https://driver-theory.onrender.com";
+} else {
+  origin = "http://localhost:3000";
+}
 
 const login = async (req, res) => {
   const { email, password } = req.body;

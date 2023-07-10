@@ -35,3 +35,4 @@ To Do for current DriveL driver theory MCQ app:
 - handle filtering to show different graphs (practice, mock, category)
 - Read questions functionality
 - practice by category functionality
+- deploy to paid render instance
