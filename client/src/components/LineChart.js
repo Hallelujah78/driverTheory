@@ -7,18 +7,7 @@ import {
   YAxis,
   Tooltip,
 } from "recharts";
-
-const CustomTooltip = ({ active, payload, label }) => {
-  if (active && payload && payload.length) {
-    return (
-      <div className="custom-tooltip">
-        <p className="label">{`${label} : ${payload[0].value}`}</p>
-      </div>
-    );
-  }
-
-  return null;
-};
+import CustomTooltip from "./CustomTooltip";
 
 const CustomizedAxisTick = (props) => {
   const { x, y, payload } = props;
@@ -31,7 +20,7 @@ const CustomizedAxisTick = (props) => {
         dy={16}
         textAnchor="end"
         fill="#666"
-        transform="rotate(-35)"
+        transform="rotate(-30)"
       >
         {payload.value}
       </text>
@@ -41,16 +30,19 @@ const CustomizedAxisTick = (props) => {
 
 const LineChart = ({ data }) => {
   return (
-    <ResponsiveContainer width="95%" height={350}>
+    <ResponsiveContainer
+      width={data.length <= 8 ? "100%" : `${(data.length / 8) * 12.5}%`}
+      height="95%"
+    >
       <Chart
         margin={{
-          top: 50,
-          right: 5,
+          top: 0,
+          right: 0,
         }}
         data={data}
       >
         <CartesianGrid strokeDasharray="4 4" />
-        <XAxis height={"60"} dataKey="date" tick={<CustomizedAxisTick />} />
+        <XAxis height={"65"} dataKey="date" tick={<CustomizedAxisTick />} />
         <YAxis allowDecimals={true} domain={[0, 100]} />
         <Tooltip content={<CustomTooltip />} />
         <Line

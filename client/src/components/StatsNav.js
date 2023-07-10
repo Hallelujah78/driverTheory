@@ -12,6 +12,8 @@ const StatsNav = ({ handleExit }) => {
           <h3>
             {location.pathname === "/stats/previous-tests"
               ? "Previous Results"
+              : location.pathname === "/stats/graphs"
+              ? "Test Results Graph"
               : "Results"}
           </h3>
         </div>

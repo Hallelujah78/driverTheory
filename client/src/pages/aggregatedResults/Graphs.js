@@ -9,4 +9,9 @@ const Graphs = () => {
 };
 export default Graphs;
 
-const Wrapper = styled.section``;
+const Wrapper = styled.section`
+  display: grid;
+  place-content: center;
+
+  padding-top: 0.5rem;
+`;

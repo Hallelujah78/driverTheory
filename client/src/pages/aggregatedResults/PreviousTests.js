@@ -57,9 +57,7 @@ const PreviousTests = () => {
 export default PreviousTests;
 
 const Wrapper = styled.section`
-  display: grid;
-  grid-template-rows: 1fr 4fr;
-  margin-top: calc(var(--nav-height));
+  margin-top: calc(var(--nav-height) * 1.2);
   place-content: center;
 
   .overview {
@@ -82,10 +80,8 @@ const Wrapper = styled.section`
   .categories {
     display: grid;
     justify-content: center;
-    margin-top: 10rem;
   }
   .cat-container {
-    margin-top: 2rem;
     max-width: 90vw;
   }
   .whitespace {

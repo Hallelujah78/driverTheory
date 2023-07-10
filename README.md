@@ -30,9 +30,8 @@ To Do for current DriveL driver theory MCQ app:
 - ~~server should only allow admins to add questions~~ DONE
 - create code to generate different types of test. A practice test consists of 20 questions, a mock theory test consists of 40 questions.
 - \*\* work on the charting/stats functionality
-- ~~\*\* must set up a test user so people can demo the app without signing up, Test user is an admin. Will not be able to add questions, Will not be able to update profile. Will be able to take tests and view results.~~
-- ~~in my haste to get the app working, I failed to implement createUserQuestionData properly. There is a route and controller on the backend, but there is no request from the frontend. Therefore, at the moment I can only do this by making a request from Postman for a particular user. This means that newly registered users can't create tests! Fix ASAP.~~ DONE
-- ~~setup autocomplete for password (suggest for registration, fill for login)~~
-- ~~will have to add a completion date to each Test document~~ DONE - used createdAt instead since it is not critical
-- since previous Tests are browseable and we will display whether each question is flagged or not, we will have to update the isFlagged status of each question in a Test document. Probably the best time to update the isFlagged status for an old Test document is when the user requests to view/browse the Test.
-- since the user can flag/unflag questions while browsing old tests, the code for front and back end to flag/unflag questions will have to be updated.
+- add other types of tests, eg mock test of 40 questions
+- graphs look okay but still need some attention in terms of styling
+- handle filtering to show different graphs (practice, mock, category)
+- Read questions functionality
+- practice by category functionality

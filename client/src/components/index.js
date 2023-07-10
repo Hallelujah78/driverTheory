@@ -21,6 +21,7 @@ import Unauthorized from "./Unauthorized.js";
 import OverviewListItem from "./OverviewListItem.js";
 import TestListItem from "./TestListItem.js";
 import PreviousTestButtons from "./PrevTestButtons.js";
+import CustomTooltip from "./CustomTooltip.js";
 export {
   ModalAlert,
   Loading,
@@ -45,4 +46,5 @@ export {
   OverviewListItem,
   TestListItem,
   PreviousTestButtons,
+  CustomTooltip,
 };
