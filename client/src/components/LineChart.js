@@ -1,3 +1,4 @@
+import styled from "styled-components";
 import {
   LineChart as Chart,
   Line,
@@ -31,13 +32,13 @@ const CustomizedAxisTick = (props) => {
 const LineChart = ({ data }) => {
   return (
     <ResponsiveContainer
-      width={data.length <= 8 ? "100%" : `${(data.length / 8) * 12.5}%`}
-      height="95%"
+      width={data.length <= 8 ? "100%" : `${data.length * 12.5}%`}
+      height="90%"
     >
       <Chart
         margin={{
-          top: 0,
-          right: 0,
+          top: 20,
+          right: 100,
         }}
         data={data}
       >
@@ -59,3 +60,5 @@ const LineChart = ({ data }) => {
   );
 };
 export default LineChart;
+
+const Wrapper = styled.div``;
