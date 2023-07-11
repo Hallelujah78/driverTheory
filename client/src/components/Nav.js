@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { TbCircleLetterX } from "react-icons/tb";
 import { useLocation } from "react-router-dom";
 
-const StatsNav = ({ handleExit }) => {
+const Nav = ({ handleExit }) => {
   const location = useLocation();
   return (
     <Wrapper>
@@ -14,6 +14,8 @@ const StatsNav = ({ handleExit }) => {
               ? "Previous Results"
               : location.pathname === "/stats/graphs"
               ? "Test Results Graph"
+              : location.pathname === "/read"
+              ? "Read the Questions"
               : "Results"}
           </h3>
         </div>
@@ -68,4 +70,4 @@ const Wrapper = styled.nav`
     box-shadow: var(--shadow-2);
   }
 `;
-export default StatsNav;
+export default Nav;

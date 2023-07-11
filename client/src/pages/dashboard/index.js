@@ -5,10 +5,10 @@ import SharedLayout from "./SharedLayout.js";
 import Stats from "./Stats.js";
 import ProtectedRoute from "../ProtectedRoute.js";
 import Practice from "./Practice.js";
-import StatsNav from "../../components/StatsNav.js";
+import Nav from "../../components/Nav.js";
 
 export {
-  StatsNav,
+  Nav,
   AddQuestion,
   AllJobs,
   Profile,

@@ -12,13 +12,13 @@ const initialState = {
   buttonText2: "continue",
 };
 
-const AggResultsSharedLayout = () => {
+const PracticeSharedLayout = () => {
   const navigate = useNavigate();
   const { modalAlert, exitTest, setModalState } = useAppContext();
   const [values, setValues] = useState(initialState);
 
   const handleExit = () => {
-    navigate("/stats");
+    navigate("/");
   };
 
   const handleClickOne = () => {
@@ -47,7 +47,7 @@ const AggResultsSharedLayout = () => {
   );
 };
 
-export default AggResultsSharedLayout;
+export default PracticeSharedLayout;
 
 const Wrapper = styled.section`
   margin-top: var(--nav-height);

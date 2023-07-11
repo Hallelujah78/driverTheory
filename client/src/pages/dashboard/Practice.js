@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useAppContext } from "../../context/appContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { Loading } from "../../components/index.js";
 
 const PracticePaper = () => {
@@ -19,11 +19,15 @@ const PracticePaper = () => {
     <Wrapper>
       <h3>Practice</h3>
       <div className="button-container">
-        <button className="btn btn-block">Read the questions</button>
+        <Link to="/read" className="btn btn-block">
+          Read the questions
+        </Link>
         <button onClick={() => handleClick()} className="btn btn-block">
           Randomized practice paper
         </button>
-        <button className="btn btn-block">Practice by category</button>
+        <Link to="/category-practice" className="btn btn-block">
+          Practice by category
+        </Link>
       </div>
     </Wrapper>
   );
@@ -38,6 +42,7 @@ const Wrapper = styled.section`
   box-shadow: var(--shadow-2);
   .btn {
     margin-top: 2rem;
+    text-align: center;
   }
   @media (min-width: 992px) {
     .btn {
@@ -48,5 +53,9 @@ const Wrapper = styled.section`
       display: grid;
       grid-template-columns: 1fr;
     }
+  }
+  a {
+    margin: auto;
+    line-height: normal;
   }
 `;
