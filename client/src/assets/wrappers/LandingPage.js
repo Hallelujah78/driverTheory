@@ -23,6 +23,9 @@ const Wrapper = styled.main`
   }
   p {
     color: var(--grey-600);
+    font-size: 0.75rem;
+
+    margin-top: 5rem;
   }
   .main-img {
     display: none;
