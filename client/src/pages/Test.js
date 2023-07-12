@@ -28,6 +28,7 @@ const Test = () => {
   } = useAppContext();
   const [values, setValues] = useState(initialState);
   const testId = useParams().testId;
+  const category = useParams().category;
 
   const handleExit = () => {
     if (testId) {
@@ -57,13 +58,17 @@ const Test = () => {
   };
 
   useEffect(() => {
-    if (!test && !creatingTest && !testId) {
+    if (!test && !creatingTest && !testId && !category) {
       getTest();
     }
     if (testId) {
       getTest(testId);
     }
-  }, [testId]);
+    if (category) {
+      console.log("getting all questions by category");
+      getTest(); // temporary - new get request for questions by category
+    }
+  }, [testId, category]);
 
   if (testLoading || isLoading) {
     return (

@@ -105,6 +105,7 @@ function App() {
             path="category-practice"
             element={<CategoryPractice />}
           ></Route>
+          <Route path="read/:category" element={<Test />}></Route>
         </Route>
 
         <Route path="/register" element={<Register />} />
