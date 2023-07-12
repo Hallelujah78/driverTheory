@@ -108,3 +108,8 @@ export const TOGGLE_IS_FLAGGED = "TOGGLE_IS_FLAGGED";
 
 // set current question
 export const SET_CURRENT_QUESTION = "SET_CURRENT_QUESTION";
+
+// get questions for reading functionality
+export const GET_QUESTIONS_READ_BEGIN = "GET_QUESTIONS_READ_BEGIN";
+export const GET_QUESTIONS_READ_ERROR = "GET_QUESTIONS_READ_ERROR";
+export const GET_QUESTIONS_READ_SUCCESS = "GET_QUESTIONS_READ_SUCCESS";

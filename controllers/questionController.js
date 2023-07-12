@@ -4,6 +4,8 @@ import * as CustomError from "../errors/index.js";
 import User from "../models/User.js";
 import mongoose from "mongoose";
 import moment from "moment";
+import UserQuestionData from "../models/UserQuestionData.js";
+import { findUserQuestion } from "../utils/userQuestionData.js";
 
 const createQuestion = async (req, res) => {
   const user = await User.findOne({ _id: req.user.userId });
@@ -181,6 +183,45 @@ const getTestQuestions = async (req, res) => {
   res.status(StatusCodes.OK).json({ testQuestions });
 };
 
+const getQuestionsRead = async (req, res) => {
+  const { category } = req.params;
+  let questions;
+  if (category === "all") {
+    questions = await Question.find({});
+  } else {
+    questions = await Question.find({
+      category: { $regex: category, $options: "i" },
+    });
+  }
+  const userQuestionData = await UserQuestionData.findOne({
+    user: req.user.userId,
+  });
+
+  let tempQuestions = [];
+
+  for (let question of questions) {
+    let tempQuestion = { question };
+
+    const updateItem = findUserQuestion({
+      id: question._id.toString(),
+      userQuestionData,
+    });
+
+    if (!updateItem) {
+      const userQuestion = { question: question._id };
+      userQuestionData.questions.push(userQuestion);
+      await userQuestionData.save();
+    }
+
+    tempQuestion.isFlagged = updateItem.isFlagged;
+
+    tempQuestions.push(tempQuestion);
+  }
+  questions = [...tempQuestions];
+
+  res.status(StatusCodes.OK).json({ questions });
+};
+
 export {
   getTestQuestions,
   getAllQuestions,
@@ -188,4 +229,5 @@ export {
   deleteQuestion,
   updateQuestion,
   createQuestion,
+  getQuestionsRead,
 };

@@ -56,14 +56,15 @@ const TestFooter = () => {
               test={test}
             />
           ) : null}
-          {location.pathname.includes("/stats/previous-tests/") && (
+          {location.pathname.includes("/stats/previous-tests/") ||
+          location.pathname.includes("/read/") ? (
             <PreviousTestButtons
               isComplete={isComplete}
               handleClick={handleClick}
               currentQuestion={currentQuestion}
               test={test}
             />
-          )}
+          ) : null}
         </div>
       </div>
     </Wrapper>

@@ -6,7 +6,7 @@ const Question = () => {
   const { test, currentQuestion, submitAnswer, selectAnswer } = useAppContext();
 
   const {
-    question: { imageURL, questionText, answers },
+    question: { questionText, answers, imageURL },
   } = test?.[currentQuestion] ?? {};
 
   const handleClick = (e) => {

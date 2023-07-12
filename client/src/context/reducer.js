@@ -52,6 +52,9 @@ import {
   GET_JOBS_BEGIN,
   GET_JOBS_SUCCESS,
   SET_CURRENT_QUESTION,
+  GET_QUESTIONS_READ_BEGIN,
+  GET_QUESTIONS_READ_ERROR,
+  GET_QUESTIONS_READ_SUCCESS,
 } from "./actions";
 
 const reducer = (state, action) => {
@@ -486,6 +489,39 @@ const reducer = (state, action) => {
       currentQuestion: action.payload.index,
     };
   }
+
+  if (action.type === GET_QUESTIONS_READ_BEGIN) {
+    return {
+      ...state,
+      isLoading: true,
+      //  creatingTest: true,
+      //  testLoading: true,
+      test: null,
+      results: null,
+      //  isComplete: false,
+    };
+  }
+  if (action.type === GET_QUESTIONS_READ_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false,
+      creatingTest: false,
+      testLoading: false,
+      test: action.payload.questions,
+      results: null,
+    };
+  }
+  if (action.type === GET_QUESTIONS_READ_ERROR) {
+    return {
+      ...state,
+      isLoading: false,
+      creatingTest: false,
+      testLoading: false,
+      test: null,
+      results: null,
+    };
+  }
+
   throw new Error(`no such action: ${action.type}`);
 };
 

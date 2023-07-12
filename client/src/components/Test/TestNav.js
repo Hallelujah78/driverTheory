@@ -1,25 +1,30 @@
 import styled from "styled-components";
-import { useLocation, useNavigate } from "react-router";
+import { useLocation } from "react-router";
 import { TbCircleLetterX } from "react-icons/tb";
 
 import { useAppContext } from "../../context/appContext.js";
 
 const TestNav = ({ handleExit }) => {
   const location = useLocation();
-  const { currentQuestion } = useAppContext();
+  const { currentQuestion, test } = useAppContext();
 
   return (
     <Wrapper>
       <div className="nav-center">
         <div className="container">
           <TbCircleLetterX className="exit" onClick={() => handleExit()} />
-          <h3>Practice Paper</h3>
+          {location.pathname === "/randomized-practice" ? (
+            <h3>Practice Paper</h3>
+          ) : (
+            <h3>Read Questions</h3>
+          )}
 
-          {location.pathname === "/randomized-practice" && (
+          {location.pathname === "/randomized-practice" ||
+          location.pathname.includes("/read/") ? (
             <h3>
               Q<span> {currentQuestion + 1}</span>
             </h3>
-          )}
+          ) : null}
         </div>
       </div>
     </Wrapper>

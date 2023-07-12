@@ -52,6 +52,9 @@ import {
   GET_TEST_QUESTIONS_SUCCESS,
   GET_TEST_QUESTIONS_ERROR,
   SET_CURRENT_QUESTION,
+  GET_QUESTIONS_READ_BEGIN,
+  GET_QUESTIONS_READ_ERROR,
+  GET_QUESTIONS_READ_SUCCESS,
 } from "./actions";
 
 const initialState = {
@@ -559,7 +562,7 @@ const AppProvider = ({ children }) => {
     state.test[state.currentQuestion].isFlagged =
       !state.test[state.currentQuestion].isFlagged;
     const flag = state.test[state.currentQuestion].isFlagged;
-    console.log(testId);
+
     // then we update the test and the UserQuestionData on the backend
     try {
       const { data } = await authFetch.patch("/test/flagged", {
@@ -578,6 +581,27 @@ const AppProvider = ({ children }) => {
       type: SET_CURRENT_QUESTION,
       payload: { index },
     });
+  };
+
+  const getQuestionsRead = async (category) => {
+    dispatch({
+      type: GET_QUESTIONS_READ_BEGIN,
+    });
+    const url = `/questions/read/${category}`;
+    try {
+      const { data } = await authFetch.get(url);
+      const { questions } = data;
+      dispatch({
+        type: GET_QUESTIONS_READ_SUCCESS,
+        payload: { questions },
+      });
+    } catch (error) {
+      dispatch({
+        type: GET_QUESTIONS_READ_ERROR,
+      });
+      console.log("GET_QUESTION_READ_ERROR");
+      console.log(error.response.data.msg);
+    }
   };
 
   useEffect(
@@ -620,6 +644,7 @@ const AppProvider = ({ children }) => {
         createNewTest,
         toggleIsFlagged,
         authFetch,
+        getQuestionsRead,
       }}
     >
       {children}

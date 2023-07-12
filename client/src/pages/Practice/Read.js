@@ -43,11 +43,11 @@ const Wrapper = styled.section`
     width: 90vw;
     display: grid;
     place-content: center;
-    border: 1px red solid;
     height: calc(100vh - var(--nav-height) * 2 - 2rem);
   }
   a {
     margin-top: 2rem;
     max-width: 40vw;
+    line-height: normal;
   }
 `;

@@ -25,6 +25,7 @@ const Test = () => {
     getTest,
     testLoading,
     setModalState,
+    getQuestionsRead,
   } = useAppContext();
   const [values, setValues] = useState(initialState);
   const testId = useParams().testId;
@@ -65,8 +66,7 @@ const Test = () => {
       getTest(testId);
     }
     if (category) {
-      console.log("getting all questions by category");
-      getTest(); // temporary - new get request for questions by category
+      getQuestionsRead(category);
     }
   }, [testId, category]);
 
