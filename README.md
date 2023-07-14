@@ -33,8 +33,8 @@ To Do for current DriveL driver theory MCQ app:
 - add other types of tests, eg mock test of 40 questions
 - graphs look okay but still need some attention in terms of styling
 - handle filtering to show different graphs (practice, mock, category)
-- Read questions functionality
+- ~~Read questions functionality~~ DONE
 - practice by category functionality
 - ~~deploy to paid render instance~~ DONE
-- toggle flagged status while reading questions
+- ~~toggle flagged status while reading questions~~ DONE
 - modal alert message when exiting reading questions

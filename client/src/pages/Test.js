@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import TestNav from "../components/Test/TestNav.js";
 import TestFooter from "../components/Test/TestFooter.js";
@@ -14,6 +14,7 @@ const initialState = {
 };
 
 const Test = () => {
+  const location = useLocation();
   const navigate = useNavigate();
   const {
     isComplete,
@@ -35,6 +36,11 @@ const Test = () => {
     if (testId) {
       exitTest();
       navigate("/stats/previous-tests");
+      return;
+    }
+    if (location.pathname.includes("/read/")) {
+      navigate("/read");
+
       return;
     }
     if (isComplete) {
