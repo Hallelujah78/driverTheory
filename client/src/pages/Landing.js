@@ -26,10 +26,11 @@ const Landing = () => {
               login/register
             </Link>
             <p>
-              Please note this app only contains a small number of questions and
-              is for demonstration purposes only. If you intend sitting your
-              driver theory test, you should practice using the official driver
-              theory test mobile app from the Road Safety Authority.
+              Please note this app contains a small number of questions and is
+              for demonstration purposes only. If you intend sitting your driver
+              theory test, you should practice using the official driver theory
+              test mobile app and the Rules of the Road from the Road Safety
+              Authority.
             </p>
           </div>
           <img src={main} alt="job hunt" className="img main-img" />

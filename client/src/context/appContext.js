@@ -561,8 +561,7 @@ const AppProvider = ({ children }) => {
     // we update the context
     state.test[state.currentQuestion].isFlagged =
       !state.test[state.currentQuestion].isFlagged;
-    const flag = state.test[state.currentQuestion].isFlagged;
-
+    dispatch({ type: TOGGLE_IS_FLAGGED });
     // then we update the test and the UserQuestionData on the backend
     try {
       const { data } = await authFetch.patch("/test/flagged", {
@@ -572,7 +571,7 @@ const AppProvider = ({ children }) => {
       dispatch({ type: TOGGLE_IS_FLAGGED });
     } catch (error) {
       console.log("TOGGLE_IS_FLAGGED_ERROR");
-      console.log(error);
+      console.log(error.response.data.msg);
     }
   };
 

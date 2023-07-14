@@ -31,6 +31,7 @@ const TestFooter = () => {
     }
     if (e.currentTarget.classList.contains("flag")) {
       const questionId = test[currentQuestion].question._id;
+      console.log(questionId);
       toggleIsFlagged(questionId, testId);
     }
   };

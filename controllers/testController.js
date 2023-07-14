@@ -248,12 +248,15 @@ const toggleFlagged = async (req, res) => {
     });
   }
 
-  const updateItem = test.questions.find((item) => {
-    return questionId === item.question._id.toString();
-  });
-  updateItem.isFlagged = !updateItem.isFlagged;
-  await test.save();
+  if (test) {
+    const updateItem = test.questions.find((item) => {
+      return questionId === item.question._id.toString();
+    });
+    updateItem.isFlagged = !updateItem.isFlagged;
+    await test.save();
+  }
 
+  // update the user's question data
   const userQuestionData = await UserQuestionData.findOne({
     user: req.user.userId,
   });
@@ -266,7 +269,7 @@ const toggleFlagged = async (req, res) => {
   });
   userQuestionToUpdate.isFlagged = !userQuestionToUpdate.isFlagged;
   await userQuestionData.save();
-
+  // send the test back regardless
   res.status(StatusCodes.OK).json({ test });
 };
 
