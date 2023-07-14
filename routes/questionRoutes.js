@@ -9,6 +9,7 @@ import {
   createQuestion,
   showStats,
   getTestQuestions,
+  getCategoryLength,
 } from "../controllers/questionController.js";
 
 const router = express.Router();
@@ -18,11 +19,11 @@ router
   .get(authenticateUser, getAllQuestions)
   .post(authenticateUser, testUser, createQuestion);
 router.route("/stats").get(authenticateUser, showStats);
-
+router.route("/read/:category").get(authenticateUser, getQuestionsRead);
+router.route("/practice/:category").get(authenticateUser, getCategoryLength);
 router
   .route("/:id")
   .delete(authenticateUser, testUser, deleteQuestion)
   .patch(authenticateUser, testUser, updateQuestion);
 
-router.route("/read/:category").get(authenticateUser, getQuestionsRead);
 export default router;

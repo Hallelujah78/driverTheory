@@ -183,6 +183,15 @@ const getTestQuestions = async (req, res) => {
   res.status(StatusCodes.OK).json({ testQuestions });
 };
 
+const getCategoryLength = async (req, res) => {
+  const { category } = req.params;
+  const numOfQuestions = await Question.find({
+    category: { $regex: category, $options: "i" },
+  }).countDocuments();
+
+  res.status(StatusCodes.OK).json({ numOfQuestions });
+};
+
 const getQuestionsRead = async (req, res) => {
   const { category } = req.params;
   let questions;
@@ -230,4 +239,5 @@ export {
   updateQuestion,
   createQuestion,
   getQuestionsRead,
+  getCategoryLength,
 };
