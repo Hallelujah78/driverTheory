@@ -28,7 +28,7 @@ const CategoryPractice = () => {
 
   return (
     <Wrapper className="full-page">
-      <div className="category">
+      <div className="category-center">
         <div className="category-container" onClick={(e) => handleClick(e)}>
           <button id="control" className="btn btn-block category-btn">
             Control of Vehicle
@@ -47,6 +47,19 @@ const CategoryPractice = () => {
           </button>
         </div>
       </div>
+      {numOfQuestions ? (
+        <div className="question-selector">
+          <h5>Choose Number of Questions</h5>
+          <h4>{numOfQuestions}</h4>
+          <div className="input-container">
+            <button>-</button>
+            <input type="range" value={numOfQuestions} />
+            <button>+</button>
+          </div>
+          <button className="btn btn-block">Start Test</button>
+        </div>
+      ) : null}
+
       <div className="filler"></div>
     </Wrapper>
   );
@@ -55,11 +68,10 @@ export default CategoryPractice;
 
 const Wrapper = styled.section`
   display: grid;
-
-  .category {
+  grid-template-rows: 1fr 1fr;
+  .category-center {
     display: grid;
     max-width: 90vw;
-    max-height: 75%;
     margin: 0 auto;
     margin-top: 1.5rem;
   }
@@ -74,5 +86,16 @@ const Wrapper = styled.section`
     background-color: #f9f9f9f9;
     color: var(--primary-500);
     border: 1px solid var(--primary-500);
+  }
+  .question-selector {
+    max-width: 90vw;
+    margin: 0 auto;
+    margin-top: 2rem;
+    text-align: center;
+  }
+  .input-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 3rem;
   }
 `;

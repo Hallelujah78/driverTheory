@@ -12,7 +12,7 @@ const Read = () => {
           <Link className="btn btn-block" to="/read/control">
             Control of Vehicle
           </Link>
-          <Link className="btn btn-block" to="/read/rules">
+          <Link className="btn btn-block" to="/read/legal">
             Legal Matters/Rules of the Road
           </Link>
           <Link className="btn btn-block" to="/read/risk">
