@@ -37,4 +37,4 @@ To Do for current DriveL driver theory MCQ app:
 - practice by category functionality
 - ~~deploy to paid render instance~~ DONE
 - ~~toggle flagged status while reading questions~~ DONE
-- modal alert message when exiting reading questions
+- ~~modal alert message when exiting reading questions~~ DONE

@@ -213,7 +213,7 @@ const getQuestionsRead = async (req, res) => {
       await userQuestionData.save();
     }
 
-    tempQuestion.isFlagged = updateItem.isFlagged;
+    tempQuestion.isFlagged = updateItem?.isFlagged || false;
 
     tempQuestions.push(tempQuestion);
   }
