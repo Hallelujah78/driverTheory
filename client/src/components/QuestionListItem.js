@@ -39,6 +39,7 @@ const Wrapper = styled.div`
     margin: auto 0 auto 1rem;
     font-size: 1.5rem;
   }
+
   span {
     display: grid;
     place-content: center;
