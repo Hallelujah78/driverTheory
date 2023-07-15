@@ -1,20 +1,46 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { useAppContext } from "../../context/appContext";
+import { useNavigate } from "react-router-dom";
 
 const CategoryPractice = () => {
+  const navigate = useNavigate();
   const { authFetch } = useAppContext();
-  const [category, setCategory] = useState(null);
+  const [questionCategory, setQuestionCategory] = useState(null);
   const [numOfQuestions, setNumOfQuestions] = useState(null);
+  const [numTestQuestions, setNumTestQuestions] = useState(null);
+  const { createNewTest } = useAppContext();
 
   const getCategoryLength = async () => {
-    const { data } = await authFetch.get(`/questions/practice/${category}`);
+    const { data } = await authFetch.get(
+      `/questions/practice/${questionCategory}`
+    );
     setNumOfQuestions(data.numOfQuestions);
+    setNumTestQuestions(data.numOfQuestions);
+  };
+
+  const onChange = (e) => {
+    e.preventDefault();
+    setNumTestQuestions(e.target.value);
+  };
+
+  const onClick = (e) => {
+    if (e.target.id === "increase" && numTestQuestions < numOfQuestions) {
+      setNumTestQuestions(numTestQuestions + 1);
+    }
+    if (e.target.id === "decrease" && numTestQuestions > 1) {
+      setNumTestQuestions(numTestQuestions - 1);
+    }
+    if (e.target.id === "start") {
+      console.log(typeof numTestQuestions);
+      createNewTest("category practice", questionCategory, numTestQuestions);
+      navigate("/category-practice/test");
+    }
   };
 
   useEffect(() => {
     getCategoryLength();
-  }, [category]);
+  }, [questionCategory]);
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -23,7 +49,9 @@ const CategoryPractice = () => {
       button.classList.remove("active");
     });
     e.target.classList.add("active");
-    setCategory(e.target.id);
+    if (e.target.id) {
+      setQuestionCategory(e.target.id);
+    }
   };
 
   return (
@@ -48,15 +76,23 @@ const CategoryPractice = () => {
         </div>
       </div>
       {numOfQuestions ? (
-        <div className="question-selector">
+        <div onClick={(e) => onClick(e)} className="question-selector">
           <h5>Choose Number of Questions</h5>
-          <h4>{numOfQuestions}</h4>
+          <h4>{numTestQuestions}</h4>
           <div className="input-container">
-            <button>-</button>
-            <input type="range" value={numOfQuestions} />
-            <button>+</button>
+            <button id="decrease">-</button>
+            <input
+              type="range"
+              min="1"
+              max={numOfQuestions}
+              value={numTestQuestions}
+              onChange={(e) => onChange(e)}
+            />
+            <button id="increase">+</button>
           </div>
-          <button className="btn btn-block">Start Test</button>
+          <button id="start" className="btn btn-block">
+            Start Test
+          </button>
         </div>
       ) : null}
 

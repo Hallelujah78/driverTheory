@@ -38,3 +38,4 @@ To Do for current DriveL driver theory MCQ app:
 - ~~deploy to paid render instance~~ DONE
 - ~~toggle flagged status while reading questions~~ DONE
 - ~~modal alert message when exiting reading questions~~ DONE
+- Fix: when there are few questions in a test, the question list displays them too far apart (probably space-evenly is set)

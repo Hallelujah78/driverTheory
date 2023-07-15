@@ -29,11 +29,11 @@ const setIsResult = async (user) => {
 const createTest = async (req, res) => {
   const user = req.user.userId;
   setIsResult(user);
-  const { testCategory: category, numQuestions } = req.body;
+  const { testCategory: category, numTestQuestions } = req.body;
   if (!category) {
     throw new CustomError.BadRequestError("please provide the test category");
   }
-  const testQuestions = await Question.find({}).limit(10);
+  const testQuestions = await Question.find({}).limit(numTestQuestions);
   const userQuestionData = await UserQuestionData.findOne({
     user: req.user.userId,
   });

@@ -424,8 +424,13 @@ const AppProvider = ({ children }) => {
     }
   };
 
-  const createNewTest = async (testCategory, numQuestions) => {
+  const createNewTest = async (
+    testCategory,
+    questionCategory,
+    numQuestions
+  ) => {
     dispatch({ type: GET_TEST_QUESTIONS_BEGIN });
+    console.log(testCategory);
     try {
       const { data } = await authFetch.post("/test", {
         testCategory,

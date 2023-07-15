@@ -15,12 +15,8 @@ const TestNav = ({ handleExit }) => {
           <TbCircleLetterX className="exit" onClick={() => handleExit()} />
           {location.pathname === "/randomized-practice" ? (
             <h3>Practice Paper</h3>
-          ) : (
-            <h3>Read Questions</h3>
-          )}
-
-          {location.pathname === "/randomized-practice" ||
-          location.pathname.includes("/read/") ? (
+          ) : location.pathname === "/randomized-practice" ||
+            location.pathname.includes("/read/") ? (
             <h3>
               Q<span> {currentQuestion + 1}</span>
             </h3>

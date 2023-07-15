@@ -51,13 +51,11 @@ export default QuestionList;
 
 const Wrapper = styled.section`
   height: 100vh;
-
   width: 90vw;
   margin-top: calc(var(--nav-height) + 2rem);
   margin-left: auto;
   margin-right: auto;
-  display: grid;
-  grid-template-columns: 1fr;
+
   .whitespace {
     height: 10rem;
   }

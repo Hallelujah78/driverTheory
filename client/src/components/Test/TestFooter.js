@@ -13,7 +13,7 @@ const TestFooter = () => {
     toggleIsFlagged,
   } = useAppContext();
   const testId = useParams().testId;
-  const location = useLocation();
+  const locationPathname = useLocation().pathname;
 
   const handleClick = (e) => {
     if (!test || !test.length) {
@@ -40,25 +40,24 @@ const TestFooter = () => {
     <Wrapper>
       <div className="footer-center">
         <div className="button-container">
-          {location.pathname === "/randomized-practice" && (
+          {locationPathname === "/randomized-practice" ||
+          locationPathname === "/category-practice/test" ? (
             <TestButtons
               isComplete={isComplete}
               handleClick={handleClick}
               currentQuestion={currentQuestion}
               test={test}
             />
-          )}
-          {location.pathname === "/results" ||
-          location.pathname === "/results/question-list" ? (
+          ) : locationPathname === "/results" ||
+            locationPathname === "/results/question-list" ? (
             <ResultsButtons
               isComplete={isComplete}
               handleClick={handleClick}
               currentQuestion={currentQuestion}
               test={test}
             />
-          ) : null}
-          {location.pathname.includes("/stats/previous-tests/") ||
-          location.pathname.includes("/read/") ? (
+          ) : locationPathname.includes("/stats/previous-tests/") ||
+            locationPathname.includes("/read/") ? (
             <PreviousTestButtons
               isComplete={isComplete}
               handleClick={handleClick}

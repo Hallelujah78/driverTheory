@@ -39,15 +39,18 @@ const Wrapper = styled.section`
 
   .read-container {
     text-align: center;
-    margin: 1rem;
     width: 90vw;
     display: grid;
     place-content: center;
-    height: calc(100vh - var(--nav-height) * 2 - 2rem);
+    height: calc(100vh - var(--nav-height) * 2 - 5rem);
+    margin-bottom: 5rem;
   }
   a {
-    margin-top: 2rem;
-    max-width: 40vw;
+    margin-top: 1.75rem;
+    max-width: 85vw;
     line-height: normal;
+  }
+  .filler {
+    height: var(--nav-height);
   }
 `;
