@@ -16,12 +16,12 @@ const CategoryPractice = () => {
       `/questions/practice/${questionCategory}`
     );
     setNumOfQuestions(data.numOfQuestions);
-    setNumTestQuestions(data.numOfQuestions);
+    setNumTestQuestions(Number(data.numOfQuestions));
   };
 
   const onChange = (e) => {
     e.preventDefault();
-    setNumTestQuestions(e.target.value);
+    setNumTestQuestions(Number(e.target.value));
   };
 
   const onClick = (e) => {
@@ -32,14 +32,16 @@ const CategoryPractice = () => {
       setNumTestQuestions(numTestQuestions - 1);
     }
     if (e.target.id === "start") {
-      console.log(typeof numTestQuestions);
+      console.log(numTestQuestions);
       createNewTest("category practice", questionCategory, numTestQuestions);
       navigate("/category-practice/test");
     }
   };
 
   useEffect(() => {
-    getCategoryLength();
+    if (questionCategory) {
+      getCategoryLength();
+    }
   }, [questionCategory]);
 
   const handleClick = (e) => {

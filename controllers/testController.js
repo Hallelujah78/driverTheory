@@ -29,11 +29,36 @@ const setIsResult = async (user) => {
 const createTest = async (req, res) => {
   const user = req.user.userId;
   setIsResult(user);
-  const { testCategory: category, numTestQuestions } = req.body;
-  if (!category) {
+  const { testCategory, questionCategory, numTestQuestions } = req.body;
+
+  if (!testCategory) {
     throw new CustomError.BadRequestError("please provide the test category");
   }
-  const testQuestions = await Question.find({}).limit(numTestQuestions);
+
+  // types of tests we want to create
+  // 1 "practice" = 20 random questions
+  //    1 control, 5 legal, 2 risk, 11 safe, 1 technical
+  // 2 "official test" = 40 random questions
+  // 3 "category practice" = user input num questions
+  //        3a) user input the questionCategory
+  // 4 "problem questions" = user input num questions
+  // 5 "least seen" = user input num
+
+  // easiest tests to create
+  // flagged questions
+  // category practice - done
+  let testQuestions;
+  if (questionCategory) {
+    testQuestions = await Question.aggregate([
+      { $match: { category: { $regex: questionCategory, $options: "i" } } },
+    ]).sample(numTestQuestions);
+  }
+
+  if (testCategory === "practice") {
+    console.log("test cat is practice");
+    testQuestions = await Question.aggregate([]).sample(20);
+  }
+
   const userQuestionData = await UserQuestionData.findOne({
     user: req.user.userId,
   });
@@ -69,7 +94,7 @@ const createTest = async (req, res) => {
   const test = await Test.create({
     user,
     questions,
-    category,
+    category: testCategory,
   });
 
   res.status(StatusCodes.CREATED).json({ test });

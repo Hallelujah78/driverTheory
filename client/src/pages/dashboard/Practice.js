@@ -8,7 +8,7 @@ const PracticePaper = () => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    createNewTest("practice", 20);
+    createNewTest("practice", null, 20);
     navigate("/randomized-practice");
   };
 
