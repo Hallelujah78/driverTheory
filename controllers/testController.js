@@ -41,11 +41,11 @@ const createTest = async (req, res) => {
   // 2 "official test" = 40 random questions - done
   // 3 "category practice" = user input num questions
   //        3a) user input the questionCategory - done
-  // 4 "problem questions" = user input num questions
+  // 4 "problem questions" = user input num questions - Done
   // 5 "least seen" = user input num
 
   // easiest tests to create
-  // flagged questions
+  // flagged questions - Done
   // category practice - done
   let testQuestions;
   if (questionCategory) {
@@ -78,21 +78,29 @@ const createTest = async (req, res) => {
       ...safeQuestions,
       ...technicalQuestions,
     ];
-    console.log(testQuestions);
   }
 
-  if (testCategory === "problem questions") {
-    const flaggedQuestions = await UserQuestionData.aggregate([
+  if (
+    testCategory === "problem questions" ||
+    testCategory === "flagged questions"
+  ) {
+    let query;
+    testCategory === "problem questions"
+      ? (query = "$lastAnswerCorrect")
+      : (query = "$isFlagged");
+    let tempQuestions = await UserQuestionData.aggregate([
       { $match: { user: new mongoose.Types.ObjectId(req.user.userId) } },
       { $unwind: "$questions" },
       { $replaceRoot: { newRoot: "$questions" } },
-      { $match: { $expr: { $eq: ["$isFlagged", true] } } },
+      { $match: { $expr: { $eq: [query, false] } } },
       { $project: { question: 1, _id: 0 } },
-    ]).sample(4);
-    console.log(testQuestions);
+    ]).sample(numTestQuestions);
+    tempQuestions = tempQuestions.map((item) => item.question.toString());
+    testQuestions = await Question.find({ _id: { $in: tempQuestions } });
   }
 
   if (testCategory === "least seen") {
+    // numTimesAnswered sort ascending
   }
 
   const userQuestionData = await UserQuestionData.findOne({

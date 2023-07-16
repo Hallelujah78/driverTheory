@@ -23,6 +23,7 @@ const TestSchema = new mongoose.Schema(
         "problem questions",
         "least seen",
         "category practice",
+        "flagged questions",
       ],
     },
     questions: {
