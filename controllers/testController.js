@@ -36,11 +36,11 @@ const createTest = async (req, res) => {
   }
 
   // types of tests we want to create
-  // 1 "practice" = 20 random questions
+  // 1 "practice" = 20 random questions - done
   //    1 control, 5 legal, 2 risk, 11 safe, 1 technical
-  // 2 "official test" = 40 random questions
+  // 2 "official test" = 40 random questions - done
   // 3 "category practice" = user input num questions
-  //        3a) user input the questionCategory
+  //        3a) user input the questionCategory - done
   // 4 "problem questions" = user input num questions
   // 5 "least seen" = user input num
 
@@ -54,9 +54,45 @@ const createTest = async (req, res) => {
     ]).sample(numTestQuestions);
   }
 
-  if (testCategory === "practice") {
-    console.log("test cat is practice");
-    testQuestions = await Question.aggregate([]).sample(20);
+  if (testCategory === "practice" || testCategory === "official test") {
+    const isPractice = testCategory === "practice";
+    const controlQuestions = await Question.aggregate([
+      { $match: { category: { $regex: "control", $options: "i" } } },
+    ]).sample(isPractice ? 1 : 2);
+    const legalQuestions = await Question.aggregate([
+      { $match: { category: { $regex: "legal", $options: "i" } } },
+    ]).sample(isPractice ? 5 : 10);
+    const riskQuestions = await Question.aggregate([
+      { $match: { category: { $regex: "risk", $options: "i" } } },
+    ]).sample(isPractice ? 2 : 4);
+    const safeQuestions = await Question.aggregate([
+      { $match: { category: { $regex: "safe", $options: "i" } } },
+    ]).sample(isPractice ? 11 : 22);
+    const technicalQuestions = await Question.aggregate([
+      { $match: { category: { $regex: "technical", $options: "i" } } },
+    ]).sample(isPractice ? 1 : 2);
+    testQuestions = [
+      ...riskQuestions,
+      ...controlQuestions,
+      ...legalQuestions,
+      ...safeQuestions,
+      ...technicalQuestions,
+    ];
+    console.log(testQuestions);
+  }
+
+  if (testCategory === "problem questions") {
+    const flaggedQuestions = await UserQuestionData.aggregate([
+      { $match: { user: new mongoose.Types.ObjectId(req.user.userId) } },
+      { $unwind: "$questions" },
+      { $replaceRoot: { newRoot: "$questions" } },
+      { $match: { $expr: { $eq: ["$isFlagged", true] } } },
+      { $project: { question: 1, _id: 0 } },
+    ]).sample(4);
+    console.log(testQuestions);
+  }
+
+  if (testCategory === "least seen") {
   }
 
   const userQuestionData = await UserQuestionData.findOne({
