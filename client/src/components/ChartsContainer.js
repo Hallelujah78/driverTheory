@@ -10,8 +10,13 @@ const ChartsContainer = () => {
   const { authFetch } = useAppContext();
 
   const getStats = async () => {
-    const { data } = await authFetch.get("/test/showStats");
-    setData(data.stats);
+    try {
+      const { data } = await authFetch.get("/test/showStats");
+      setData(data.stats);
+    } catch (error) {
+      console.log("GET_STATS_ERROR");
+      console.log(error.response.data.msg);
+    }
   };
 
   useEffect(() => {
@@ -29,7 +34,7 @@ const ChartsContainer = () => {
     );
   }
 
-  if (!isLoading && !data.length) {
+  if (!isLoading && !data) {
     return (
       <Wrapper>
         <NoData

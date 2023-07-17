@@ -383,22 +383,22 @@ const AppProvider = ({ children }) => {
     clearAlert();
   };
 
-  const showStats = async () => {
-    dispatch({ type: SHOW_STATS_BEGIN });
-    try {
-      const { data } = await authFetch.get("/questions/stats");
-      dispatch({
-        type: SHOW_STATS_SUCCESS,
-        payload: {
-          stats: data.defaultStats,
-          monthlyApplications: data.monthlyApplications,
-        },
-      });
-    } catch (error) {
-      console.log("SHOW_STATS_ERROR");
-    }
-    clearAlert();
-  };
+  // const showStats = async () => {
+  //   dispatch({ type: SHOW_STATS_BEGIN });
+  //   try {
+  //     const { data } = await authFetch.get("/questions/stats");
+  //     dispatch({
+  //       type: SHOW_STATS_SUCCESS,
+  //       payload: {
+  //         stats: data.defaultStats,
+  //         monthlyApplications: data.monthlyApplications,
+  //       },
+  //     });
+  //   } catch (error) {
+  //     console.log("SHOW_STATS_ERROR");
+  //   }
+  //   clearAlert();
+  // };
 
   const clearFilters = () => {
     dispatch({ type: CLEAR_FILTERS });
@@ -643,7 +643,6 @@ const AppProvider = ({ children }) => {
         setEditQuestion,
         deleteQuestion,
         editQuestion,
-        showStats,
         clearFilters,
         changePage,
         createNewTest,

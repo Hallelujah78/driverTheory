@@ -28,13 +28,13 @@ To Do for current DriveL driver theory MCQ app:
 - ModalAlert code duplication between ResultsSharedLayout and Test
 - ~~\*\* we will need permissions - the 'add question' page should only be accessible to admins~~ DONE
 - ~~server should only allow admins to add questions~~ DONE
-- create code to generate different types of test. A practice test consists of 20 questions, a mock theory test consists of 40 questions.
+- ~~create code to generate different types of test. A practice test consists of 20 questions, a mock theory test consists of 40 questions.~~ DONE
 - \*\* ~~work on the charting/stats functionality~~ DONE
-- add other types of tests, eg mock test of 40 questions
+- ~~add other types of tests, eg mock test of 40 questions~~ DONE
 - graphs look okay but still need some attention in terms of styling
 - handle filtering to show different graphs (practice, mock, category)
 - ~~Read questions functionality~~ DONE
-- practice by category functionality
+- ~~practice by category functionality~~ DONE
 - ~~deploy to paid render instance~~ DONE
 - ~~toggle flagged status while reading questions~~ DONE
 - ~~modal alert message when exiting reading questions~~ DONE

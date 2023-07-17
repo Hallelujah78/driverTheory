@@ -36,17 +36,8 @@ const createTest = async (req, res) => {
   }
 
   // types of tests we want to create
-  // 1 "practice" = 20 random questions - done
-  //    1 control, 5 legal, 2 risk, 11 safe, 1 technical
-  // 2 "official test" = 40 random questions - done
-  // 3 "category practice" = user input num questions
-  //        3a) user input the questionCategory - done
-  // 4 "problem questions" = user input num questions - Done
-  // 5 "least seen" = user input num
+  // remaining type: "least seen" = user input num
 
-  // easiest tests to create
-  // flagged questions - Done
-  // category practice - done
   let testQuestions;
   if (questionCategory) {
     testQuestions = await Question.aggregate([
@@ -100,7 +91,15 @@ const createTest = async (req, res) => {
   }
 
   if (testCategory === "least seen") {
-    // numTimesAnswered sort ascending
+    let tempQuestions = await UserQuestionData.aggregate([
+      { $match: { user: new mongoose.Types.ObjectId(req.user.userId) } },
+      { $unwind: "$questions" },
+      { $replaceRoot: { newRoot: "$questions" } },
+      { $sort: { numTimesAnswered: 1 } },
+      { $project: { question: 1, _id: 0, numTimesAnswered: 1 } },
+    ]).limit(numTestQuestions);
+    tempQuestions = tempQuestions.map((item) => item.question.toString());
+    testQuestions = await Question.find({ _id: { $in: tempQuestions } });
   }
 
   const userQuestionData = await UserQuestionData.findOne({
@@ -192,7 +191,12 @@ const getTest = async (req, res) => {
 
 const showStats = async (req, res) => {
   const testStats = await Test.aggregate([
-    { $match: { user: new mongoose.Types.ObjectId(req.user.userId) } },
+    {
+      $match: {
+        user: new mongoose.Types.ObjectId(req.user.userId),
+        isComplete: true,
+      },
+    },
     {
       $group: {
         _id: {
@@ -222,6 +226,7 @@ const showStats = async (req, res) => {
     { $project: { score: { $multiply: ["$tempScore", 100] } } },
     { $sort: { "_id.createdAt": 1 } },
   ]);
+
   let stats = [];
   testStats.map((test) => {
     const {
