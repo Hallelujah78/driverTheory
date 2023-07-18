@@ -106,7 +106,9 @@ function App() {
             element={<CategoryPractice />}
           ></Route>
           <Route path="category-practice/test" element={<Test />}></Route>
-          <Route path="read/:category" element={<Test />}></Route>
+          <Route path="least-seen" element={<Test />}></Route>
+          <Route path="flagged" element={<Test />}></Route>
+          <Route path="incorrect" element={<Test />}></Route>
         </Route>
 
         <Route path="/register" element={<Register />} />

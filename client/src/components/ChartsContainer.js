@@ -26,7 +26,7 @@ const ChartsContainer = () => {
     setIsLoading(false);
   });
 
-  if (isLoading || !data) {
+  if (isLoading) {
     return (
       <Wrapper>
         <Loading />

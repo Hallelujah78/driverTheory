@@ -28,6 +28,15 @@ const PracticePaper = () => {
         <Link to="/category-practice" className="btn btn-block">
           Practice by category
         </Link>
+        <Link to="/least-seen" className="btn btn-block">
+          Questions Seen the Least
+        </Link>
+        <Link to="/flagged" className="btn btn-block">
+          Flagged for Practice
+        </Link>
+        <Link to="/incorrect" className="btn btn-block">
+          Answered Incorrectly
+        </Link>
       </div>
     </Wrapper>
   );

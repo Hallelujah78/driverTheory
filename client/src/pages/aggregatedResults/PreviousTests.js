@@ -30,7 +30,7 @@ const PreviousTests = () => {
       </Wrapper>
     );
   }
-  if (!isLoading && !previousTests.length) {
+  if (!isLoading && !previousTests) {
     return (
       <Wrapper className="full-page">
         <NoData

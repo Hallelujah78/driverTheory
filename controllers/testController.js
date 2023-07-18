@@ -343,7 +343,7 @@ const toggleFlagged = async (req, res) => {
   });
   userQuestionToUpdate.isFlagged = !userQuestionToUpdate.isFlagged;
   await userQuestionData.save();
-  // send the test back regardless
+  // send the test back even if it is null
   res.status(StatusCodes.OK).json({ test });
 };
 

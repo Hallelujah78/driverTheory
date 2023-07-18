@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { useAppContext } from "../../context/appContext";
 import { useNavigate } from "react-router-dom";
+import { ChooseNumQuestionsStartTest } from "../../components/index.js";
 
 const CategoryPractice = () => {
   const navigate = useNavigate();
@@ -20,19 +21,19 @@ const CategoryPractice = () => {
   };
 
   const onChange = (e) => {
+    console.log(e.target.value);
     e.preventDefault();
     setNumTestQuestions(Number(e.target.value));
   };
 
-  const onClick = (e) => {
-    if (e.target.id === "increase" && numTestQuestions < numOfQuestions) {
+  const onClick = (buttonId) => {
+    if (buttonId === "increase" && numTestQuestions < numOfQuestions) {
       setNumTestQuestions(numTestQuestions + 1);
     }
-    if (e.target.id === "decrease" && numTestQuestions > 1) {
+    if (buttonId === "decrease" && numTestQuestions > 1) {
       setNumTestQuestions(numTestQuestions - 1);
     }
-    if (e.target.id === "start") {
-      console.log(numTestQuestions);
+    if (buttonId === "start") {
       createNewTest("category practice", questionCategory, numTestQuestions);
       navigate("/category-practice/test");
     }
@@ -78,24 +79,12 @@ const CategoryPractice = () => {
         </div>
       </div>
       {numOfQuestions ? (
-        <div onClick={(e) => onClick(e)} className="question-selector">
-          <h5>Choose Number of Questions</h5>
-          <h4>{numTestQuestions}</h4>
-          <div className="input-container">
-            <button id="decrease">-</button>
-            <input
-              type="range"
-              min="1"
-              max={numOfQuestions}
-              value={numTestQuestions}
-              onChange={(e) => onChange(e)}
-            />
-            <button id="increase">+</button>
-          </div>
-          <button id="start" className="btn btn-block">
-            Start Test
-          </button>
-        </div>
+        <ChooseNumQuestionsStartTest
+          onChange={onChange}
+          numOfQuestions={numOfQuestions}
+          onClick={onClick}
+          numTestQuestions={numTestQuestions}
+        />
       ) : null}
 
       <div className="filler"></div>
@@ -137,3 +126,24 @@ const Wrapper = styled.section`
     margin-bottom: 3rem;
   }
 `;
+
+// (
+//         <div onClick={(e) => onClick(e)} className="question-selector">
+//           <h5>Choose Number of Questions</h5>
+//           <h4>{numTestQuestions}</h4>
+//           <div className="input-container">
+//             <button id="decrease">-</button>
+//             <input
+//               type="range"
+//               min="1"
+//               max={numOfQuestions}
+//               value={numTestQuestions}
+//               onChange={(e) => onChange(e)}
+//             />
+//             <button id="increase">+</button>
+//           </div>
+//           <button id="start" className="btn btn-block">
+//             Start Test
+//           </button>
+//         </div>
+//       )
