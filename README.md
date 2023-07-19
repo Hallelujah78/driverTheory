@@ -29,3 +29,4 @@ To Do for current DriveL driver theory MCQ app:
 - graphs look okay but still need some attention in terms of styling
 - handle filtering to show different graphs (practice, mock, category)
 - need to reset currentQuestion integer in global state when the user reads questions
+- add loading spinner for CategoryPractice - when we select category, we are fetching and rendering based on the result

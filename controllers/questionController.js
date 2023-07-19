@@ -6,6 +6,11 @@ import mongoose from "mongoose";
 import moment from "moment";
 import UserQuestionData from "../models/UserQuestionData.js";
 import { findUserQuestion } from "../utils/userQuestionData.js";
+import {
+  getNumFlaggedQuestions,
+  getNumIncorrectQuestions,
+  getNumLeastSeenQuestions,
+} from "../utils/index.js";
 
 const createQuestion = async (req, res) => {
   const user = await User.findOne({ _id: req.user.userId });
@@ -192,6 +197,25 @@ const getCategoryLength = async (req, res) => {
   res.status(StatusCodes.OK).json({ numOfQuestions });
 };
 
+const getOtherPractice = async (req, res) => {
+  const { testType } = req.body;
+  const user = req.user.userId;
+
+  let numOfQuestions = 0;
+  if (testType === "/flagged") {
+    numOfQuestions = await getNumFlaggedQuestions(user);
+  }
+  if (testType === "/least-seen") {
+    numOfQuestions = await getNumLeastSeenQuestions(user);
+  }
+  if (testType === "/incorrect") {
+    console.log("this is incorrect");
+    numOfQuestions = await getNumIncorrectQuestions(user);
+  }
+
+  res.status(StatusCodes.OK).json({ numOfQuestions });
+};
+
 const getQuestionsRead = async (req, res) => {
   const { category } = req.params;
   let questions;
@@ -240,4 +264,5 @@ export {
   createQuestion,
   getQuestionsRead,
   getCategoryLength,
+  getOtherPractice,
 };

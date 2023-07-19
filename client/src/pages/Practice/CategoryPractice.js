@@ -114,36 +114,4 @@ const Wrapper = styled.section`
     color: var(--primary-500);
     border: 1px solid var(--primary-500);
   }
-  .question-selector {
-    max-width: 90vw;
-    margin: 0 auto;
-    margin-top: 2rem;
-    text-align: center;
-  }
-  .input-container {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 3rem;
-  }
 `;
-
-// (
-//         <div onClick={(e) => onClick(e)} className="question-selector">
-//           <h5>Choose Number of Questions</h5>
-//           <h4>{numTestQuestions}</h4>
-//           <div className="input-container">
-//             <button id="decrease">-</button>
-//             <input
-//               type="range"
-//               min="1"
-//               max={numOfQuestions}
-//               value={numTestQuestions}
-//               onChange={(e) => onChange(e)}
-//             />
-//             <button id="increase">+</button>
-//           </div>
-//           <button id="start" className="btn btn-block">
-//             Start Test
-//           </button>
-//         </div>
-//       )

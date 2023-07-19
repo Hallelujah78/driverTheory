@@ -2,7 +2,11 @@ import { StatusCodes } from "http-status-codes";
 import Question from "../models/Question.js";
 import Test from "../models/Test.js";
 import * as CustomError from "../errors/index.js";
-import { shuffleArray, createResults } from "../utils/index.js";
+import {
+  shuffleArray,
+  createResults,
+  getNumFlaggedQuestions,
+} from "../utils/index.js";
 import mongoose from "mongoose";
 import moment from "moment";
 import {
@@ -34,9 +38,6 @@ const createTest = async (req, res) => {
   if (!testCategory) {
     throw new CustomError.BadRequestError("please provide the test category");
   }
-
-  // types of tests we want to create
-  // remaining type: "least seen" = user input num
 
   let testQuestions;
   if (questionCategory) {

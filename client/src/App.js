@@ -29,6 +29,7 @@ import { QuestionList, Categories } from "./pages/Results/index.js";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ResultsSharedLayout from "./pages/Results/SharedLayout";
 import PracticeSharedLayout from "./pages/Practice/SharedLayout.js";
+import OtherPractice from "./pages/Practice/OtherPractice.js";
 
 function App() {
   return (
@@ -101,14 +102,16 @@ function App() {
           }
         >
           <Route path="read" element={<Read />}></Route>
+          <Route path="read/:category" element={<Test />}></Route>
+
           <Route
             path="category-practice"
             element={<CategoryPractice />}
           ></Route>
           <Route path="category-practice/test" element={<Test />}></Route>
-          <Route path="least-seen" element={<Test />}></Route>
-          <Route path="flagged" element={<Test />}></Route>
-          <Route path="incorrect" element={<Test />}></Route>
+          <Route path="least-seen" element={<OtherPractice />}></Route>
+          <Route path="flagged" element={<OtherPractice />}></Route>
+          <Route path="incorrect" element={<OtherPractice />}></Route>
         </Route>
 
         <Route path="/register" element={<Register />} />

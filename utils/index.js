@@ -11,6 +11,9 @@ import sendResetPasswordEmailSG from "./sendgrid/sendResetPasswordEmailSG.js";
 import shuffleArray from "./shuffleArray.js";
 import createResults from "./createResults.js";
 import { createUserQuestionData } from "./userQuestionData.js";
+import getNumFlaggedQuestions from "./getFlaggedQuestions.js";
+import getNumIncorrectQuestions from "./getIncorrectQuestions.js";
+import getNumLeastSeenQuestions from "./getNumLeastSeenQuestions.js";
 
 export {
   sendVerificationEmailSG,
@@ -27,4 +30,7 @@ export {
   shuffleArray,
   createResults,
   createUserQuestionData,
+  getNumFlaggedQuestions,
+  getNumIncorrectQuestions,
+  getNumLeastSeenQuestions,
 };
