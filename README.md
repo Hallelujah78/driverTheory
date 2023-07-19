@@ -28,5 +28,5 @@ To Do for current DriveL driver theory MCQ app:
 - ModalAlert code duplication between ResultsSharedLayout and Test
 - graphs look okay but still need some attention in terms of styling
 - handle filtering to show different graphs (practice, mock, category)
-- need to reset currentQuestion integer in global state when the user reads questions
+- ~~need to reset currentQuestion integer in global state when the user reads questions~~ DONE
 - add loading spinner for CategoryPractice - when we select category, we are fetching and rendering based on the result

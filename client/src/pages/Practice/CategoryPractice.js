@@ -2,7 +2,10 @@ import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { useAppContext } from "../../context/appContext";
 import { useNavigate } from "react-router-dom";
-import { ChooseNumQuestionsStartTest } from "../../components/index.js";
+import {
+  ChooseNumQuestionsStartTest,
+  SmallLoading,
+} from "../../components/index.js";
 
 const CategoryPractice = () => {
   const navigate = useNavigate();
@@ -10,14 +13,19 @@ const CategoryPractice = () => {
   const [questionCategory, setQuestionCategory] = useState(null);
   const [numOfQuestions, setNumOfQuestions] = useState(null);
   const [numTestQuestions, setNumTestQuestions] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const { createNewTest } = useAppContext();
 
   const getCategoryLength = async () => {
-    const { data } = await authFetch.get(
-      `/questions/practice/${questionCategory}`
-    );
-    setNumOfQuestions(data.numOfQuestions);
-    setNumTestQuestions(Number(data.numOfQuestions));
+    setIsLoading(true);
+    try {
+      const { data } = await authFetch.get(
+        `/questions/practice/${questionCategory}`
+      );
+      setNumOfQuestions(data.numOfQuestions);
+      setNumTestQuestions(Number(data.numOfQuestions));
+    } catch (error) {}
+    setIsLoading(false);
   };
 
   const onChange = (e) => {
@@ -57,6 +65,14 @@ const CategoryPractice = () => {
     }
   };
 
+  // if (isLoading) {
+  //   return (
+  //     <Wrapper>
+  //       <Loading />
+  //     </Wrapper>
+  //   );
+  // }
+
   return (
     <Wrapper className="full-page">
       <div className="category-center">
@@ -78,14 +94,16 @@ const CategoryPractice = () => {
           </button>
         </div>
       </div>
-      {numOfQuestions ? (
+      {!isLoading ? (
         <ChooseNumQuestionsStartTest
           onChange={onChange}
           numOfQuestions={numOfQuestions}
           onClick={onClick}
           numTestQuestions={numTestQuestions}
         />
-      ) : null}
+      ) : (
+        <SmallLoading />
+      )}
 
       <div className="filler"></div>
     </Wrapper>

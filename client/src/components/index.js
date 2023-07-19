@@ -23,6 +23,7 @@ import TestListItem from "./TestListItem.js";
 import PreviousTestButtons from "./PrevTestButtons.js";
 import CustomTooltip from "./CustomTooltip.js";
 import ChooseNumQuestionsStartTest from "./ChooseNumQuestionsStartTest.js";
+import SmallLoading from "./SmallLoading.js";
 
 export {
   ModalAlert,
@@ -50,4 +51,5 @@ export {
   PreviousTestButtons,
   CustomTooltip,
   ChooseNumQuestionsStartTest,
+  SmallLoading,
 };

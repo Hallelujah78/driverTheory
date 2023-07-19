@@ -1,7 +1,13 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { useAppContext } from "../../context/appContext";
 
 const Read = () => {
+  const { setCurrentQuestion } = useAppContext();
+  useEffect(() => {
+    setCurrentQuestion(0);
+  }, []);
   return (
     <Wrapper className="full-page">
       <div className="reading">
