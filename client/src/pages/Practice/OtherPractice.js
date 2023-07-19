@@ -19,13 +19,11 @@ const OtherPractice = () => {
 
   const getQuestionsLength = async () => {
     const testType = location.pathname;
-    console.log(testType);
-    // this needs to get the number of questions for least-seen, flagged, incorrect etc
+
     setIsLoading(true);
     const { data } = await authFetch.post("/questions/practice/other", {
       testType,
     });
-    console.log(data);
 
     setNumOfQuestions(data.numOfQuestions);
     setNumTestQuestions(Number(data.numOfQuestions));
@@ -33,13 +31,12 @@ const OtherPractice = () => {
   };
 
   const onChange = (e) => {
-    console.log(e.target.value);
     e.preventDefault();
     setNumTestQuestions(Number(e.target.value));
   };
 
   const onClick = (buttonId) => {
-    const testType = location.pathname;
+    let testType = location.pathname;
     if (buttonId === "increase" && numTestQuestions < numOfQuestions) {
       setNumTestQuestions(numTestQuestions + 1);
     }
@@ -47,7 +44,17 @@ const OtherPractice = () => {
       setNumTestQuestions(numTestQuestions - 1);
     }
     if (buttonId === "start") {
-      createNewTest(testType, testType, numTestQuestions);
+      let testCategory;
+      if (testType === "/incorrect") {
+        testCategory = "problem questions";
+      }
+      if (testType === "/least-seen") {
+        testCategory = "least seen";
+      }
+      if (testType === "/flagged") {
+        testCategory = "flagged questions";
+      }
+      createNewTest(testCategory, null, numTestQuestions);
       navigate(`${testType}/test`);
     }
   };

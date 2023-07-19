@@ -13,10 +13,23 @@ const TestNav = ({ handleExit }) => {
       <div className="nav-center">
         <div className="container">
           <TbCircleLetterX className="exit" onClick={() => handleExit()} />
-          {location.pathname === "/randomized-practice" ? (
+          {location.pathname === "/least-seen/test" ? (
+            <h3>Least Seen</h3>
+          ) : location.pathname === "/incorrect/test" ? (
+            <h3>Answered Incorrectly</h3>
+          ) : location.pathname === "/flagged/test" ? (
+            <h3>Flagged Questions</h3>
+          ) : location.pathname === "/randomized-practice" ? (
             <h3>Practice Paper</h3>
-          ) : location.pathname === "/randomized-practice" ||
-            location.pathname.includes("/read/") ? (
+          ) : location.pathname === "/category-practice/test" ? (
+            <h3>Category Practice</h3>
+          ) : location.pathname.includes("/read/") ? (
+            <h3>Reading Questions</h3>
+          ) : null}
+
+          {location.pathname.includes("/read/") ||
+          location.pathname.includes("/test") ||
+          location.pathname === "/randomized-practice" ? (
             <h3>
               Q<span> {currentQuestion + 1}</span>
             </h3>

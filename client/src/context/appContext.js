@@ -540,7 +540,7 @@ const AppProvider = ({ children }) => {
         index,
         currentQuestion,
       });
-      console.log(data.results);
+
       dispatch({
         type: SUBMIT_ANSWER,
         payload: {

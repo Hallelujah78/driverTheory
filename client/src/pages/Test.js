@@ -40,7 +40,6 @@ const Test = () => {
     }
     if (location.pathname.includes("/read/")) {
       navigate("/read");
-
       return;
     }
     if (isComplete) {

@@ -110,8 +110,11 @@ function App() {
           ></Route>
           <Route path="category-practice/test" element={<Test />}></Route>
           <Route path="least-seen" element={<OtherPractice />}></Route>
-          <Route path="flagged" element={<OtherPractice />}></Route>
-          <Route path="incorrect" element={<OtherPractice />}></Route>
+          <Route path="/flagged" element={<OtherPractice />}></Route>
+          <Route path="/incorrect" element={<OtherPractice />}></Route>
+          <Route path="/incorrect/test" element={<Test />}></Route>
+          <Route path="/flagged/test" element={<Test />}></Route>
+          <Route path="/least-seen/test" element={<Test />}></Route>
         </Route>
 
         <Route path="/register" element={<Register />} />

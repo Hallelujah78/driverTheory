@@ -29,4 +29,6 @@ To Do for current DriveL driver theory MCQ app:
 - graphs look okay but still need some attention in terms of styling
 - handle filtering to show different graphs (practice, mock, category)
 - ~~need to reset currentQuestion integer in global state when the user reads questions~~ DONE
-- add loading spinner for CategoryPractice - when we select category, we are fetching and rendering based on the result
+- ~~add loading spinner for CategoryPractice - when we select category, we are fetching and rendering based on the result~~ DONE
+- noticed an answer was incorrect in one of the questions - turn right instead of turn left. Note: when a question is edited (in the database currently only), the previous test results do not get updated. If we were to handle this (probably best to just double check before creation of the question), would push updates to previous test results for all users upon editing on the frontend
+- ChooseNumQuestionsStartTest is rendering before data is present

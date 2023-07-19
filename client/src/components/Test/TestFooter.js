@@ -31,7 +31,7 @@ const TestFooter = () => {
     }
     if (e.currentTarget.classList.contains("flag")) {
       const questionId = test[currentQuestion].question._id;
-      console.log(questionId);
+
       toggleIsFlagged(questionId, testId);
     }
   };
@@ -41,7 +41,7 @@ const TestFooter = () => {
       <div className="footer-center">
         <div className="button-container">
           {locationPathname === "/randomized-practice" ||
-          locationPathname === "/category-practice/test" ? (
+          locationPathname.includes("test") ? (
             <TestButtons
               isComplete={isComplete}
               handleClick={handleClick}

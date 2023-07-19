@@ -209,7 +209,6 @@ const getOtherPractice = async (req, res) => {
     numOfQuestions = await getNumLeastSeenQuestions(user);
   }
   if (testType === "/incorrect") {
-    console.log("this is incorrect");
     numOfQuestions = await getNumIncorrectQuestions(user);
   }
 

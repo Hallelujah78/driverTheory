@@ -29,7 +29,6 @@ const CategoryPractice = () => {
   };
 
   const onChange = (e) => {
-    console.log(e.target.value);
     e.preventDefault();
     setNumTestQuestions(Number(e.target.value));
   };
