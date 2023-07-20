@@ -14,7 +14,7 @@ const links = [
   {
     id: 2,
     adminOnly: false,
-    text: "Practice",
+    text: "Practice & Tests",
     path: "/",
     icon: <MdQueryStats />,
   },
@@ -25,6 +25,7 @@ const links = [
     path: "add-question",
     icon: <FaWpforms />,
   },
+
   {
     id: 4,
     adminOnly: false,

@@ -7,9 +7,15 @@ const PracticePaper = () => {
   const { createNewTest, isLoading } = useAppContext();
   const navigate = useNavigate();
 
-  const handleClick = () => {
-    createNewTest("practice", null, 20);
-    navigate("/randomized-practice");
+  const handleClick = (e) => {
+    if (e.target.id === "practice") {
+      createNewTest("practice", null, 20);
+      navigate("/randomized-practice");
+    }
+
+    if (e.target.id === "official") {
+      createNewTest("official test");
+    }
   };
 
   if (isLoading) {
@@ -18,11 +24,11 @@ const PracticePaper = () => {
   return (
     <Wrapper>
       <h3>Practice</h3>
-      <div className="button-container">
+      <div onClick={(e) => handleClick(e)} className="button-container">
         <Link to="/read" className="btn btn-block">
           Read the questions
         </Link>
-        <button onClick={() => handleClick()} className="btn btn-block">
+        <button id="practice" className="btn btn-block">
           Randomized practice paper
         </button>
         <Link to="/category-practice" className="btn btn-block">
@@ -37,6 +43,9 @@ const PracticePaper = () => {
         <Link to="/incorrect" className="btn btn-block">
           Answered Incorrectly
         </Link>
+        <Link id="official" to="/official-test" className="btn btn-block">
+          Official Style Test
+        </Link>
       </div>
     </Wrapper>
   );
@@ -47,10 +56,10 @@ const Wrapper = styled.section`
   border-radius: var(--borderRadius);
   width: 100%;
   background: var(--white);
-  padding: 3rem 2rem 4rem;
+  padding: 1rem 2rem 3rem;
   box-shadow: var(--shadow-2);
   .btn {
-    margin-top: 2rem;
+    margin-top: 1.75rem;
     text-align: center;
   }
   @media (min-width: 992px) {

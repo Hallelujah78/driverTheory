@@ -25,10 +25,12 @@ const TestNav = ({ handleExit }) => {
             <h3>Category Practice</h3>
           ) : location.pathname.includes("/read/") ? (
             <h3>Reading Questions</h3>
+          ) : location.pathname === "/official-test" ? (
+            <h3>Mock Test</h3>
           ) : null}
 
           {location.pathname.includes("/read/") ||
-          location.pathname.includes("/test") ||
+          location.pathname.includes("test") ||
           location.pathname === "/randomized-practice" ? (
             <h3>
               Q<span> {currentQuestion + 1}</span>

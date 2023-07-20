@@ -103,7 +103,7 @@ function App() {
         >
           <Route path="read" element={<Read />}></Route>
           <Route path="read/:category" element={<Test />}></Route>
-
+          <Route path="official-test" element={<Test />}></Route>
           <Route
             path="category-practice"
             element={<CategoryPractice />}
