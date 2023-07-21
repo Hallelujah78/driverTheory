@@ -376,6 +376,7 @@ const reducer = (state, action) => {
       test: null,
       results: null,
       isComplete: false,
+      createdAt: null,
     };
   }
   if (action.type === GET_TEST_QUESTIONS_SUCCESS) {
@@ -385,6 +386,7 @@ const reducer = (state, action) => {
       isLoading: false,
       testLoading: false,
       creatingTest: false,
+      createdAt: action.payload.createdAt,
     };
   }
   if (action.type === GET_TEST_QUESTIONS_ERROR) {
@@ -397,6 +399,7 @@ const reducer = (state, action) => {
       showAlert: true,
       creatingTest: false,
       testLoading: false,
+      createdAt: null,
     };
   }
   if (action.type === INCREMENT_QUESTION) {
@@ -444,6 +447,7 @@ const reducer = (state, action) => {
       isLoading: false,
       isComplete: action.payload.isComplete,
       results: action.payload.results,
+      createdAt: action.payload.createdAt,
     };
   }
   if (action.type === GET_TEST_ERROR) {
@@ -455,6 +459,7 @@ const reducer = (state, action) => {
       isLoading: false,
       isComplete: false,
       results: null,
+      createdAt: null,
     };
   }
   if (action.type === SUBMIT_ANSWER) {

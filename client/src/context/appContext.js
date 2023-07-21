@@ -1,6 +1,7 @@
 import React, { useContext, useReducer, useEffect } from "react";
 import reducer from "./reducer";
 import axios from "axios";
+import moment from "moment";
 
 import {
   TOGGLE_IS_FLAGGED,
@@ -105,6 +106,7 @@ const initialState = {
   searchType: "all",
   sort: "latest",
   sortOptions: ["latest", "oldest", "a-z", "z-a"],
+  createdAt: null,
 };
 
 const AppContext = React.createContext();
@@ -439,16 +441,17 @@ const AppProvider = ({ children }) => {
       });
 
       const test = data.test.questions;
+      const createdAt = moment(data.test.createdAt).valueOf();
 
       dispatch({
         type: GET_TEST_QUESTIONS_SUCCESS,
-        payload: { test },
+        payload: { test, createdAt },
       });
     } catch (error) {
       console.log("GET_TEST_QUESTIONS_ERROR");
       dispatch({
         type: GET_TEST_QUESTIONS_ERROR,
-        payload: { msg: error.response.data.msg },
+        payload: { msg: error.response?.data.msg },
       });
     }
     clearAlert();
@@ -474,6 +477,7 @@ const AppProvider = ({ children }) => {
           test: data.test.questions,
           isComplete: data.test.isComplete,
           results: data?.results,
+          createdAt: data.test.createdAt,
         },
       });
     } catch (error) {

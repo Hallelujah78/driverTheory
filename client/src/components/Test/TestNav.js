@@ -1,18 +1,20 @@
 import styled from "styled-components";
 import { useLocation } from "react-router";
 import { TbCircleLetterX } from "react-icons/tb";
+import Timer from "./Timer.js";
 
 import { useAppContext } from "../../context/appContext.js";
 
 const TestNav = ({ handleExit }) => {
   const location = useLocation();
-  const { currentQuestion, test } = useAppContext();
+  const { currentQuestion } = useAppContext();
 
   return (
     <Wrapper>
       <div className="nav-center">
         <div className="container">
           <TbCircleLetterX className="exit" onClick={() => handleExit()} />
+
           {location.pathname === "/least-seen/test" ? (
             <h3>Least Seen</h3>
           ) : location.pathname === "/incorrect/test" ? (
@@ -37,6 +39,7 @@ const TestNav = ({ handleExit }) => {
             </h3>
           ) : null}
         </div>
+        {location.pathname === "/official-test" ? <Timer /> : null}
       </div>
     </Wrapper>
   );

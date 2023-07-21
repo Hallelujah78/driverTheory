@@ -29,6 +29,7 @@ const Test = () => {
     getQuestionsRead,
   } = useAppContext();
   const [values, setValues] = useState(initialState);
+  const [timer, setTimer] = useState(null);
   const testId = useParams().testId;
   const category = useParams().category;
 
