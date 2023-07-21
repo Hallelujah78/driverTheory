@@ -5,7 +5,9 @@ import moment from "moment";
 
 import {
   TOGGLE_IS_FLAGGED,
-  SET_TEST_COMPLETE,
+  SET_TEST_COMPLETE_SUCCESS,
+  SET_TEST_COMPLETE_BEGIN,
+  SET_TEST_COMPLETE_ERROR,
   GET_TEST_BEGIN,
   GET_TEST_SUCCESS,
   GET_TEST_ERROR,
@@ -460,10 +462,20 @@ const AppProvider = ({ children }) => {
   const setTestComplete = async () => {
     const isComplete = true;
     dispatch({
-      type: SET_TEST_COMPLETE,
+      type: SET_TEST_COMPLETE_BEGIN,
     });
     try {
       const { data } = await authFetch.patch("/test", { isComplete });
+
+      dispatch({
+        type: SET_TEST_COMPLETE_SUCCESS,
+        payload: {
+          test: data.test.questions,
+          isComplete: data.test.isComplete,
+          results: data?.results,
+          createdAt: data.test.createdAt,
+        },
+      });
     } catch (error) {
       console.log("SET_TEST_COMPLETE_ERROR");
       console.log(error.response.data.msg);
@@ -473,7 +485,7 @@ const AppProvider = ({ children }) => {
   const getTest = async (testId = null) => {
     let URL = "/test";
     if (testId) {
-      URL = `/test/previous-tests/${testId}`;
+      URL = `/test/previous-results/${testId}`;
     }
     dispatch({ type: GET_TEST_BEGIN });
     try {

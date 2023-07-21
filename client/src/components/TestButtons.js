@@ -37,8 +37,9 @@ const TestButtons = ({ currentQuestion, isComplete, handleClick, test }) => {
         }
         className={
           currentQuestion === test?.length - 1 ||
-          test?.[currentQuestion].userAnswer === null ||
-          !test
+          (!isComplete &&
+            currentQuestion !== test?.length - 1 &&
+            test?.[currentQuestion].userAnswer === null)
             ? "gray next"
             : "next"
         }

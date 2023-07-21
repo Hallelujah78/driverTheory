@@ -36,7 +36,7 @@ const Test = () => {
   const handleExit = () => {
     if (testId) {
       exitTest();
-      navigate("/stats/previous-tests");
+      navigate("/stats/previous-results");
       return;
     }
     if (location.pathname.includes("/read/")) {
@@ -110,7 +110,7 @@ const Test = () => {
         <NoData
           linkText="Back to Practice"
           message="There is no test data..."
-          linkTo={testId ? "/stats/previous-tests" : "/"}
+          linkTo={testId ? "/stats/previous-results" : "/"}
         />
 
         <TestFooter />

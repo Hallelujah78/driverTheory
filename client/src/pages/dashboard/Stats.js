@@ -27,7 +27,7 @@ const Stats = () => {
           Graphs
         </button>
         <button
-          onClick={() => navigate("/stats/previous-tests")}
+          onClick={() => navigate("/stats/previous-results")}
           className="btn btn-block"
         >
           Previous Test Results

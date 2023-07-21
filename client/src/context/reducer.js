@@ -1,7 +1,9 @@
 import { initialState } from "./appContext.js";
 import {
   TOGGLE_IS_FLAGGED,
-  SET_TEST_COMPLETE,
+  SET_TEST_COMPLETE_SUCCESS,
+  SET_TEST_COMPLETE_BEGIN,
+  SET_TEST_COMPLETE_ERROR,
   GET_TEST_BEGIN,
   GET_TEST_SUCCESS,
   GET_TEST_ERROR,
@@ -476,12 +478,21 @@ const reducer = (state, action) => {
       test: [...action.payload.newTest],
     };
   }
-  if (action.type === SET_TEST_COMPLETE) {
+  if (action.type === SET_TEST_COMPLETE_BEGIN) {
     return {
       ...state,
       isComplete: true,
     };
   }
+  if (action.type === SET_TEST_COMPLETE_SUCCESS) {
+    return {
+      ...state,
+      test: action.payload.test,
+      isComplete: action.payload.isComplete,
+      results: action.payload.results,
+    };
+  }
+
   if (action.type === TOGGLE_IS_FLAGGED) {
     return {
       ...state,

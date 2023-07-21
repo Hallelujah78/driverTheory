@@ -11,7 +11,7 @@ const TestListItem = ({
   const navigate = useNavigate();
   const handleClick = (e) => {
     const testId = e.currentTarget.id;
-    navigate(`/stats/previous-tests/${testId}`);
+    navigate(`/stats/previous-results/${testId}`);
   };
   return (
     <Wrapper

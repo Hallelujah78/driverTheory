@@ -21,7 +21,7 @@ const TestNav = ({ handleExit }) => {
             <h3>Answered Incorrectly</h3>
           ) : location.pathname === "/flagged/test" ? (
             <h3>Flagged Questions</h3>
-          ) : location.pathname === "/randomized-practice" ? (
+          ) : location.pathname === "/practice-test" ? (
             <h3>Practice Paper</h3>
           ) : location.pathname === "/category-practice/test" ? (
             <h3>Category Practice</h3>
@@ -33,7 +33,7 @@ const TestNav = ({ handleExit }) => {
 
           {location.pathname.includes("/read/") ||
           location.pathname.includes("test") ||
-          location.pathname === "/randomized-practice" ? (
+          location.pathname === "/practice-test" ? (
             <h3>
               Q<span> {currentQuestion + 1}</span>
             </h3>

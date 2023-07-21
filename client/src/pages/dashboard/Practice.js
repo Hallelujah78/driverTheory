@@ -10,7 +10,7 @@ const PracticePaper = () => {
   const handleClick = (e) => {
     if (e.target.id === "practice") {
       createNewTest("practice", null, 20);
-      navigate("/randomized-practice");
+      navigate("/practice-test");
     }
 
     if (e.target.id === "official") {

@@ -32,7 +32,7 @@ To Do for current DriveL driver theory MCQ app:
 - ~~add loading spinner for CategoryPractice - when we select category, we are fetching and rendering based on the result~~ DONE
 - noticed an answer was incorrect in one of the questions - turn right instead of turn left. Note: when a question is edited (in the database currently only), the previous test results do not get updated. If we were to handle this (probably best to just double check before creation of the question), would push updates to previous test results for all users upon editing on the frontend
 - ChooseNumQuestionsStartTest is rendering before data is present
-- if the timer runs out before the user answers any questions, there is a null pointer error (reading 'correct' in Categories). Could be userAnswer is null?
+- ~~if the timer runs out before the user answers any questions, there is a null pointer error (reading 'correct' in Categories). Could be userAnswer is null?~~ FIXED
 - 'Least seen' test. When selecting the number of questions, the slider shows 36, but only 30 questions are returned. Adjusting the slider below 36 and back to 36 still returns only 30 questions.
-- the 'results' button is showing up when browsing previous results
-- when browsing the questions in the results page, the user can't browse forward where the timer has run out and some or all answers have no answer submitted
+- ~~the 'results' button is showing up when browsing previous results~~ FIXED
+- ~~when browsing the questions in the results page, the user can't browse forward where the timer has run out and some or all answers have no answer submitted~~ FIXED

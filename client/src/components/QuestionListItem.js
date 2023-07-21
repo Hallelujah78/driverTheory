@@ -10,7 +10,7 @@ const QuestionListItem = ({
   const navigate = useNavigate();
   const handleClick = () => {
     setCurrentQuestion(index);
-    navigate("/randomized-practice");
+    navigate("/practice-test");
   };
   return (
     <Wrapper onClick={handleClick}>

@@ -51,7 +51,7 @@ function App() {
           <Route path="profile" element={<Profile />}></Route>
         </Route>
         <Route
-          path="randomized-practice"
+          path="practice-test"
           element={
             <ProtectedRoute>
               <Test />
@@ -72,7 +72,7 @@ function App() {
         </Route>
 
         <Route
-          path="stats/previous-tests/:testId"
+          path="stats/previous-results/:testId"
           element={
             <ProtectedRoute>
               <Test />
@@ -90,7 +90,7 @@ function App() {
         >
           <Route path="overview" element={<Overview />}></Route>
           <Route path="graphs" element={<Graphs />}></Route>
-          <Route path="previous-tests" element={<PreviousTests />}></Route>
+          <Route path="previous-results" element={<PreviousTests />}></Route>
         </Route>
 
         <Route

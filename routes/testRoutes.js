@@ -20,7 +20,7 @@ router
   .patch(authenticateUser, updateTest);
 router.route("/flagged").patch(authenticateUser, toggleFlagged);
 router.route("/prev-results").get(authenticateUser, getAllTestResults);
-router.route("/previous-tests/:testId").get(authenticateUser, getTest);
+router.route("/previous-results/:testId").get(authenticateUser, getTest);
 router.route("/showStats").get(authenticateUser, showStats);
 
 export default router;

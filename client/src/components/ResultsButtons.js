@@ -6,7 +6,7 @@ const ResultsButtons = () => {
   return (
     <>
       <div>
-        <Link to="/randomized-practice" className="link">
+        <Link to="/practice-test" className="link">
           <TbBrowser className="nav-btn" />
           <p>questions</p>
         </Link>

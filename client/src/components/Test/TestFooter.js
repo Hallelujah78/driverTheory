@@ -25,7 +25,7 @@ const TestFooter = () => {
     if (
       e.currentTarget.classList.contains("next") &&
       currentQuestion < test.length - 1 &&
-      test?.[currentQuestion].userAnswer !== null
+      (test?.[currentQuestion].userAnswer !== null || isComplete)
     ) {
       incrementQuestion();
     }
@@ -40,7 +40,7 @@ const TestFooter = () => {
     <Wrapper>
       <div className="footer-center">
         <div className="button-container">
-          {locationPathname === "/randomized-practice" ||
+          {locationPathname === "/practice-test" ||
           locationPathname.includes("test") ? (
             <TestButtons
               isComplete={isComplete}
@@ -56,7 +56,7 @@ const TestFooter = () => {
               currentQuestion={currentQuestion}
               test={test}
             />
-          ) : locationPathname.includes("/stats/previous-tests/") ||
+          ) : locationPathname.includes("/stats/previous-results/") ||
             locationPathname.includes("/read/") ? (
             <PreviousTestButtons
               isComplete={isComplete}

@@ -10,7 +10,7 @@ const Nav = ({ handleExit }) => {
         <div className="container">
           <TbCircleLetterX className="exit" onClick={() => handleExit()} />
           <h3>
-            {location.pathname === "/stats/previous-tests"
+            {location.pathname === "/stats/previous-results"
               ? "Previous Results"
               : location.pathname === "/stats/graphs"
               ? "Test Results Graph"
