@@ -3,7 +3,8 @@ import { useAppContext } from "../../context/appContext";
 import Answer from "./Answer.js";
 
 const Question = () => {
-  const { test, currentQuestion, submitAnswer, selectAnswer } = useAppContext();
+  const { test, currentQuestion, submitAnswer, selectAnswer, isComplete } =
+    useAppContext();
 
   const {
     question: { questionText, answers, imageURL },
@@ -11,6 +12,9 @@ const Question = () => {
 
   const handleClick = (e) => {
     e.preventDefault();
+    if (isComplete) {
+      return;
+    }
     const answerIndex = +e.target.id;
 
     if (test[currentQuestion].userAnswer !== null) {
@@ -34,14 +38,11 @@ const Question = () => {
           <div className="text-container">
             <p>{questionText}</p>
           </div>
-          {
-            imageURL ? (
-              <div className="image-container">
-                <img src={imageURL} />
-              </div>
-            ) : null
-            // <div className="image-fill"></div>
-          }
+          {imageURL ? (
+            <div className="image-container">
+              <img src={imageURL} />
+            </div>
+          ) : null}
         </div>
         <div className="answer-container">
           {answers.map((item, index) => {

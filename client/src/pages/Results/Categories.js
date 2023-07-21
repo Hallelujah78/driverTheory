@@ -37,7 +37,7 @@ const Categories = () => {
         <div className="overview-center">
           <div className="pass">
             <h4>
-              {results.correct} / {results.totalQuestions}
+              {results?.correct} / {results.totalQuestions}
             </h4>
             <h5>{results.pass}</h5>
           </div>

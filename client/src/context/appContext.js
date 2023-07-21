@@ -457,10 +457,17 @@ const AppProvider = ({ children }) => {
     clearAlert();
   };
 
-  const setTestComplete = () => {
+  const setTestComplete = async () => {
+    const isComplete = true;
     dispatch({
       type: SET_TEST_COMPLETE,
     });
+    try {
+      const { data } = await authFetch.patch("/test", { isComplete });
+    } catch (error) {
+      console.log("SET_TEST_COMPLETE_ERROR");
+      console.log(error.response.data.msg);
+    }
   };
 
   const getTest = async (testId = null) => {

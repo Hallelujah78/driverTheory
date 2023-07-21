@@ -270,7 +270,25 @@ const deleteTest = async (req, res) => {
 };
 
 const updateTest = async (req, res) => {
-  const { questionId, index, currentQuestion } = req.body;
+  const { questionId, index, currentQuestion, isComplete } = req.body;
+
+  if (isComplete) {
+    const test = await Test.findOne({
+      user: req.user.userId,
+      isComplete: false,
+    });
+
+    if (!test) {
+      throw new CustomError.NotFoundError(`test not found`);
+    }
+    test.isComplete = true;
+
+    updateUserQuestionData({ user: req.user.userId, test });
+    let results = {};
+    results = createResults(test);
+    await test.save();
+    return res.status(StatusCodes.OK).json({ test, results });
+  }
 
   if (!questionId || !isFinite(index) || !isFinite(currentQuestion)) {
     throw new CustomError.BadRequestError(
