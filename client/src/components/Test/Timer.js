@@ -12,7 +12,7 @@ const Timer = () => {
   useEffect(() => {
     if (createdAt) {
       const endOfTest = moment(createdAt)
-        .add(1000 * 5, "ms")
+        .add(45 * 1000 * 60, "ms")
         .valueOf();
 
       // setEndTest(endOfTest);
