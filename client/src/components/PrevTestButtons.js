@@ -4,7 +4,12 @@ import {
   TbArrowBigRightLine,
 } from "react-icons/tb";
 
-const PreviousTestButtons = ({ currentQuestion, handleClick, test }) => {
+const PreviousTestButtons = ({
+  currentQuestion,
+  handleClick,
+  test,
+  isComplete,
+}) => {
   return (
     <>
       <div
@@ -30,8 +35,9 @@ const PreviousTestButtons = ({ currentQuestion, handleClick, test }) => {
         }
         className={
           currentQuestion === test?.length - 1 ||
-          test?.[currentQuestion].userAnswer === null ||
-          !test
+          (!isComplete &&
+            currentQuestion !== test?.length - 1 &&
+            test?.[currentQuestion].userAnswer === null)
             ? "gray next"
             : "next"
         }

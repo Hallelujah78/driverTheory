@@ -33,6 +33,12 @@ To Do for current DriveL driver theory MCQ app:
 - noticed an answer was incorrect in one of the questions - turn right instead of turn left. Note: when a question is edited (in the database currently only), the previous test results do not get updated. If we were to handle this (probably best to just double check before creation of the question), would push updates to previous test results for all users upon editing on the frontend
 - ChooseNumQuestionsStartTest is rendering before data is present
 - ~~if the timer runs out before the user answers any questions, there is a null pointer error (reading 'correct' in Categories). Could be userAnswer is null?~~ FIXED
-- 'Least seen' test. When selecting the number of questions, the slider shows 36, but only 30 questions are returned. Adjusting the slider below 36 and back to 36 still returns only 30 questions.
 - ~~the 'results' button is showing up when browsing previous results~~ FIXED
 - ~~when browsing the questions in the results page, the user can't browse forward where the timer has run out and some or all answers have no answer submitted~~ FIXED
+- ~~when viewing previous test results with null user answers, the next button is still grayed out~~ FIXED
+- if there are no previous test results, we need to show no data @ http://localhost:3000/stats/previous-results
+- if there are no test results to graph, we need to show no data @ http://localhost:3000/stats/graphs
+
+- ~~UserQuestionData needs to be created earlier (at first login) OR we handle the fact that there is no UserQuestionData until the user takes their first test.~~ DONE
+- app is pretty much complete!! need to add more questions, ensure titles in nav bars and question number is being displayed correctly when reading, various tests, viewing old tests
+- there may be an issue with timed tests whereby, if the user spams the refresh button, the test countdown is delayed by the reload time. Hence the user could get a lot more time to complete the test. Needs investigation.

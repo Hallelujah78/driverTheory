@@ -13,6 +13,7 @@ import {
   createUserQuestionData,
 } from "../utils/index.js";
 import crypto from "crypto";
+import UserQuestionData from "../models/UserQuestionData.js";
 
 let origin;
 if (process.env.NODE_ENV === "production") {
@@ -39,11 +40,7 @@ const login = async (req, res) => {
     throw new CustomError.UnauthenticatedError("please verify your email");
   }
 
-  if (!user.userQuestionData) {
-    createUserQuestionData(user._id);
-    user.userQuestionData = true;
-    await user.save();
-  }
+  createUserQuestionData(user._id);
 
   const tokenUser = createTokenUser(user);
 

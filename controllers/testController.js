@@ -99,6 +99,7 @@ const createTest = async (req, res) => {
       { $sort: { numTimesAnswered: 1 } },
       { $project: { question: 1, _id: 0, numTimesAnswered: 1 } },
     ]).limit(numTestQuestions);
+    console.log(tempQuestions);
     tempQuestions = tempQuestions.map((item) => item.question.toString());
     testQuestions = await Question.find({ _id: { $in: tempQuestions } });
   }
@@ -140,6 +141,7 @@ const createTest = async (req, res) => {
     questions,
     category: testCategory,
   });
+  console.log(test);
 
   res.status(StatusCodes.CREATED).json({ test });
 };
