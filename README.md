@@ -41,4 +41,7 @@ To Do for current DriveL driver theory MCQ app:
 
 - ~~UserQuestionData needs to be created earlier (at first login) OR we handle the fact that there is no UserQuestionData until the user takes their first test.~~ DONE
 - app is pretty much complete!! need to add more questions, ensure titles in nav bars and question number is being displayed correctly when reading, various tests, viewing old tests
-- there may be an issue with timed tests whereby, if the user spams the refresh button, the test countdown is delayed by the reload time. Hence the user could get a lot more time to complete the test. Needs investigation.
+- ~~there may be an issue with timed tests whereby, if the user spams the refresh button, the test countdown is delayed by the reload time. Hence the user could get a lot more time to complete the test. Needs investigation.~~ NOT AN ISSUE - tested in slow 3G mode and seems good.
+- ~~flagged question test is just returning random questions, they aren't flagged~~ FIXED
+- ~~if the user has no flagged questions, this should be communicated~~ FIXED
+- ~~landing page does not look good on mobile with addition of extra 'amusing' text~~ FIXED

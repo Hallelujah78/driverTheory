@@ -54,23 +54,20 @@ const CategoryPractice = () => {
 
   const handleClick = (e) => {
     e.preventDefault();
+    if (!e.target.id) {
+      return;
+    }
     const buttons = e.currentTarget.querySelectorAll("button");
     buttons.forEach((button) => {
       button.classList.remove("active");
     });
-    e.target.classList.add("active");
+    if (e.target.id) {
+      e.target.classList.add("active");
+    }
     if (e.target.id) {
       setQuestionCategory(e.target.id);
     }
   };
-
-  // if (isLoading) {
-  //   return (
-  //     <Wrapper>
-  //       <Loading />
-  //     </Wrapper>
-  //   );
-  // }
 
   return (
     <Wrapper className="full-page">
@@ -93,17 +90,18 @@ const CategoryPractice = () => {
           </button>
         </div>
       </div>
-      {!isLoading ? (
-        <ChooseNumQuestionsStartTest
-          onChange={onChange}
-          numOfQuestions={numOfQuestions}
-          onClick={onClick}
-          numTestQuestions={numTestQuestions}
-        />
-      ) : (
-        <SmallLoading />
-      )}
-
+      <div className="question-selector">
+        {isLoading ? (
+          <SmallLoading />
+        ) : !numOfQuestions ? null : (
+          <ChooseNumQuestionsStartTest
+            onChange={onChange}
+            numOfQuestions={numOfQuestions}
+            onClick={onClick}
+            numTestQuestions={numTestQuestions}
+          />
+        )}
+      </div>
       <div className="filler"></div>
     </Wrapper>
   );
@@ -130,5 +128,9 @@ const Wrapper = styled.section`
     background-color: #f9f9f9f9;
     color: var(--primary-500);
     border: 1px solid var(--primary-500);
+  }
+  .question-selector {
+    max-width: 90vw;
+    margin: 0.5rem auto;
   }
 `;

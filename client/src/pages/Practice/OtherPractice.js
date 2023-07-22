@@ -75,12 +75,18 @@ const OtherPractice = () => {
     <Wrapper className="full-page">
       <div className="other-practice">
         <div className="practice-container">
-          <ChooseNumQuestionsStartTest
-            onChange={onChange}
-            numOfQuestions={numOfQuestions}
-            onClick={onClick}
-            numTestQuestions={numTestQuestions}
-          />
+          {numTestQuestions > 0 ? (
+            <ChooseNumQuestionsStartTest
+              onChange={onChange}
+              numOfQuestions={numOfQuestions}
+              onClick={onClick}
+              numTestQuestions={numTestQuestions}
+            />
+          ) : (
+            <>
+              <h4>There are no questions of this type!</h4>
+            </>
+          )}
         </div>
       </div>
       <div className="filler"></div>

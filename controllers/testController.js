@@ -77,6 +77,7 @@ const createTest = async (req, res) => {
     testCategory === "flagged questions"
   ) {
     let query;
+    const isFlagged = testCategory === "flagged questions";
     testCategory === "problem questions"
       ? (query = "$lastAnswerCorrect")
       : (query = "$isFlagged");
@@ -84,7 +85,7 @@ const createTest = async (req, res) => {
       { $match: { user: new mongoose.Types.ObjectId(req.user.userId) } },
       { $unwind: "$questions" },
       { $replaceRoot: { newRoot: "$questions" } },
-      { $match: { $expr: { $eq: [query, false] } } },
+      { $match: { $expr: { $eq: [query, isFlagged] } } },
       { $project: { question: 1, _id: 0 } },
     ]).sample(numTestQuestions);
     tempQuestions = tempQuestions.map((item) => item.question.toString());

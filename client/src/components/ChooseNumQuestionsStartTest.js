@@ -16,7 +16,9 @@ const ChooseNumQuestionsStartTest = ({
         <h5>Choose Number of Questions</h5>
         <h4>{numTestQuestions}</h4>
         <div className="input-container">
-          <button id="decrease">-</button>
+          <button className="btn" id="decrease">
+            -
+          </button>
           <input
             type="range"
             min="1"
@@ -24,7 +26,9 @@ const ChooseNumQuestionsStartTest = ({
             value={numTestQuestions}
             onChange={onChange}
           />
-          <button id="increase">+</button>
+          <button className="btn" id="increase">
+            +
+          </button>
         </div>
         <button id="start" className="btn btn-block">
           Start Test
@@ -39,12 +43,22 @@ const Wrapper = styled.div`
   .question-selector {
     max-width: 90vw;
     margin: 0 auto;
-    margin-top: 2rem;
     text-align: center;
   }
   .input-container {
+    width: 80vw;
     display: flex;
     justify-content: space-between;
-    margin-bottom: 3rem;
+    margin-bottom: 2.5rem;
+  }
+  #decrease,
+  #increase {
+    border-radius: 50%;
+    height: 3rem;
+    width: 3rem;
+    font-size: 2rem;
+  }
+  input {
+    width: 45vw;
   }
 `;

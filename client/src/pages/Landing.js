@@ -20,8 +20,7 @@ const Landing = () => {
             </h1>
             <h5>
               Irish driver theory questions for car drivers. Practice answering
-              questions for free and ace your test! Make your driving Hopes and
-              Dreams come true!
+              questions for free and ace your test!
             </h5>
             <Link to="/register" className="btn btn-hero">
               login/register
@@ -35,11 +34,6 @@ const Landing = () => {
             </p>
           </div>
           <img src={main} alt="job hunt" className="img main-img" />
-          <p>
-            **Hopes and Dreams is a registered trademark of NewAtlas Inc and its
-            subsidiaries. Your hopes and dreams may differ from that of the
-            NewAtlas Corporation.
-          </p>
         </div>
       </Wrapper>
     </>
