@@ -7,14 +7,14 @@ import { useAppContext } from "../../context/appContext.js";
 
 const TestNav = ({ handleExit }) => {
   const location = useLocation();
-  const { currentQuestion } = useAppContext();
+  const { currentQuestion, testTitle } = useAppContext();
 
   return (
     <Wrapper>
       <div className="nav-center">
         <div className="container">
           <TbCircleLetterX className="exit" onClick={() => handleExit()} />
-
+          {testTitle}
           {location.pathname === "/least-seen/test" ? (
             <h3>Least Seen</h3>
           ) : location.pathname === "/incorrect/test" ? (
@@ -33,7 +33,8 @@ const TestNav = ({ handleExit }) => {
 
           {location.pathname.includes("/read/") ||
           location.pathname.includes("test") ||
-          location.pathname === "/practice-test" ? (
+          location.pathname === "/practice-test" ||
+          location.pathname.includes("previous-results/") ? (
             <h3>
               Q<span> {currentQuestion + 1}</span>
             </h3>

@@ -7,7 +7,6 @@ import {
   TOGGLE_IS_FLAGGED,
   SET_TEST_COMPLETE_SUCCESS,
   SET_TEST_COMPLETE_BEGIN,
-  SET_TEST_COMPLETE_ERROR,
   GET_TEST_BEGIN,
   GET_TEST_SUCCESS,
   GET_TEST_ERROR,
@@ -23,13 +22,9 @@ import {
   GET_CURRENT_USER_SUCCESS,
   CHANGE_PAGE,
   CLEAR_FILTERS,
-  SHOW_STATS_BEGIN,
-  SHOW_STATS_SUCCESS,
   EDIT_JOB_BEGIN,
   EDIT_JOB_ERROR,
   EDIT_JOB_SUCCESS,
-  DELETE_JOB_BEGIN,
-  DELETE_JOB_ERROR,
   CLEAR_VALUES,
   DISPLAY_ALERT,
   CLEAR_ALERT,
@@ -49,11 +44,9 @@ import {
   CREATE_QUESTION_BEGIN,
   CREATE_QUESTION_ERROR,
   CREATE_QUESTION_SUCCESS,
-  GET_JOBS_SUCCESS,
-  GET_JOBS_BEGIN,
-  GET_TEST_QUESTIONS_BEGIN,
-  GET_TEST_QUESTIONS_SUCCESS,
-  GET_TEST_QUESTIONS_ERROR,
+  CREATE_TEST_BEGIN,
+  CREATE_TEST_SUCCESS,
+  CREATE_TEST_ERROR,
   SET_CURRENT_QUESTION,
   GET_QUESTIONS_READ_BEGIN,
   GET_QUESTIONS_READ_ERROR,
@@ -109,6 +102,7 @@ const initialState = {
   sort: "latest",
   sortOptions: ["latest", "oldest", "a-z", "z-a"],
   createdAt: null,
+  testTitle: "",
 };
 
 const AppContext = React.createContext();
@@ -310,28 +304,6 @@ const AppProvider = ({ children }) => {
   };
   // end of create question
 
-  const getQuestions = async () => {
-    // search, searchType, searchStatus, sort
-    const { search, searchType, searchStatus, sort, page } = state;
-    let url = `/questions?sort=${sort}&type=${searchType}&status=${searchStatus}&page=${page}`;
-
-    if (search.length > 0) {
-      url = url + `&search=${search}`;
-    }
-    dispatch({ type: GET_JOBS_BEGIN });
-    try {
-      const { data } = await authFetch.get(url);
-      const { questions, totalQuestions, numOfPages } = data;
-      dispatch({
-        type: GET_JOBS_SUCCESS,
-        payload: { questions, totalQuestions, numOfPages },
-      });
-    } catch (error) {
-      console.log("GET_JOBS_ERROR");
-    }
-    clearAlert();
-  };
-
   const setEditQuestion = (id) => {
     dispatch({
       type: SET_EDIT_JOB,
@@ -372,38 +344,6 @@ const AppProvider = ({ children }) => {
     clearAlert();
   };
 
-  const deleteQuestion = async (id) => {
-    dispatch({ type: DELETE_JOB_BEGIN });
-    try {
-      await authFetch.delete(`/questions/${id}`);
-      getQuestions();
-    } catch (error) {
-      console.log("DELETE_JOB_ERROR");
-      dispatch({
-        type: DELETE_JOB_ERROR,
-        payload: { msg: error.response.data.msg },
-      });
-    }
-    clearAlert();
-  };
-
-  // const showStats = async () => {
-  //   dispatch({ type: SHOW_STATS_BEGIN });
-  //   try {
-  //     const { data } = await authFetch.get("/questions/stats");
-  //     dispatch({
-  //       type: SHOW_STATS_SUCCESS,
-  //       payload: {
-  //         stats: data.defaultStats,
-  //         monthlyApplications: data.monthlyApplications,
-  //       },
-  //     });
-  //   } catch (error) {
-  //     console.log("SHOW_STATS_ERROR");
-  //   }
-  //   clearAlert();
-  // };
-
   const clearFilters = () => {
     dispatch({ type: CLEAR_FILTERS });
   };
@@ -433,7 +373,7 @@ const AppProvider = ({ children }) => {
     questionCategory = null,
     numTestQuestions
   ) => {
-    dispatch({ type: GET_TEST_QUESTIONS_BEGIN });
+    dispatch({ type: CREATE_TEST_BEGIN });
 
     try {
       const { data } = await authFetch.post("/test", {
@@ -444,15 +384,16 @@ const AppProvider = ({ children }) => {
 
       const test = data.test.questions;
       const createdAt = moment(data.test.createdAt).valueOf();
+      const testTitle = data.test.category;
 
       dispatch({
-        type: GET_TEST_QUESTIONS_SUCCESS,
-        payload: { test, createdAt },
+        type: CREATE_TEST_SUCCESS,
+        payload: { test, createdAt, testTitle },
       });
     } catch (error) {
-      console.log("GET_TEST_QUESTIONS_ERROR");
+      console.log("CREATE_TEST_ERROR");
       dispatch({
-        type: GET_TEST_QUESTIONS_ERROR,
+        type: CREATE_TEST_ERROR,
         payload: { msg: error.response?.data.msg },
       });
     }
@@ -497,6 +438,7 @@ const AppProvider = ({ children }) => {
           isComplete: data.test.isComplete,
           results: data?.results,
           createdAt: data.test.createdAt,
+          testTitle: data.test.category,
         },
       });
     } catch (error) {
@@ -570,6 +512,7 @@ const AppProvider = ({ children }) => {
           test: data.test.questions,
           isComplete: data.test.isComplete,
           results: data.results ? data.results : null,
+          testTitle: data.test.category,
         },
       });
     } catch (error) {
@@ -662,9 +605,7 @@ const AppProvider = ({ children }) => {
         handleChange,
         clearValues,
         createQuestion,
-        getQuestions,
         setEditQuestion,
-        deleteQuestion,
         editQuestion,
         clearFilters,
         changePage,

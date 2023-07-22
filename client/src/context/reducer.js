@@ -3,7 +3,6 @@ import {
   TOGGLE_IS_FLAGGED,
   SET_TEST_COMPLETE_SUCCESS,
   SET_TEST_COMPLETE_BEGIN,
-  SET_TEST_COMPLETE_ERROR,
   GET_TEST_BEGIN,
   GET_TEST_SUCCESS,
   GET_TEST_ERROR,
@@ -13,22 +12,18 @@ import {
   SET_MODAL_STATE,
   INCREMENT_QUESTION,
   DECREMENT_QUESTION,
-  GET_TEST_QUESTIONS_BEGIN,
-  GET_TEST_QUESTIONS_SUCCESS,
-  GET_TEST_QUESTIONS_ERROR,
+  CREATE_TEST_BEGIN,
+  CREATE_TEST_SUCCESS,
+  CREATE_TEST_ERROR,
   SET_USER_NULL,
   SET_USER_LOADING,
   GET_CURRENT_USER_BEGIN,
   GET_CURRENT_USER_SUCCESS,
   CHANGE_PAGE,
   CLEAR_FILTERS,
-  SHOW_STATS_BEGIN,
-  SHOW_STATS_SUCCESS,
   EDIT_JOB_BEGIN,
   EDIT_JOB_ERROR,
   EDIT_JOB_SUCCESS,
-  DELETE_JOB_BEGIN,
-  DELETE_JOB_ERROR,
   SET_EDIT_JOB,
   CLEAR_VALUES,
   DISPLAY_ALERT,
@@ -45,14 +40,9 @@ import {
   UPDATE_USER_ERROR,
   UPDATE_USER_SUCCESS,
   HANDLE_CHANGE,
-  CREATE_JOB_BEGIN,
-  CREATE_JOB_ERROR,
-  CREATE_JOB_SUCCESS,
   CREATE_QUESTION_BEGIN,
   CREATE_QUESTION_ERROR,
   CREATE_QUESTION_SUCCESS,
-  GET_JOBS_BEGIN,
-  GET_JOBS_SUCCESS,
   SET_CURRENT_QUESTION,
   GET_QUESTIONS_READ_BEGIN,
   GET_QUESTIONS_READ_ERROR,
@@ -189,46 +179,7 @@ const reducer = (state, action) => {
       questionCategory: "control of vehicle",
     };
   }
-  if (action.type === CREATE_JOB_BEGIN) {
-    return {
-      ...state,
-      isLoading: true,
-    };
-  }
-  if (action.type === CREATE_JOB_ERROR) {
-    return {
-      ...state,
-      isLoading: false,
-      showAlert: true,
-      alertType: "danger",
-      alertText: action.payload.msg,
-    };
-  }
-  if (action.type === CREATE_JOB_SUCCESS) {
-    return {
-      ...state,
-      isLoading: false,
-      showAlert: true,
-      alertType: "success",
-      alertText: "New job created",
-    };
-  }
-  if (action.type === GET_JOBS_BEGIN) {
-    return {
-      ...state,
-      isLoading: true,
-      showAlert: false,
-    };
-  }
-  if (action.type === GET_JOBS_SUCCESS) {
-    return {
-      ...state,
-      isLoading: false,
-      numOfPages: action.payload.numOfPages,
-      jobs: action.payload.jobs,
-      totalJobs: action.payload.totalJobs,
-    };
-  }
+
   if (action.type === SET_EDIT_JOB) {
     const job = state.jobs.find((job) => job._id === action.payload.id);
     const { _id, position, company, location, type, status } = job;
@@ -244,21 +195,7 @@ const reducer = (state, action) => {
       status,
     };
   }
-  if (action.type === DELETE_JOB_BEGIN) {
-    return {
-      ...state,
-      isLoading: true,
-    };
-  }
-  if (action.type === DELETE_JOB_ERROR) {
-    return {
-      ...state,
-      isLoading: false,
-      showAlert: true,
-      alertType: "danger",
-      alertText: action.payload.msg,
-    };
-  }
+
   if (action.type === EDIT_JOB_BEGIN) {
     return {
       ...state,
@@ -284,21 +221,6 @@ const reducer = (state, action) => {
     };
   }
 
-  if (action.type === SHOW_STATS_BEGIN) {
-    return {
-      ...state,
-      isLoading: true,
-      showAlert: false,
-    };
-  }
-  if (action.type === SHOW_STATS_SUCCESS) {
-    return {
-      ...state,
-      isLoading: false,
-      stats: action.payload.stats,
-      monthlyApplications: action.payload.monthlyApplications,
-    };
-  }
   if (action.type === CLEAR_FILTERS) {
     return {
       ...state,
@@ -369,7 +291,7 @@ const reducer = (state, action) => {
       alertText: action.payload.msg,
     };
   }
-  if (action.type === GET_TEST_QUESTIONS_BEGIN) {
+  if (action.type === CREATE_TEST_BEGIN) {
     return {
       ...state,
       isLoading: true,
@@ -381,7 +303,7 @@ const reducer = (state, action) => {
       createdAt: null,
     };
   }
-  if (action.type === GET_TEST_QUESTIONS_SUCCESS) {
+  if (action.type === CREATE_TEST_SUCCESS) {
     return {
       ...state,
       test: action.payload.test,
@@ -389,9 +311,10 @@ const reducer = (state, action) => {
       testLoading: false,
       creatingTest: false,
       createdAt: action.payload.createdAt,
+      testTitle: action.payload.testTitle,
     };
   }
-  if (action.type === GET_TEST_QUESTIONS_ERROR) {
+  if (action.type === CREATE_TEST_ERROR) {
     return {
       ...state,
       test: null,
@@ -402,6 +325,7 @@ const reducer = (state, action) => {
       creatingTest: false,
       testLoading: false,
       createdAt: null,
+      testTitle: "",
     };
   }
   if (action.type === INCREMENT_QUESTION) {
@@ -430,6 +354,8 @@ const reducer = (state, action) => {
       testLoading: true,
       creatingTest: false,
       isLoading: false,
+      createdAt: null,
+      testTitle: "",
     };
   }
   if (action.type === GET_TEST_BEGIN) {
@@ -450,6 +376,7 @@ const reducer = (state, action) => {
       isComplete: action.payload.isComplete,
       results: action.payload.results,
       createdAt: action.payload.createdAt,
+      testTitle: action.payload.testTitle,
     };
   }
   if (action.type === GET_TEST_ERROR) {
@@ -462,6 +389,7 @@ const reducer = (state, action) => {
       isComplete: false,
       results: null,
       createdAt: null,
+      testTitle: "",
     };
   }
   if (action.type === SUBMIT_ANSWER) {
@@ -470,6 +398,7 @@ const reducer = (state, action) => {
       test: action.payload.test,
       isComplete: action.payload.isComplete,
       results: action.payload.results,
+      testTitle: action.payload.testTitle,
     };
   }
   if (action.type === SELECT_ANSWER) {
@@ -490,6 +419,7 @@ const reducer = (state, action) => {
       test: action.payload.test,
       isComplete: action.payload.isComplete,
       results: action.payload.results,
+      testTitle: action.payload.testTitle,
     };
   }
 
