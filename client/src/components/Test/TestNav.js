@@ -1,46 +1,19 @@
 import styled from "styled-components";
-import { useLocation } from "react-router";
 import { TbCircleLetterX } from "react-icons/tb";
 import Timer from "./Timer.js";
 
-import { useAppContext } from "../../context/appContext.js";
-
-const TestNav = ({ handleExit }) => {
-  const location = useLocation();
-  const { currentQuestion, testTitle } = useAppContext();
-
+const TestNav = ({ handleExit, currentQuestion, testTitle, isComplete }) => {
   return (
     <Wrapper>
       <div className="nav-center">
         <div className="container">
           <TbCircleLetterX className="exit" onClick={() => handleExit()} />
-          {testTitle}
-          {location.pathname === "/least-seen/test" ? (
-            <h3>Least Seen</h3>
-          ) : location.pathname === "/incorrect/test" ? (
-            <h3>Answered Incorrectly</h3>
-          ) : location.pathname === "/flagged/test" ? (
-            <h3>Flagged Questions</h3>
-          ) : location.pathname === "/practice-test" ? (
-            <h3>Practice Paper</h3>
-          ) : location.pathname === "/category-practice/test" ? (
-            <h3>Category Practice</h3>
-          ) : location.pathname.includes("/read/") ? (
-            <h3>Reading Questions</h3>
-          ) : location.pathname === "/official-test" ? (
-            <h3>Mock Test</h3>
-          ) : null}
-
-          {location.pathname.includes("/read/") ||
-          location.pathname.includes("test") ||
-          location.pathname === "/practice-test" ||
-          location.pathname.includes("previous-results/") ? (
-            <h3>
-              Q<span> {currentQuestion + 1}</span>
-            </h3>
-          ) : null}
+          <h3>{testTitle}</h3>
+          <h3>
+            Q<span> {currentQuestion + 1}</span>
+          </h3>
+          {testTitle === "official test" && !isComplete ? <Timer /> : null}
         </div>
-        {location.pathname === "/official-test" ? <Timer /> : null}
       </div>
     </Wrapper>
   );

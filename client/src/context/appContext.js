@@ -487,7 +487,7 @@ const AppProvider = ({ children }) => {
 
   const submitAnswer = async (index, currentQuestion) => {
     const questionId = state.test[state.currentQuestion]._id;
-    // update context by submitting answer locally - provides better feedback to user and better user experience
+
     const newTest = [...state.test];
     newTest[currentQuestion].userAnswer = index;
 
@@ -498,7 +498,7 @@ const AppProvider = ({ children }) => {
       type: SUBMIT_ANSWER,
       payload: { test: newTest },
     });
-    // now we can update the database and update context again with our response
+
     try {
       const { data } = await authFetch.patch("/test", {
         questionId,
@@ -512,7 +512,6 @@ const AppProvider = ({ children }) => {
           test: data.test.questions,
           isComplete: data.test.isComplete,
           results: data.results ? data.results : null,
-          testTitle: data.test.category,
         },
       });
     } catch (error) {
@@ -520,6 +519,7 @@ const AppProvider = ({ children }) => {
       console.log("SUBMIT_ANSWER_ERROR");
     }
   };
+
   const selectAnswer = (index) => {
     const newTest = [...state.test];
     newTest[state.currentQuestion].selected = index;

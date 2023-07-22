@@ -20,17 +20,19 @@ const PreviousTests = () => {
   };
 
   useEffect(() => {
-    getPreviousTests();
+    if (!previousTests) {
+      getPreviousTests();
+    }
   }, []);
 
-  if (isLoading && !previousTests) {
+  if (isLoading || !previousTests) {
     return (
       <Wrapper className="full-page">
         <Loading center />
       </Wrapper>
     );
   }
-  if (!isLoading && !previousTests) {
+  if (!isLoading && !previousTests?.length) {
     return (
       <Wrapper className="full-page">
         <NoData

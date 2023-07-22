@@ -301,6 +301,7 @@ const reducer = (state, action) => {
       results: null,
       isComplete: false,
       createdAt: null,
+      testTitle: "",
     };
   }
   if (action.type === CREATE_TEST_SUCCESS) {
@@ -398,7 +399,6 @@ const reducer = (state, action) => {
       test: action.payload.test,
       isComplete: action.payload.isComplete,
       results: action.payload.results,
-      testTitle: action.payload.testTitle,
     };
   }
   if (action.type === SELECT_ANSWER) {
@@ -455,6 +455,7 @@ const reducer = (state, action) => {
       testLoading: false,
       test: action.payload.questions,
       results: null,
+      testTitle: "Reading Questions",
     };
   }
   if (action.type === GET_QUESTIONS_READ_ERROR) {

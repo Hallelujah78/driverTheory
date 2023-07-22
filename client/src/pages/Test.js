@@ -17,6 +17,8 @@ const Test = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const {
+    currentQuestion,
+    testTitle,
     isComplete,
     creatingTest,
     exitTest,
@@ -86,7 +88,13 @@ const Test = () => {
             handleClickTwo={handleClickTwo}
           />
         )}
-        <TestNav handleExit={handleExit} setValues={setValues} />
+        <TestNav
+          isComplete={isComplete}
+          currentQuestion={currentQuestion}
+          testTitle={testTitle}
+          handleExit={handleExit}
+          setValues={setValues}
+        />
         <div className="loading-container">
           <Loading center />
         </div>
@@ -106,7 +114,13 @@ const Test = () => {
             handleClickTwo={handleClickTwo}
           />
         )}
-        <TestNav handleExit={handleExit} {...values} setValues={setValues} />
+        <TestNav
+          isComplete={isComplete}
+          currentQuestion={currentQuestion}
+          testTitle={testTitle}
+          handleExit={handleExit}
+          setValues={setValues}
+        />
         <NoData
           linkText="Back to Practice"
           message="There is no test data..."
@@ -127,7 +141,13 @@ const Test = () => {
           handleClickTwo={handleClickTwo}
         />
       )}
-      <TestNav handleExit={handleExit} {...values} setValues={setValues} />
+      <TestNav
+        isComplete={isComplete}
+        currentQuestion={currentQuestion}
+        testTitle={testTitle}
+        handleExit={handleExit}
+        setValues={setValues}
+      />
       {test && <Question />}
 
       <TestFooter />

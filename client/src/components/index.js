@@ -5,7 +5,6 @@ import Logo from "./Logo.js";
 import SmallSidebar from "./SmallSidebar.js";
 import Navbar from "./Navbar.js";
 import FormRowSelect from "./FormRowSelect.js";
-import JobsContainer from "./JobsContainer.js";
 import StatItem from "./StatItem.js";
 import ChartsContainer from "./ChartsContainer.js";
 import StatsContainer from "./StatsContainer.js";
@@ -35,7 +34,6 @@ export {
   BigSidebar,
   Navbar,
   FormRowSelect,
-  JobsContainer,
   SearchContainer,
   StatsContainer,
   StatItem,

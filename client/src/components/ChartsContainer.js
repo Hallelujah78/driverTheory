@@ -5,28 +5,29 @@ import { NoData, Loading } from "./index.js";
 import { useAppContext } from "../context/appContext.js";
 
 const ChartsContainer = () => {
-  const [data, setData] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState();
   const { authFetch } = useAppContext();
+  const [chartData, setChartData] = useState();
 
   const getStats = async () => {
+    setIsLoading(true);
     try {
       const { data } = await authFetch.get("/test/showStats");
-      setData(data.stats);
+      setChartData(data.stats);
     } catch (error) {
       console.log("GET_STATS_ERROR");
       console.log(error.response.data.msg);
     }
+    setIsLoading(false);
   };
 
   useEffect(() => {
-    if (!data) {
+    if (!chartData) {
       getStats();
     }
-    setIsLoading(false);
-  });
+  }, []);
 
-  if (isLoading) {
+  if (isLoading || !chartData) {
     return (
       <Wrapper>
         <Loading />
@@ -34,7 +35,7 @@ const ChartsContainer = () => {
     );
   }
 
-  if (!isLoading && !data) {
+  if (!isLoading && !chartData?.length) {
     return (
       <Wrapper>
         <NoData
@@ -48,7 +49,7 @@ const ChartsContainer = () => {
 
   return (
     <Wrapper>
-      <LineChart className="chart" data={data} />
+      <LineChart className="chart" chartData={chartData} />
     </Wrapper>
   );
 };

@@ -29,10 +29,10 @@ const CustomizedAxisTick = (props) => {
   );
 };
 
-const LineChart = ({ data }) => {
+const LineChart = ({ chartData }) => {
   return (
     <ResponsiveContainer
-      width={data.length <= 8 ? "100%" : `${data.length * 12.5}%`}
+      width={chartData?.length <= 8 ? "100%" : `${chartData?.length * 12.5}%`}
       height="90%"
     >
       <Chart
@@ -40,7 +40,7 @@ const LineChart = ({ data }) => {
           top: 20,
           right: 100,
         }}
-        data={data}
+        data={chartData}
       >
         <CartesianGrid strokeDasharray="4 4" />
         <XAxis height={"65"} dataKey="date" tick={<CustomizedAxisTick />} />

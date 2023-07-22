@@ -10,7 +10,6 @@ import {
 import {
   Practice,
   AddQuestion,
-  AllJobs,
   Profile,
   SharedLayout,
   Stats,
@@ -24,7 +23,6 @@ import {
 } from "./pages/aggregatedResults/index.js";
 import Read from "./pages/Practice/Read.js";
 import CategoryPractice from "./pages/Practice/CategoryPractice.js";
-
 import { QuestionList, Categories } from "./pages/Results/index.js";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ResultsSharedLayout from "./pages/Results/SharedLayout";
@@ -45,7 +43,6 @@ function App() {
         >
           <Route index element={<Practice />}></Route>
           <Route path="stats" element={<Stats />}></Route>
-          <Route path="all-jobs" element={<AllJobs />}></Route>
           <Route path="add-question" element={<AddQuestion />}></Route>
 
           <Route path="profile" element={<Profile />}></Route>
