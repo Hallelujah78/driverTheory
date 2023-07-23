@@ -50,12 +50,16 @@ const LineChart = ({ chartData }) => {
         <CartesianGrid strokeDasharray="4 4" />
         <XAxis height={"65"} dataKey="date" tick={<CustomizedAxisTick />} />
         <YAxis allowDecimals={true} domain={[0, 100]} />
-        <Tooltip content={<CustomTooltip />} />
+        <Tooltip
+          active={false}
+          isAnimationActive={false}
+          content={<CustomTooltip />}
+        />
         <Line
           key={`data-${dataVersion}-line`}
           dataKey="score"
           dot={{
-            stroke: "red",
+            stroke: "green",
             strokeWidth: 4,
             r: 8,
           }}

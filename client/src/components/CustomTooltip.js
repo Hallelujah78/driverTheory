@@ -4,12 +4,20 @@ const CustomTooltip = ({ active, payload, label }) => {
     return (
       <Wrapper className="custom-tooltip">
         <p className="label">
-          {label}:{" "}
+          {label}:{"  "}
           <span className="value">
             {Math.round(payload[0].value * 10) / 10}%
           </span>
-          {payload[1]}
         </p>
+        <p>Type: {payload[0].payload.category.toUpperCase()}</p>
+        <p>
+          Score: {payload[0].payload.correct}/{payload[0].payload.total}
+        </p>
+        {payload[0].payload.score >= 87.5 ? (
+          <p className="pass">PASS</p>
+        ) : (
+          <p className="fail">FAIL</p>
+        )}
       </Wrapper>
     );
   }
@@ -27,5 +35,14 @@ const Wrapper = styled.div`
   .value {
     color: var(--primary-500);
     font-weight: 700;
+  }
+  p {
+    margin: 0 auto;
+  }
+  .pass {
+    color: green;
+  }
+  .fail {
+    color: red;
   }
 `;
