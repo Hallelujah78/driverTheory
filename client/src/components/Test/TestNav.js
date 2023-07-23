@@ -9,9 +9,11 @@ const TestNav = ({ handleExit, currentQuestion, testTitle, isComplete }) => {
         <div className="container">
           <TbCircleLetterX className="exit" onClick={() => handleExit()} />
           <h3>{testTitle}</h3>
-          <h3>
-            Q<span> {currentQuestion + 1}</span>
-          </h3>
+          {currentQuestion >= 0 ? (
+            <h3>
+              Q<span> {currentQuestion + 1}</span>
+            </h3>
+          ) : null}
           {testTitle === "official test" && !isComplete ? <Timer /> : null}
         </div>
       </div>
