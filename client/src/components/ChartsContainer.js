@@ -56,8 +56,7 @@ const ChartsContainer = () => {
 export default ChartsContainer;
 
 const Wrapper = styled.div`
-  height: calc(100vh - var(--nav-height) * 2 - 1rem);
-
+  height: calc(100vh - var(--nav-height) - 1rem);
   width: 90vw;
   overflow-x: scroll;
 `;

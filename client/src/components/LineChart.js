@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useState, useEffect } from "react";
 import {
   LineChart as Chart,
   Line,
@@ -30,14 +31,18 @@ const CustomizedAxisTick = (props) => {
 };
 
 const LineChart = ({ chartData }) => {
+  const [dataVersion, setDataVersion] = useState(0);
+  useEffect(() => {
+    setDataVersion((value) => value + 1);
+  }, [chartData]);
   return (
     <ResponsiveContainer
       width={chartData?.length <= 8 ? "100%" : `${chartData?.length * 12.5}%`}
-      height="90%"
+      height="85%"
     >
       <Chart
         margin={{
-          top: 20,
+          top: 50,
           right: 100,
         }}
         data={chartData}
@@ -47,12 +52,12 @@ const LineChart = ({ chartData }) => {
         <YAxis allowDecimals={true} domain={[0, 100]} />
         <Tooltip content={<CustomTooltip />} />
         <Line
+          key={`data-${dataVersion}-line`}
           dataKey="score"
           dot={{
             stroke: "red",
             strokeWidth: 4,
-            r: 6,
-            strokeDasharray: "",
+            r: 8,
           }}
         />
       </Chart>
