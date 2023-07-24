@@ -4,7 +4,7 @@ import LineChart from "./LineChart.js";
 import { NoData, Loading } from "./index.js";
 import { useAppContext } from "../context/appContext.js";
 
-const ChartsContainer = () => {
+const ChartsContainer = (graphFilter) => {
   const [isLoading, setIsLoading] = useState();
   const { authFetch } = useAppContext();
   const [chartData, setChartData] = useState();
@@ -12,7 +12,8 @@ const ChartsContainer = () => {
   const getStats = async () => {
     setIsLoading(true);
     try {
-      const { data } = await authFetch.get("/test/showStats");
+      console.log(graphFilter);
+      const { data } = await authFetch.post("/test/showStats", { graphFilter });
       setChartData(data.stats);
     } catch (error) {
       console.log("GET_STATS_ERROR");
@@ -22,10 +23,8 @@ const ChartsContainer = () => {
   };
 
   useEffect(() => {
-    if (!chartData) {
-      getStats();
-    }
-  }, []);
+    getStats();
+  }, [graphFilter]);
 
   if (isLoading || !chartData) {
     return (

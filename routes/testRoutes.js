@@ -21,6 +21,6 @@ router
 router.route("/flagged").patch(authenticateUser, toggleFlagged);
 router.route("/prev-results").get(authenticateUser, getAllTestResults);
 router.route("/previous-results/:testId").get(authenticateUser, getTest);
-router.route("/showStats").get(authenticateUser, showStats);
+router.route("/showStats").post(authenticateUser, showStats);
 
 export default router;

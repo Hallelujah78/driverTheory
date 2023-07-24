@@ -520,7 +520,7 @@ const verifyMessage = ({ name, origin, verifyEmailLink }) => {
                             <tr>
                               <td align="center" style="padding:0;Margin:0">
                                 <h2
-                                  style="Margin:0;line-height:43px;mso-line-height-rule:exactly;font-family:Montserrat, sans-serif;font-size:36px;font-style:normal;font-weight:normal;color:#333333">
+                                  style="Margin:0;line-height:43px;mso-line-height-rule:exactly;font-family:Montserrat, sans-serif;font-size:30px;font-style:normal;font-weight:normal;color:#333333">
                                   Verify your email to finish signing up</h2>
                               </td>
                             </tr>

@@ -194,6 +194,31 @@ const getTest = async (req, res) => {
 };
 
 const showStats = async (req, res) => {
+  const { graphFilter } = req.body.graphFilter;
+  let filter;
+  if (graphFilter === "all") {
+    filter = [
+      "practice",
+      "official test",
+      "flagged questions",
+      "least seen",
+      "problem questions",
+      "category practice",
+    ];
+  }
+  if (graphFilter === "mock") {
+    filter = ["official test"];
+  }
+  if (graphFilter === "practice") {
+    filter = [
+      "practice",
+      "flagged questions",
+      "least seen",
+      "problem questions",
+      "category practice",
+    ];
+  }
+
   const testStats = await Test.aggregate([
     {
       $match: {
@@ -229,7 +254,9 @@ const showStats = async (req, res) => {
     { $project: { tempScore: { $divide: ["$_id.correct", "$_id.total"] } } },
     { $project: { score: { $multiply: ["$tempScore", 100] } } },
     { $sort: { "_id.createdAt": 1 } },
+    { $match: { "_id.category": { $in: filter } } },
   ]);
+  console.log(testStats);
 
   let stats = [];
   testStats.map((test) => {
@@ -253,7 +280,6 @@ const showStats = async (req, res) => {
         ", " +
         moment().year(year).format("YY")
       }`,
-
       score: test.score,
       createdAt,
     });

@@ -471,7 +471,7 @@ const resetPasswordMessage = ({ origin, name, resetPasswordLink }) => {
                                 src="https://res.cloudinary.com/duar7ipaf/image/upload/v1685213994/logo_p4g9l6.png"
                                 alt="Logo"
                                 style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic"
-                                height="34" title="Logo"></a></td>
+                                height="80" title="Logo"></a></td>
                         </tr>
 
 
@@ -524,7 +524,7 @@ const resetPasswordMessage = ({ origin, name, resetPasswordLink }) => {
                         <tr>
                           <td align="center" style="padding:0;Margin:0">
                             <h2
-                              style="Margin:0;line-height:43px;mso-line-height-rule:exactly;font-family:Montserrat, sans-serif;font-size:36px;font-style:normal;font-weight:normal;color:#333333">
+                              style="Margin:0;line-height:43px;mso-line-height-rule:exactly;font-family:Montserrat, sans-serif;font-size:30px;font-style:normal;font-weight:normal;color:#333333">
                               Reset password</h2>
                           </td>
                         </tr>
