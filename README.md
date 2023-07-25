@@ -15,13 +15,10 @@ To Do (from original Jobify MERN project):
 
 - implement password strength checker for registration and reset password
 - app should fail gracefully on econnrefused, i.e. navigate to landing
-- user 'name' should be capitalized for emails, store as title case?
+- ~~user 'name' should be capitalized for emails, store as title case?~~ DONE
 - some issues with alert duration
-- login, register, reset password, verify email can probably be a shared layout
-- should probably move text and message from sendResetPasswordSG and sendEmailVerificationSG to separate file and import
 
 To Do for current DriveL driver theory MCQ app:
-\*\* indicates must be done before hosting site or pushing it to Portfolio
 
 - handle user navigating away from tests by using browser back/forward buttons or simply closing the browser mid test
 - There is an issue with being logged into the app on multiple devices and attempting to create a new test on both of them. Possibly due to the deletion of abandoned tests upon creation of a new test.

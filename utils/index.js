@@ -14,6 +14,7 @@ import { createUserQuestionData } from "./userQuestionData.js";
 import getNumFlaggedQuestions from "./getFlaggedQuestions.js";
 import getNumIncorrectQuestions from "./getIncorrectQuestions.js";
 import getNumLeastSeenQuestions from "./getNumLeastSeenQuestions.js";
+import capitalize from "./capitalize.js";
 
 export {
   sendVerificationEmailSG,
@@ -33,4 +34,5 @@ export {
   getNumFlaggedQuestions,
   getNumIncorrectQuestions,
   getNumLeastSeenQuestions,
+  capitalize,
 };

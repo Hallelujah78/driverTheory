@@ -3,6 +3,7 @@ import User from "../models/User.js";
 import Token from "../models/Token.js";
 import * as CustomError from "../errors/index.js";
 import {
+  capitalize,
   createTokenUser,
   attachCookie,
   attachCookiesToResponse,
@@ -13,7 +14,6 @@ import {
   createUserQuestionData,
 } from "../utils/index.js";
 import crypto from "crypto";
-import UserQuestionData from "../models/UserQuestionData.js";
 
 let origin;
 if (process.env.NODE_ENV === "production") {
@@ -82,7 +82,12 @@ const register = async (req, res) => {
 
   const verificationToken = crypto.randomBytes(40).toString("hex");
 
-  const user = await User.create({ name, email, password, verificationToken });
+  const user = await User.create({
+    name: capitalize(name),
+    email,
+    password,
+    verificationToken,
+  });
   if (process.env.NODE_ENV === "production") {
     await sendVerificationEmailSG({ user, origin });
   } else {

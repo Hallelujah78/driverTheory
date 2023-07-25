@@ -1,8 +1,9 @@
-import Wrapper from "../assets/wrappers/RegisterPage";
+// import Wrapper from "../assets/wrappers/RegisterPage";
 import { useState, useEffect } from "react";
 import { Alert, FormRow, Logo } from "../components";
 import { useAppContext } from "../context/appContext";
 import { useNavigate, Link, useLocation } from "react-router-dom";
+import styled from "styled-components";
 
 const initialState = {
   name: "",
@@ -89,6 +90,7 @@ const Register = () => {
           value={values.password}
           autocomplete={values.isMember ? "current-password" : "new-password"}
         />
+        <p>password strength</p>
         <button type="submit" disabled={isLoading} className="btn btn-block">
           submit
         </button>
@@ -123,3 +125,41 @@ const Register = () => {
   );
 };
 export default Register;
+
+const Wrapper = styled.section`
+  display: grid;
+  align-items: center;
+  height: 100vh;
+
+  .logo {
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 0.75rem;
+  }
+  .form {
+    max-width: 400px;
+    border-top: 5px solid var(--primary-500);
+  }
+
+  h3 {
+    text-align: center;
+  }
+
+  p {
+    margin: 0;
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
+    text-align: center;
+  }
+  .btn {
+    margin-top: 0.4rem;
+    margin-bottom: 0.4rem;
+  }
+  .member-btn {
+    background: transparent;
+    border: transparent;
+    color: var(--primary-500);
+    cursor: pointer;
+    letter-spacing: var(--letterSpacing);
+  }
+`;
