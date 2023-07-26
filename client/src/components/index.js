@@ -20,6 +20,7 @@ import PreviousTestButtons from "./PrevTestButtons.js";
 import CustomTooltip from "./CustomTooltip.js";
 import ChooseNumQuestionsStartTest from "./ChooseNumQuestionsStartTest.js";
 import SmallLoading from "./SmallLoading.js";
+import PasswordStrength from "./PasswordStrength.js";
 
 export {
   ModalAlert,
@@ -44,4 +45,5 @@ export {
   CustomTooltip,
   ChooseNumQuestionsStartTest,
   SmallLoading,
+  PasswordStrength,
 };

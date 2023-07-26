@@ -1,8 +1,8 @@
 // import Wrapper from "../assets/wrappers/RegisterPage";
 import { useState, useEffect } from "react";
-import { Alert, FormRow, Logo } from "../components";
+import { Alert, FormRow, Logo, PasswordStrength } from "../components";
 import { useAppContext } from "../context/appContext";
-import { useNavigate, Link, useLocation } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import styled from "styled-components";
 
 const initialState = {
@@ -90,7 +90,10 @@ const Register = () => {
           value={values.password}
           autocomplete={values.isMember ? "current-password" : "new-password"}
         />
-        <p>password strength</p>
+        <PasswordStrength
+          password={values.password}
+          isMember={values.isMember}
+        />
         <button type="submit" disabled={isLoading} className="btn btn-block">
           submit
         </button>
