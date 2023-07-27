@@ -1,8 +1,7 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 
-const PasswordStrength = ({ isMember, password }) => {
-  const [candidatePassword, setCandidatePassword] = useState("");
+const PasswordStrength = ({ password, reactIcon, getPasswordStrength }) => {
   const [isStrongPassword, setIsStrongPassword] = useState(false);
 
   const checkPasswordStrength = (password) => {
@@ -12,6 +11,10 @@ const PasswordStrength = ({ isMember, password }) => {
     const number = /\d/g;
     // >= 8
     let passStrength = 0;
+    if (password?.length < 8) {
+      setIsStrongPassword(false);
+      return;
+    }
     if (password?.length >= 8) {
       passStrength = passStrength + 1;
     }
@@ -36,14 +39,21 @@ const PasswordStrength = ({ isMember, password }) => {
   };
 
   useEffect(() => {
-    if (!isMember) {
-      setCandidatePassword(password);
-    }
     checkPasswordStrength(password);
   }, [password]);
 
-  return <Wrapper>{isStrongPassword ? "Strong password!" : "WEAK!"}</Wrapper>;
+  useEffect(() => {
+    getPasswordStrength(isStrongPassword);
+  }, [isStrongPassword]);
+
+  return <Wrapper>{isStrongPassword ? reactIcon : null}</Wrapper>;
 };
 export default PasswordStrength;
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  color: green;
+  font-size: 2rem;
+  position: absolute;
+  top: 1.9rem;
+  right: 0.25rem;
+`;

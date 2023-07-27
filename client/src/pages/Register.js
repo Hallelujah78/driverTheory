@@ -4,12 +4,14 @@ import { Alert, FormRow, Logo, PasswordStrength } from "../components";
 import { useAppContext } from "../context/appContext";
 import { useNavigate, Link } from "react-router-dom";
 import styled from "styled-components";
+import { TbCircleCheck } from "react-icons/tb";
 
 const initialState = {
   name: "",
   email: "",
   password: "",
   isMember: true,
+  strongPassword: false,
 };
 
 const Register = () => {
@@ -34,9 +36,14 @@ const Register = () => {
   };
   const onSubmit = (e) => {
     e.preventDefault();
-    const { name, email, password, isMember } = values;
+    const { name, email, password, isMember, strongPassword } = values;
     if (!email || !password || (!isMember && !name)) {
       displayAlert();
+      return;
+    }
+    if (!strongPassword) {
+      // warn user
+
       return;
     }
     const currentUser = { name, email, password };
@@ -45,6 +52,10 @@ const Register = () => {
     } else {
       registerUser(currentUser);
     }
+  };
+
+  const getPasswordStrength = (isStrongPassword) => {
+    setValues({ ...values, strongPassword: isStrongPassword });
   };
 
   useEffect(() => {
@@ -81,19 +92,25 @@ const Register = () => {
           handleChange={handleChange}
           value={values.email}
         />
-        {/* password field */}
-        <FormRow
-          id="password"
-          type="password"
-          name="password"
-          handleChange={handleChange}
-          value={values.password}
-          autocomplete={values.isMember ? "current-password" : "new-password"}
-        />
-        <PasswordStrength
-          password={values.password}
-          isMember={values.isMember}
-        />
+        <div className="password-container">
+          <FormRow
+            id="password"
+            type="password"
+            name="password"
+            handleChange={handleChange}
+            value={values.password}
+            autocomplete={values.isMember ? "current-password" : "new-password"}
+          />{" "}
+          {/* password field */}
+          {values.isMember ? null : (
+            <PasswordStrength
+              getPasswordStrength={getPasswordStrength}
+              password={values.password}
+              reactIcon={<TbCircleCheck />}
+            />
+          )}
+        </div>
+
         <button type="submit" disabled={isLoading} className="btn btn-block">
           submit
         </button>
@@ -164,5 +181,8 @@ const Wrapper = styled.section`
     color: var(--primary-500);
     cursor: pointer;
     letter-spacing: var(--letterSpacing);
+  }
+  .password-container {
+    position: relative;
   }
 `;
