@@ -11,7 +11,7 @@ import axios from "axios";
 const ForgotPassword = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
-  const { isLoading, displayAlert, showAlert } = useAppContext();
+  const { isLoading, displayAlert } = useAppContext();
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -54,7 +54,7 @@ const ForgotPassword = () => {
           <Logo />
 
           <h4>Forgot Password</h4>
-          {showAlert && <Alert />}
+
           <div className="form-center">
             {/* email */}
             <FormRow

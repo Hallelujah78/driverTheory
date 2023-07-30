@@ -2,6 +2,8 @@ import { Outlet } from "react-router-dom";
 import Wrapper from "../../assets/wrappers/SharedLayout.js";
 import { Navbar, BigSidebar, SmallSidebar } from "../../components/index.js";
 import { useAppContext } from "../../context/appContext.js";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const SharedLayout = () => {
   const { user } = useAppContext();

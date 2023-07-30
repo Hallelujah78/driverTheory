@@ -9,12 +9,9 @@ import {
 
 const AddQuestion = () => {
   const {
+    notifyWarning,
     user,
-    showAlert,
-    displayAlert,
-    updateUser,
     isLoading,
-    isEditing,
     handleChange,
     clearValues,
     createQuestion,
@@ -25,7 +22,6 @@ const AddQuestion = () => {
     answerTwo,
     answerThree,
     answerFour,
-    editJob,
     imageURL,
   } = useAppContext();
 
@@ -38,14 +34,11 @@ const AddQuestion = () => {
       !answerThree ||
       !answerFour
     ) {
-      displayAlert();
+      notifyWarning("please provide all values!");
+
       return;
     }
 
-    if (isEditing) {
-      editJob();
-      return;
-    }
     createQuestion();
   };
 
@@ -65,8 +58,8 @@ const AddQuestion = () => {
   return (
     <Wrapper>
       <form className="form">
-        <h3>{isEditing ? "edit question" : "add question"} </h3>
-        {showAlert && <Alert />}
+        <h3>add question</h3>
+
         <div className="form-center">
           {/* question text */}
           <FormRow

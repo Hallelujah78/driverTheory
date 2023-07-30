@@ -21,13 +21,7 @@ import {
   GET_CURRENT_USER_SUCCESS,
   CHANGE_PAGE,
   CLEAR_FILTERS,
-  EDIT_JOB_BEGIN,
-  EDIT_JOB_ERROR,
-  EDIT_JOB_SUCCESS,
-  SET_EDIT_JOB,
   CLEAR_VALUES,
-  DISPLAY_ALERT,
-  CLEAR_ALERT,
   REGISTER_USER_BEGIN,
   REGISTER_USER_SUCCESS,
   REGISTER_USER_ERROR,
@@ -50,22 +44,6 @@ import {
 } from "./actions";
 
 const reducer = (state, action) => {
-  if (action.type === DISPLAY_ALERT) {
-    return {
-      ...state,
-      showAlert: true,
-      alertType: action.payload.alertType,
-      alertText: action.payload.msg,
-    };
-  }
-  if (action.type === CLEAR_ALERT) {
-    return {
-      ...state,
-      showAlert: false,
-      alertType: "",
-      alertText: "",
-    };
-  }
   if (action.type === REGISTER_USER_BEGIN) {
     return {
       ...state,
@@ -76,9 +54,6 @@ const reducer = (state, action) => {
     return {
       ...state,
       isLoading: false,
-      showAlert: true,
-      alertText: action.payload.msg,
-      alertType: "danger",
     };
   }
   if (action.type === REGISTER_USER_SUCCESS) {
@@ -97,24 +72,15 @@ const reducer = (state, action) => {
   if (action.type === LOGIN_USER_ERROR) {
     return {
       ...state,
-
       isLoading: false,
-      showAlert: true,
-      alertText: action.payload.msg,
-      alertType: "danger",
     };
   }
   if (action.type === LOGIN_USER_SUCCESS) {
     return {
       ...state,
-
       isLoading: false,
-      showAlert: true,
-      alertText: "Login Successful! Redirecting...",
-      alertType: "success",
+
       user: action.payload.user,
-      userLocation: action.payload.location,
-      jobLocation: action.payload.location,
     };
   }
   if (action.type === TOGGLE_SIDEBAR) {
@@ -141,18 +107,13 @@ const reducer = (state, action) => {
     return {
       ...state,
       isLoading: false,
-      showAlert: true,
-      alertText: action.payload.msg,
-      alertType: "danger",
     };
   }
   if (action.type === UPDATE_USER_SUCCESS) {
     return {
       ...state,
       isLoading: false,
-      showAlert: true,
-      alertText: "User profile updated!",
-      alertType: "success",
+
       user: action.payload.user,
       userLocation: action.payload.location,
       jobLocation: action.payload.location,
@@ -180,47 +141,6 @@ const reducer = (state, action) => {
     };
   }
 
-  if (action.type === SET_EDIT_JOB) {
-    const job = state.jobs.find((job) => job._id === action.payload.id);
-    const { _id, position, company, location, type, status } = job;
-
-    return {
-      ...state,
-      editJobId: _id,
-      isEditing: true,
-      position,
-      company,
-      jobLocation: location,
-      jobType: type,
-      status,
-    };
-  }
-
-  if (action.type === EDIT_JOB_BEGIN) {
-    return {
-      ...state,
-      isLoading: true,
-    };
-  }
-  if (action.type === EDIT_JOB_ERROR) {
-    return {
-      ...state,
-      isLoading: false,
-      alertText: action.payload.msg,
-      alertType: "danger",
-      showAlert: true,
-    };
-  }
-  if (action.type === EDIT_JOB_SUCCESS) {
-    return {
-      ...state,
-      isLoading: false,
-      alertText: "Job updated!",
-      alertType: "success",
-      showAlert: true,
-    };
-  }
-
   if (action.type === CLEAR_FILTERS) {
     return {
       ...state,
@@ -241,7 +161,6 @@ const reducer = (state, action) => {
     return {
       ...state,
       userLoading: true,
-      showAlert: false,
     };
   }
   if (action.type === GET_CURRENT_USER_SUCCESS) {
@@ -277,18 +196,12 @@ const reducer = (state, action) => {
     return {
       ...state,
       isLoading: false,
-      showAlert: true,
-      alertType: "success",
-      alertText: "New question created",
     };
   }
   if (action.type === CREATE_QUESTION_ERROR) {
     return {
       ...state,
       isLoading: false,
-      showAlert: true,
-      alertType: "danger",
-      alertText: action.payload.msg,
     };
   }
   if (action.type === CREATE_TEST_BEGIN) {
@@ -320,9 +233,6 @@ const reducer = (state, action) => {
       ...state,
       test: null,
       isLoading: false,
-      alertText: action.payload.msg,
-      alertType: "danger",
-      showAlert: true,
       creatingTest: false,
       testLoading: false,
       createdAt: null,
@@ -440,11 +350,9 @@ const reducer = (state, action) => {
     return {
       ...state,
       isLoading: true,
-      //  creatingTest: true,
-      //  testLoading: true,
+
       test: null,
       results: null,
-      //  isComplete: false,
     };
   }
   if (action.type === GET_QUESTIONS_READ_SUCCESS) {

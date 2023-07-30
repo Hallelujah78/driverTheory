@@ -12,7 +12,7 @@ const ResetPassword = () => {
   const [newPassword, setNewPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState("");
-  const { displayAlert, showAlert } = useAppContext();
+  const { displayAlert } = useAppContext();
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -74,7 +74,6 @@ const ResetPassword = () => {
         <form className="form" onSubmit={onSubmit}>
           <Logo />
           <h4>Reset Password</h4>
-          {showAlert && <Alert />}
 
           <div className="form-center">
             {/* new password */}

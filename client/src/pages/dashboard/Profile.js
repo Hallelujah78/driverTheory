@@ -4,8 +4,7 @@ import Wrapper from "../../assets/wrappers/DashboardFormPage";
 import { useAppContext } from "../../context/appContext.js";
 
 const Profile = () => {
-  const { user, showAlert, displayAlert, updateUser, isLoading } =
-    useAppContext();
+  const { user, updateUser, isLoading, notify } = useAppContext();
   const [name, setName] = useState(user?.name);
   const [email, setEmail] = useState(user?.email);
 
@@ -13,7 +12,7 @@ const Profile = () => {
     e.preventDefault();
 
     if (!name || !email) {
-      displayAlert();
+      notify("please provide all values");
 
       return;
     }
@@ -24,7 +23,7 @@ const Profile = () => {
     <Wrapper>
       <form className="form" onSubmit={handleSubmit}>
         <h3>profile</h3>
-        {showAlert && <Alert />}
+
         {/* name */}
         <div className="form-center">
           <FormRow

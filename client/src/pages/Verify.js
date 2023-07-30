@@ -8,7 +8,7 @@ import { Logo, Alert, Loading } from "../components/index.js";
 const Verify = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { isLoading, userLoading, displayAlert, showAlert } = useAppContext();
+  const { isLoading, userLoading, displayAlert } = useAppContext();
   const [loading, setLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [user, setUser] = useState(null);
@@ -67,8 +67,6 @@ const Verify = () => {
       <Wrapper className="full-page">
         <div className="form">
           <Logo className="logo" />
-
-          {showAlert && <Alert />}
         </div>
       </Wrapper>
     );

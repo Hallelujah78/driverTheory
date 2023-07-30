@@ -2,6 +2,7 @@ import React, { useContext, useReducer, useEffect } from "react";
 import reducer from "./reducer";
 import axios from "axios";
 import moment from "moment";
+import { toast } from "react-toastify";
 
 import {
   TOGGLE_IS_FLAGGED,
@@ -22,13 +23,8 @@ import {
   GET_CURRENT_USER_SUCCESS,
   CHANGE_PAGE,
   CLEAR_FILTERS,
-  EDIT_JOB_BEGIN,
-  EDIT_JOB_ERROR,
-  EDIT_JOB_SUCCESS,
   CLEAR_VALUES,
   DISPLAY_ALERT,
-  CLEAR_ALERT,
-  SET_EDIT_JOB,
   REGISTER_USER_BEGIN,
   REGISTER_USER_ERROR,
   REGISTER_USER_SUCCESS,
@@ -67,10 +63,6 @@ const initialState = {
   isRegistered: false,
   userLoading: true,
   isLoading: false,
-  // alert
-  showAlert: false,
-  alertText: "",
-  alertType: "",
   user: null,
   showSidebar: false,
   isEditing: false,
@@ -139,6 +131,9 @@ const AppProvider = ({ children }) => {
     }
   );
 
+  const notifySuccess = (message) => toast.success(message);
+  const notifyWarning = (message) => toast.warning(message);
+
   const setUserLoadingFalse = () => {
     dispatch({ type: SET_USER_LOADING });
   };
@@ -161,7 +156,6 @@ const AppProvider = ({ children }) => {
   ) => {
     dispatch({ type: DISPLAY_ALERT, payload: { msg, clearMsg, alertType } });
     if (!clearMsg) return;
-    clearAlert();
   };
 
   const registerUser = async (currentUser) => {
@@ -172,24 +166,19 @@ const AppProvider = ({ children }) => {
       dispatch({
         type: REGISTER_USER_SUCCESS,
       });
+      notifySuccess("Success! Please check email to verify your account.");
       displayAlert(
         "Success! Please check email to verify your account.",
         true,
         "success"
       );
     } catch (error) {
+      notifyWarning(error.response.data.msg);
       dispatch({
         type: REGISTER_USER_ERROR,
         payload: { msg: error.response.data.msg },
       });
     }
-    clearAlert();
-  };
-
-  const clearAlert = () => {
-    setTimeout(() => {
-      dispatch({ type: CLEAR_ALERT });
-    }, 5000);
   };
 
   const loginUser = async (currentUser) => {
@@ -204,12 +193,11 @@ const AppProvider = ({ children }) => {
         payload: { user },
       });
     } catch (error) {
+      notifyWarning(error.response.data.msg);
       dispatch({
         type: LOGIN_USER_ERROR,
-        payload: { msg: error.response.data.msg },
       });
     }
-    clearAlert();
   };
 
   const toggleSidebar = () => {
@@ -243,13 +231,12 @@ const AppProvider = ({ children }) => {
       });
     } catch (error) {
       if (error.response.status !== 401) {
+        notifyWarning(error.response.data.msg);
         dispatch({
           type: UPDATE_USER_ERROR,
-          payload: { msg: error.response.data.msg },
         });
       }
     }
-    clearAlert();
   };
 
   const clearValues = () => {
@@ -293,56 +280,14 @@ const AppProvider = ({ children }) => {
       dispatch({ type: CLEAR_VALUES });
     } catch (error) {
       if (error.response.status !== 401) {
+        notifyWarning(error.response.data.msg);
         dispatch({
           type: CREATE_QUESTION_ERROR,
-          payload: { msg: error.response.data.msg },
         });
       }
     }
-
-    clearAlert();
   };
   // end of create question
-
-  const setEditQuestion = (id) => {
-    dispatch({
-      type: SET_EDIT_JOB,
-      payload: { id },
-    });
-  };
-
-  const editQuestion = async () => {
-    dispatch({ type: EDIT_JOB_BEGIN });
-
-    try {
-      const {
-        position,
-        company,
-        questionLocation,
-        status,
-        questionType,
-        editQuestionId,
-      } = state;
-
-      await authFetch.patch(`/questions/${editQuestionId}`, {
-        position,
-        company,
-        location: questionLocation,
-        status,
-        type: questionType,
-      });
-      dispatch({ type: EDIT_JOB_SUCCESS });
-      dispatch({ type: CLEAR_VALUES });
-    } catch (error) {
-      if (error.response.status === 401) return;
-
-      dispatch({
-        type: EDIT_JOB_ERROR,
-        payload: { msg: error.response.data.msg },
-      });
-    }
-    clearAlert();
-  };
 
   const clearFilters = () => {
     dispatch({ type: CLEAR_FILTERS });
@@ -392,12 +337,11 @@ const AppProvider = ({ children }) => {
       });
     } catch (error) {
       console.log("CREATE_TEST_ERROR");
+      notifyWarning(error.response?.data.msg);
       dispatch({
         type: CREATE_TEST_ERROR,
-        payload: { msg: error.response?.data.msg },
       });
     }
-    clearAlert();
   };
 
   const setTestComplete = async () => {
@@ -444,13 +388,13 @@ const AppProvider = ({ children }) => {
     } catch (error) {
       console.log("GET_TEST_ERROR");
       if (error.response.status !== 401) {
+        notifyWarning(error.response?.data.msg);
         console.log(error.response.data.msg);
         dispatch({
           type: GET_TEST_ERROR,
         });
       }
     }
-    clearAlert();
   };
 
   const incrementQuestion = () => {
@@ -567,6 +511,8 @@ const AppProvider = ({ children }) => {
         payload: { questions },
       });
     } catch (error) {
+      notifyWarning(error.response?.data.msg);
+
       dispatch({
         type: GET_QUESTIONS_READ_ERROR,
       });
@@ -605,14 +551,15 @@ const AppProvider = ({ children }) => {
         handleChange,
         clearValues,
         createQuestion,
-        setEditQuestion,
-        editQuestion,
+
         clearFilters,
         changePage,
         createNewTest,
         toggleIsFlagged,
         authFetch,
         getQuestionsRead,
+        notifySuccess,
+        notifyWarning,
       }}
     >
       {children}

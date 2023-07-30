@@ -1,4 +1,3 @@
-// import Wrapper from "../assets/wrappers/RegisterPage";
 import { useState, useEffect } from "react";
 import { Alert, FormRow, Logo, PasswordStrength } from "../components";
 import { useAppContext } from "../context/appContext";
@@ -17,14 +16,8 @@ const initialState = {
 const Register = () => {
   const navigate = useNavigate();
   const [values, setValues] = useState(initialState);
-  const {
-    isLoading,
-    displayAlert,
-    registerUser,
-    loginUser,
-    user,
-    isRegistered,
-  } = useAppContext();
+  const { isLoading, registerUser, loginUser, user, notifyWarning } =
+    useAppContext();
 
   const toggleMember = () => {
     setValues({ ...values, isMember: !values.isMember });
@@ -38,18 +31,17 @@ const Register = () => {
     e.preventDefault();
     const { name, email, password, isMember, strongPassword } = values;
     if (!email || !password || (!isMember && !name)) {
-      displayAlert();
+      notifyWarning("Please enter all values");
       return;
     }
-    if (!strongPassword) {
-      // warn user
 
-      return;
-    }
     const currentUser = { name, email, password };
     if (isMember) {
       loginUser(currentUser);
     } else {
+      if (!strongPassword) {
+        return;
+      }
       registerUser(currentUser);
     }
   };
@@ -65,14 +57,13 @@ const Register = () => {
       }, 3000);
     }
   }, [user, navigate]);
+
   return (
     <Wrapper className="full-page">
       <form className="form" id="login" name="login" onSubmit={onSubmit}>
         <Logo />
         {/* controls H3 content */}
         <h3>{values.isMember ? "Login" : "Register"}</h3>
-        {values.showAlert && !isRegistered && <Alert />}
-        <Alert />
 
         {/* name field */}
         {!values.isMember && (
