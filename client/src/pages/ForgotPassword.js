@@ -2,7 +2,7 @@ import Wrapper from "../assets/wrappers/ResetPassword";
 import { useAppContext } from "../context/appContext";
 //
 import { Link, useNavigate } from "react-router-dom";
-import { FormRow, Alert, Logo } from "../components/index.js";
+import { FormRow, Logo } from "../components/index.js";
 import { useState } from "react";
 import axios from "axios";
 
@@ -11,7 +11,7 @@ import axios from "axios";
 const ForgotPassword = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
-  const { isLoading, displayAlert } = useAppContext();
+  const { isLoading, notifyWarning, notifySuccess } = useAppContext();
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -25,13 +25,12 @@ const ForgotPassword = () => {
       });
     } catch (error) {
       console.log(error.response.data.msg);
-      displayAlert(error.response.data.msg);
+      notifyWarning(error.response.data.msg);
     }
     if (email === "testuser@test.com") return;
-    displayAlert(
-      "Success! Please check your email to reset password. Redirecting...",
-      true,
-      "success"
+
+    notifySuccess(
+      "Success! Please check your email to reset password. Redirecting..."
     );
     setTimeout(() => {
       navigate("/register");
@@ -41,7 +40,7 @@ const ForgotPassword = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     if (!email) {
-      displayAlert();
+      notifyWarning("Please provide all values!");
       return;
     }
 

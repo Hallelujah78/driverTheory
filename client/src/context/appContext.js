@@ -149,15 +149,6 @@ const AppProvider = ({ children }) => {
     });
   };
 
-  const displayAlert = (
-    msg = "Please provide all values!",
-    clearMsg = true,
-    alertType = "danger"
-  ) => {
-    dispatch({ type: DISPLAY_ALERT, payload: { msg, clearMsg, alertType } });
-    if (!clearMsg) return;
-  };
-
   const registerUser = async (currentUser) => {
     dispatch({ type: REGISTER_USER_BEGIN });
     try {
@@ -167,16 +158,10 @@ const AppProvider = ({ children }) => {
         type: REGISTER_USER_SUCCESS,
       });
       notifySuccess("Success! Please check email to verify your account.");
-      displayAlert(
-        "Success! Please check email to verify your account.",
-        true,
-        "success"
-      );
     } catch (error) {
       notifyWarning(error.response.data.msg);
       dispatch({
         type: REGISTER_USER_ERROR,
-        payload: { msg: error.response.data.msg },
       });
     }
   };
@@ -192,6 +177,7 @@ const AppProvider = ({ children }) => {
         type: LOGIN_USER_SUCCESS,
         payload: { user },
       });
+      notifySuccess("Login successful, redirecting ...");
     } catch (error) {
       notifyWarning(error.response.data.msg);
       dispatch({
@@ -542,7 +528,7 @@ const AppProvider = ({ children }) => {
         setModalState,
         incrementQuestion,
         decrementQuestion,
-        displayAlert,
+
         registerUser,
         loginUser,
         toggleSidebar,

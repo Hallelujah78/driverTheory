@@ -4,7 +4,7 @@ import Wrapper from "../../assets/wrappers/DashboardFormPage";
 import { useAppContext } from "../../context/appContext.js";
 
 const Profile = () => {
-  const { user, updateUser, isLoading, notify } = useAppContext();
+  const { user, updateUser, isLoading, notifyWarning } = useAppContext();
   const [name, setName] = useState(user?.name);
   const [email, setEmail] = useState(user?.email);
 
@@ -12,7 +12,7 @@ const Profile = () => {
     e.preventDefault();
 
     if (!name || !email) {
-      notify("please provide all values");
+      notifyWarning("please provide all values");
 
       return;
     }

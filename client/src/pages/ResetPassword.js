@@ -12,7 +12,7 @@ const ResetPassword = () => {
   const [newPassword, setNewPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState("");
-  const { displayAlert } = useAppContext();
+  const { notifyWarning, notifySuccess } = useAppContext();
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -37,17 +37,14 @@ const ResetPassword = () => {
         email,
         confirmPassword,
       });
-      displayAlert(
-        "Password reset successfully! Redirecting ...",
-        true,
-        "success"
-      );
+      notifySuccess("Password reset successfully! Redirecting ...");
       setTimeout(() => {
         navigate("/register");
       }, 5000);
       const { msg } = data;
     } catch (error) {
-      displayAlert(error.response.data.msg, "danger");
+      notifyWarning(error.response.data.msg);
+
       setTimeout(() => {
         navigate("/");
       }, 5000);
@@ -58,11 +55,11 @@ const ResetPassword = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     if (!newPassword || !confirmPassword) {
-      displayAlert();
+      notifyWarning("Please provide all values!");
       return;
     }
     if (newPassword !== confirmPassword) {
-      displayAlert("Passwords do not match!");
+      notifyWarning("Passwords do not match!");
       return;
     }
     resetPassword();

@@ -8,7 +8,8 @@ import { Logo, Alert, Loading } from "../components/index.js";
 const Verify = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { isLoading, userLoading, displayAlert } = useAppContext();
+  const { isLoading, userLoading, notifySuccess, notifyWarning } =
+    useAppContext();
   const [loading, setLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [user, setUser] = useState(null);
@@ -29,7 +30,9 @@ const Verify = () => {
       setUser(user);
     } catch (error) {
       setIsError(true);
-      displayAlert(error.response.data.msg, true);
+      notifyWarning(error.response.data.msg);
+      setMessage(error.response.data.msg);
+
       setTimeout(() => {
         navigate("/");
       }, 5000);

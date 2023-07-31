@@ -40,14 +40,19 @@ const Register = () => {
       loginUser(currentUser);
     } else {
       if (!strongPassword) {
+        notifyWarning(values.passwordErrorMessage);
         return;
       }
       registerUser(currentUser);
     }
   };
 
-  const getPasswordStrength = (isStrongPassword) => {
-    setValues({ ...values, strongPassword: isStrongPassword });
+  const getPasswordStrength = (isStrongPassword, passwordErrorMessage) => {
+    setValues({
+      ...values,
+      strongPassword: isStrongPassword,
+      passwordErrorMessage,
+    });
   };
 
   useEffect(() => {
