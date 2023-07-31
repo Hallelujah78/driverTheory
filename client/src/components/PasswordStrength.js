@@ -13,9 +13,9 @@ const PasswordStrength = ({ password, reactIcon, getPasswordStrength }) => {
     const special = /[\W]/g;
     const number = /\d/g;
     // >= 8
-
+    console.log(password.length);
     let passStrength = 5;
-    if (!password.length >= 8) {
+    if (password.length < 8) {
       console.log("password too short");
       passStrength = passStrength - 1;
       setPasswordErrorMessage("Password must be at least 8 characters long!");
@@ -57,7 +57,7 @@ const PasswordStrength = ({ password, reactIcon, getPasswordStrength }) => {
 
   useEffect(() => {
     getPasswordStrength(isStrongPassword, passwordErrorMessage);
-  }, [isStrongPassword]);
+  }, [isStrongPassword, passwordErrorMessage]);
 
   return <Wrapper>{isStrongPassword ? reactIcon : null}</Wrapper>;
 };
