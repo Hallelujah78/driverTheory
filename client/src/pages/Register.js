@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Alert, FormRow, Logo, PasswordStrength } from "../components";
+import { FormRow, Logo, PasswordStrength } from "../components";
 import { useAppContext } from "../context/appContext";
 import { useNavigate, Link } from "react-router-dom";
 import styled from "styled-components";
@@ -40,18 +40,17 @@ const Register = () => {
       loginUser(currentUser);
     } else {
       if (!strongPassword) {
-        notifyWarning(values.passwordErrorMessage);
+        notifyWarning("too weak");
         return;
       }
       registerUser(currentUser);
     }
   };
 
-  const getPasswordStrength = (isStrongPassword, passwordErrorMessage) => {
+  const getPasswordStrength = (isStrongPassword) => {
     setValues({
       ...values,
       strongPassword: isStrongPassword,
-      passwordErrorMessage,
     });
   };
 
