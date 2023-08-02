@@ -13,7 +13,7 @@ const PasswordStrength = ({ password, reactIcon, getPasswordStrength }) => {
     const number = /\d/g;
     let passStrength = 0;
     let passLength = password.length;
-    console.log(passLength);
+
     if (password.length >= 8 && password.length > 0) {
       passStrength = passStrength + 1;
       setPasswordLength(true);
@@ -34,9 +34,6 @@ const PasswordStrength = ({ password, reactIcon, getPasswordStrength }) => {
     } else {
       setContainsNumber(false);
     }
-
-    console.log(passStrength);
-    console.log(password.length);
 
     switch (passStrength) {
       case 0:
@@ -61,23 +58,42 @@ const PasswordStrength = ({ password, reactIcon, getPasswordStrength }) => {
 
   useEffect(() => {
     checkPasswordStrength(password);
-    console.log(password.length);
   }, [password]);
 
   useEffect(() => {
-    console.log(password.length);
-
     getPasswordStrength(isStrongPassword);
   }, [isStrongPassword, password]);
 
-  return <Wrapper>{isStrongPassword ? reactIcon : null}</Wrapper>;
+  return (
+    <Wrapper>
+      <p>Your password must:</p>
+      <div className="pass-criteria">
+        <span>{containsLetter ? reactIcon : null}</span>
+        <p>Contain a letter.</p>
+      </div>
+      <div className="pass-criteria">
+        <span>{containsNumber ? reactIcon : null}</span>
+        <p>Contain a number.</p>
+      </div>
+      <div className="pass-criteria">
+        <span>{passwordLength ? reactIcon : null}</span>
+        <p>Be at least 8 characters long.</p>
+      </div>
+    </Wrapper>
+  );
 };
 export default PasswordStrength;
 
 const Wrapper = styled.div`
-  color: green;
-  font-size: 2rem;
-  position: absolute;
-  top: 1.9rem;
-  right: 0.25rem;
+  p {
+    display: inline-block;
+  }
+  .pass-criteria {
+    display: flex;
+
+    justify-content: space-between;
+  }
+  span {
+    color: green;
+  }
 `;

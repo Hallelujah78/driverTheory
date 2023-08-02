@@ -67,7 +67,7 @@ const Register = () => {
       <form className="form" id="login" name="login" onSubmit={onSubmit}>
         <Logo />
         {/* controls H3 content */}
-        <h3>{values.isMember ? "Login" : "Register"}</h3>
+        <h4>{values.isMember ? "Login" : "Register"}</h4>
 
         {/* name field */}
         {!values.isMember && (
@@ -88,6 +88,13 @@ const Register = () => {
           value={values.email}
         />
         <div className="password-container">
+          {values.isMember ? null : (
+            <PasswordStrength
+              getPasswordStrength={getPasswordStrength}
+              password={values.password}
+              reactIcon={<TbCircleCheck />}
+            />
+          )}
           <FormRow
             id="password"
             type="password"
@@ -97,16 +104,13 @@ const Register = () => {
             autocomplete={values.isMember ? "current-password" : "new-password"}
           />{" "}
           {/* password field */}
-          {values.isMember ? null : (
-            <PasswordStrength
-              getPasswordStrength={getPasswordStrength}
-              password={values.password}
-              reactIcon={<TbCircleCheck />}
-            />
-          )}
         </div>
 
-        <button type="submit" disabled={isLoading} className="btn btn-block">
+        <button
+          type="submit"
+          disabled={isLoading || (!values.strongPassword && !values.isMember)}
+          className="btn btn-block"
+        >
           submit
         </button>
         <button
@@ -156,7 +160,7 @@ const Wrapper = styled.section`
     border-top: 5px solid var(--primary-500);
   }
 
-  h3 {
+  h4 {
     text-align: center;
   }
 
