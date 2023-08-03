@@ -1,7 +1,12 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 
-const PasswordStrength = ({ password, reactIcon, getPasswordStrength }) => {
+const PasswordStrength = ({
+  password,
+  reactIconGood,
+  reactIconBad,
+  getPasswordStrength,
+}) => {
   const [isStrongPassword, setIsStrongPassword] = useState(false);
   const [passwordMessage, setPasswordMessage] = useState("");
   const [passwordLength, setPasswordLength] = useState(false);
@@ -68,15 +73,33 @@ const PasswordStrength = ({ password, reactIcon, getPasswordStrength }) => {
     <Wrapper>
       <p>Your password must:</p>
       <div className="pass-criteria">
-        <span>{containsLetter ? reactIcon : null}</span>
+        <span>
+          {containsLetter ? (
+            <span className="icon-good">{reactIconGood}</span>
+          ) : (
+            <span className="icon-bad">{reactIconBad}</span>
+          )}
+        </span>
         <p>Contain a letter.</p>
       </div>
       <div className="pass-criteria">
-        <span>{containsNumber ? reactIcon : null}</span>
+        <span>
+          {containsNumber ? (
+            <span className="icon-good">{reactIconGood}</span>
+          ) : (
+            <span className="icon-bad">{reactIconBad}</span>
+          )}
+        </span>
         <p>Contain a number.</p>
       </div>
       <div className="pass-criteria">
-        <span>{passwordLength ? reactIcon : null}</span>
+        <span>
+          {passwordLength ? (
+            <span className="icon-good">{reactIconGood}</span>
+          ) : (
+            <span className="icon-bad">{reactIconBad}</span>
+          )}
+        </span>
         <p>Be at least 8 characters long.</p>
       </div>
     </Wrapper>
@@ -93,7 +116,10 @@ const Wrapper = styled.div`
 
     justify-content: space-between;
   }
-  span {
+  .icon-good {
     color: green;
+  }
+  .icon-bad {
+    color: red;
   }
 `;

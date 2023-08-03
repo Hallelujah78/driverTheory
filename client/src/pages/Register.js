@@ -3,7 +3,7 @@ import { FormRow, Logo, PasswordStrength } from "../components";
 import { useAppContext } from "../context/appContext";
 import { useNavigate, Link } from "react-router-dom";
 import styled from "styled-components";
-import { TbCircleCheck } from "react-icons/tb";
+import { TbCircleCheck, TbCircleX } from "react-icons/tb";
 
 const initialState = {
   name: "",
@@ -38,13 +38,8 @@ const Register = () => {
     const currentUser = { name, email, password };
     if (isMember) {
       loginUser(currentUser);
-    } else {
-      if (!strongPassword) {
-        notifyWarning("too weak");
-        return;
-      }
-      registerUser(currentUser);
     }
+    registerUser(currentUser);
   };
 
   const getPasswordStrength = (isStrongPassword) => {
@@ -92,7 +87,8 @@ const Register = () => {
             <PasswordStrength
               getPasswordStrength={getPasswordStrength}
               password={values.password}
-              reactIcon={<TbCircleCheck />}
+              reactIconGood={<TbCircleCheck />}
+              reactIconBad={<TbCircleX />}
             />
           )}
           <FormRow
@@ -103,7 +99,9 @@ const Register = () => {
             value={values.password}
             autocomplete={values.isMember ? "current-password" : "new-password"}
           />{" "}
-          {/* password field */}
+          {!values.isMember && values.password.length > 0 ? (
+            <p>{values.strongPassword ? "Good" : "Too weak"}</p>
+          ) : null}
         </div>
 
         <button
