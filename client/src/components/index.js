@@ -1,4 +1,3 @@
-import Alert from "./Alert.js";
 import BigSidebar from "./BigSidebar.js";
 import FormRow from "./FormRow.js";
 import Logo from "./Logo.js";
@@ -27,7 +26,6 @@ export {
   Loading,
   Logo,
   FormRow,
-  Alert,
   SmallSidebar,
   BigSidebar,
   Navbar,

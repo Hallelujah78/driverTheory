@@ -3,13 +3,12 @@ import { useAppContext } from "../context/appContext.js";
 import { useEffect, useState } from "react";
 import { useLocation, Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Logo, Alert, Loading } from "../components/index.js";
+import { Logo, Loading } from "../components/index.js";
 
 const Verify = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { isLoading, userLoading, notifySuccess, notifyWarning } =
-    useAppContext();
+  const { isLoading, userLoading, notifyWarning } = useAppContext();
   const [loading, setLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [user, setUser] = useState(null);

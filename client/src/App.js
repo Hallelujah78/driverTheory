@@ -1,12 +1,6 @@
-import {
-  Test,
-  Landing,
-  Register,
-  Error,
-  Verify,
-  ResetPassword,
-  ForgotPassword,
-} from "./pages";
+import loadable from "@loadable/component";
+import { Landing, Error } from "./pages";
+
 import {
   Practice,
   AddQuestion,
@@ -24,10 +18,22 @@ import {
 import Read from "./pages/Practice/Read.js";
 import CategoryPractice from "./pages/Practice/CategoryPractice.js";
 import { QuestionList, Categories } from "./pages/Results/index.js";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import ResultsSharedLayout from "./pages/Results/SharedLayout";
-import PracticeSharedLayout from "./pages/Practice/SharedLayout.js";
-import OtherPractice from "./pages/Practice/OtherPractice.js";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
+
+const ResultsSharedLayout = loadable(() =>
+  import("./pages/Results/SharedLayout")
+);
+const PracticeSharedLayout = loadable(() =>
+  import("./pages/Practice/SharedLayout.js")
+);
+const Test = loadable(() => import("./pages/Test"));
+const Register = loadable(() => import("./pages/Register"));
+const Verify = loadable(() => import("./pages/Verify"));
+const ResetPassword = loadable(() => import("./pages/ResetPassword"));
+const ForgotPassword = loadable(() => import("./pages/ForgotPassword"));
+const OtherPractice = loadable(() =>
+  import("./pages/Practice/OtherPractice.js")
+);
 
 function App() {
   return (

@@ -1,4 +1,4 @@
-import main from "../assets/images/main5.png";
+import main from "../assets/images/main5.webp";
 import Wrapper from "../assets/wrappers/LandingPage";
 import { useAppContext } from "../context/appContext";
 import { Logo } from "../components";

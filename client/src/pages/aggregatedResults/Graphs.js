@@ -1,6 +1,6 @@
 import { ChartsContainer } from "../../components/index.js";
 import styled from "styled-components";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 const Graphs = () => {
   const [graphFilter, setGraphFilter] = useState("all");
   const handleClick = (e) => {
