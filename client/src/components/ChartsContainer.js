@@ -12,7 +12,6 @@ const ChartsContainer = (graphFilter) => {
   const getStats = async () => {
     setIsLoading(true);
     try {
-      console.log(graphFilter);
       const { data } = await authFetch.post("/test/showStats", { graphFilter });
       setChartData(data.stats);
     } catch (error) {

@@ -3,7 +3,7 @@ import { FormRow, Logo, PasswordStrength } from "../components";
 import { useAppContext } from "../context/appContext";
 import { useNavigate, Link } from "react-router-dom";
 import styled from "styled-components";
-import { TbCircleCheck, TbCircleX } from "react-icons/tb";
+import { TbCircleCheck, TbCircleX, TbEye, TbEyeOff } from "react-icons/tb";
 
 const initialState = {
   name: "",
@@ -11,6 +11,7 @@ const initialState = {
   password: "",
   isMember: true,
   strongPassword: false,
+  showPassword: false,
 };
 
 const Register = () => {
@@ -21,6 +22,10 @@ const Register = () => {
 
   const toggleMember = () => {
     setValues({ ...values, isMember: !values.isMember });
+  };
+
+  const toggleShowPassword = () => {
+    setValues({ ...values, showPassword: !values.showPassword });
   };
 
   const handleChange = (e) => {
@@ -93,21 +98,32 @@ const Register = () => {
           )}
           <FormRow
             id="password"
-            type="password"
+            type={values.showPassword ? "text" : "password"}
             name="password"
             handleChange={handleChange}
             value={values.password}
             autocomplete={values.isMember ? "current-password" : "new-password"}
           />{" "}
-          {!values.isMember && values.password.length > 0 ? (
-            <p>{values.strongPassword ? "Good" : "Too weak"}</p>
-          ) : null}
+          <div className="password-message">
+            {!values.isMember && values.password.length > 0 ? (
+              <p className={values.strongPassword ? "strong" : "weak"}>
+                {values.strongPassword ? "Good" : "Too weak"}
+              </p>
+            ) : null}
+          </div>
+          <div onClick={toggleShowPassword}>
+            {values.showPassword ? <TbEyeOff /> : <TbEye />}
+          </div>
         </div>
 
         <button
           type="submit"
           disabled={isLoading || (!values.strongPassword && !values.isMember)}
-          className="btn btn-block"
+          className={
+            isLoading || (!values.strongPassword && !values.isMember)
+              ? "disabled btn btn-block"
+              : "btn btn-block"
+          }
         >
           submit
         </button>
@@ -181,5 +197,19 @@ const Wrapper = styled.section`
   }
   .password-container {
     position: relative;
+  }
+  .password-message {
+    position: absolute;
+    top: 11.2rem;
+    right: 10px;
+  }
+  .weak {
+    color: red;
+  }
+  .strong {
+    color: green;
+  }
+  .disabled {
+    background-color: var(--primary-100);
   }
 `;

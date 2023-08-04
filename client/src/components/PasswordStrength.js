@@ -42,7 +42,6 @@ const PasswordStrength = ({
 
     switch (passStrength) {
       case 0:
-        console.log("case 0");
         setIsStrongPassword(false);
         setPasswordMessage("");
         break;
@@ -80,7 +79,7 @@ const PasswordStrength = ({
             <span className="icon-bad">{reactIconBad}</span>
           )}
         </span>
-        <p>Contain a letter.</p>
+        <p>Contain a letter</p>
       </div>
       <div className="pass-criteria">
         <span>
@@ -90,7 +89,7 @@ const PasswordStrength = ({
             <span className="icon-bad">{reactIconBad}</span>
           )}
         </span>
-        <p>Contain a number.</p>
+        <p>Contain a number</p>
       </div>
       <div className="pass-criteria">
         <span>
@@ -100,7 +99,7 @@ const PasswordStrength = ({
             <span className="icon-bad">{reactIconBad}</span>
           )}
         </span>
-        <p>Be at least 8 characters long.</p>
+        <p>Be at least 8 characters long</p>
       </div>
     </Wrapper>
   );
