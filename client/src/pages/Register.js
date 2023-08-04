@@ -43,8 +43,9 @@ const Register = () => {
     const currentUser = { name, email, password };
     if (isMember) {
       loginUser(currentUser);
+    } else {
+      registerUser(currentUser);
     }
-    registerUser(currentUser);
   };
 
   const getPasswordStrength = (isStrongPassword) => {
@@ -111,7 +112,12 @@ const Register = () => {
               </p>
             ) : null}
           </div>
-          <div onClick={toggleShowPassword}>
+          <div
+            className={
+              values.isMember ? "password-icon login" : "password-icon register"
+            }
+            onClick={toggleShowPassword}
+          >
             {values.showPassword ? <TbEyeOff /> : <TbEye />}
           </div>
         </div>
@@ -201,7 +207,7 @@ const Wrapper = styled.section`
   .password-message {
     position: absolute;
     top: 11.2rem;
-    right: 10px;
+    right: 40px;
   }
   .weak {
     color: red;
@@ -211,5 +217,19 @@ const Wrapper = styled.section`
   }
   .disabled {
     background-color: var(--primary-100);
+  }
+  .password-icon {
+    position: absolute;
+
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+  .register {
+    top: 11.35rem;
+    right: 0.4rem;
+  }
+  .login {
+    top: 2.25rem;
+    right: 0.4rem;
   }
 `;
