@@ -1,6 +1,4 @@
-import checkPermissions from "./checkPermissions.js";
 import createTokenUser from "./createTokenUser.js";
-
 import sendMail from "./sendMail.js";
 import sendVerificationEmail from "./sendVerificationEmail.js";
 import sendResetPasswordEmail from "./sendResetPasswordEmail.js";
@@ -23,7 +21,6 @@ export {
   createJWT,
   isTokenValid,
   createTokenUser,
-  checkPermissions,
   sendMail,
   sendVerificationEmail,
   sendResetPasswordEmail,

@@ -1,7 +1,3 @@
-export const DISPLAY_ALERT = "SHOW_ALERT";
-
-export const CLEAR_ALERT = "CLEAR_ALERT";
-
 // register
 export const REGISTER_USER_BEGIN = "REGISTER_USER_BEGIN";
 export const REGISTER_USER_SUCCESS = "REGISTER_USER_SUCCESS";
@@ -27,29 +23,10 @@ export const UPDATE_USER_ERROR = "UPDATE_USER_ERROR";
 export const HANDLE_CHANGE = "HANDLE_CHANGE";
 export const CLEAR_VALUES = "CLEAR_VALUES";
 
-// CREATE_JOB
-export const CREATE_JOB_BEGIN = "CREATE_JOB_BEGIN";
-export const CREATE_JOB_SUCCESS = "CREATE_JOB_SUCCESS";
-export const CREATE_JOB_ERROR = "CREATE_JOB_ERROR";
-
 // CREATE_QUESTION
 export const CREATE_QUESTION_BEGIN = "CREATE_QUESTION_BEGIN";
 export const CREATE_QUESTION_SUCCESS = "CREATE_QUESTION_SUCCESS";
 export const CREATE_QUESTION_ERROR = "CREATE_QUESTION_ERROR";
-
-// get all jobs
-export const GET_JOBS_BEGIN = "GET_JOBS_BEGIN";
-export const GET_JOBS_SUCCESS = "GET_JOBS_SUCCESS";
-
-// edit job
-export const SET_EDIT_JOB = "SET_EDIT_JOB";
-
-export const EDIT_JOB_BEGIN = "EDIT_JOB_BEGIN";
-export const EDIT_JOB_ERROR = "EDIT_JOB_ERROR";
-export const EDIT_JOB_SUCCESS = "EDIT_JOB_SUCCESS";
-
-// clear filters
-export const CLEAR_FILTERS = "CLEAR_FILTERS";
 
 // change page
 export const CHANGE_PAGE = "CHANGE_PAGE";

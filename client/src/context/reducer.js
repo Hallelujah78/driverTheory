@@ -19,8 +19,6 @@ import {
   SET_USER_LOADING,
   GET_CURRENT_USER_BEGIN,
   GET_CURRENT_USER_SUCCESS,
-  CHANGE_PAGE,
-  CLEAR_FILTERS,
   CLEAR_VALUES,
   REGISTER_USER_BEGIN,
   REGISTER_USER_SUCCESS,
@@ -141,22 +139,6 @@ const reducer = (state, action) => {
     };
   }
 
-  if (action.type === CLEAR_FILTERS) {
-    return {
-      ...state,
-
-      search: "",
-      searchStatus: "all",
-      searchType: "all",
-      sort: "latest",
-    };
-  }
-  if (action.type === CHANGE_PAGE) {
-    return {
-      ...state,
-      page: action.payload.page,
-    };
-  }
   if (action.type === GET_CURRENT_USER_BEGIN) {
     return {
       ...state,

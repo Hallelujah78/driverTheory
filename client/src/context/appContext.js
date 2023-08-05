@@ -21,10 +21,7 @@ import {
   SET_USER_LOADING,
   GET_CURRENT_USER_BEGIN,
   GET_CURRENT_USER_SUCCESS,
-  CHANGE_PAGE,
-  CLEAR_FILTERS,
   CLEAR_VALUES,
-  DISPLAY_ALERT,
   REGISTER_USER_BEGIN,
   REGISTER_USER_ERROR,
   REGISTER_USER_SUCCESS,
@@ -153,7 +150,7 @@ const AppProvider = ({ children }) => {
   const registerUser = async (currentUser) => {
     dispatch({ type: REGISTER_USER_BEGIN });
     try {
-      const { data } = await axios.post("/api/v1/auth/register", currentUser);
+      await axios.post("/api/v1/auth/register", currentUser);
 
       dispatch({
         type: REGISTER_USER_SUCCESS,
@@ -275,13 +272,6 @@ const AppProvider = ({ children }) => {
     }
   };
   // end of create question
-
-  const clearFilters = () => {
-    dispatch({ type: CLEAR_FILTERS });
-  };
-  const changePage = (page) => {
-    dispatch({ type: CHANGE_PAGE, payload: { page } });
-  };
 
   const getCurrentUser = async () => {
     dispatch({ type: GET_CURRENT_USER_BEGIN });
@@ -467,7 +457,7 @@ const AppProvider = ({ children }) => {
     dispatch({ type: TOGGLE_IS_FLAGGED });
     // then we update the test and the UserQuestionData on the backend
     try {
-      const { data } = await authFetch.patch("/test/flagged", {
+      await authFetch.patch("/test/flagged", {
         questionId,
         testId,
       });
@@ -538,9 +528,6 @@ const AppProvider = ({ children }) => {
         handleChange,
         clearValues,
         createQuestion,
-
-        clearFilters,
-        changePage,
         createNewTest,
         toggleIsFlagged,
         authFetch,
