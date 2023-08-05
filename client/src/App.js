@@ -1,31 +1,33 @@
 import loadable from "@loadable/component";
 import { Landing, Error } from "./pages";
-
-import {
-  Practice,
-  AddQuestion,
-  Profile,
-  SharedLayout,
-  Stats,
-  ProtectedRoute,
-} from "./pages/dashboard/index.js";
-import {
-  Graphs,
-  Overview,
-  PreviousTests,
-  AggResultsSharedLayout,
-} from "./pages/aggregatedResults/index.js";
-import Read from "./pages/Practice/Read.js";
-import CategoryPractice from "./pages/Practice/CategoryPractice.js";
-import { QuestionList, Categories } from "./pages/Results/index.js";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 
+const Graphs = loadable(() => import("./pages/aggregatedResults/Graphs"));
+const Overview = loadable(() => import("./pages/aggregatedResults/Overview"));
+const PreviousTests = loadable(() =>
+  import("./pages/aggregatedResults/PreviousTests")
+);
+const AggResultsSharedLayout = loadable(() =>
+  import("./pages/aggregatedResults/SharedLayout")
+);
+const CategoryPractice = loadable(() =>
+  import("./pages/Practice/CategoryPractice")
+);
+const Categories = loadable(() => import("./pages/Results/Categories"));
+const QuestionList = loadable(() => import("./pages/Results/QuestionList"));
+const Read = loadable(() => import("./pages/Practice/Read.js"));
+const AddQuestion = loadable(() => import("./pages/dashboard/AddQuestion"));
+const Profile = loadable(() => import("./pages/dashboard/Profile"));
+const SharedLayout = loadable(() => import("./pages/dashboard/SharedLayout"));
+const Stats = loadable(() => import("./pages/dashboard/Stats"));
+const ProtectedRoute = loadable(() => import("./pages/ProtectedRoute"));
 const ResultsSharedLayout = loadable(() =>
   import("./pages/Results/SharedLayout")
 );
 const PracticeSharedLayout = loadable(() =>
   import("./pages/Practice/SharedLayout.js")
 );
+const Practice = loadable(() => import("./pages/dashboard/Practice"));
 const Test = loadable(() => import("./pages/Test"));
 const Register = loadable(() => import("./pages/Register"));
 const Verify = loadable(() => import("./pages/Verify"));

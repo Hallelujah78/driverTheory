@@ -374,3 +374,10 @@ ul {
     color: var(--incorrect);
     font-size: 2rem;
 }
+
+/* .toast {
+    display: flex;
+    justify-content: space-evenly;
+    width: 80vw;
+    margin-top: 5em;
+} */

@@ -16,7 +16,7 @@ import rateLimit from "express-rate-limit";
 const apiLimiter = rateLimit({
   windowMs: 15 * 1000 * 60,
   max: 10,
-  message: "Too many requests from this IP, please try again after 15 minute",
+  message: "Too many requests from this IP, please try again after 15 minutes",
 });
 
 const router = express.Router();

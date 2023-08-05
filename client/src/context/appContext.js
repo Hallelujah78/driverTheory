@@ -131,7 +131,8 @@ const AppProvider = ({ children }) => {
     }
   );
 
-  const notifySuccess = (message) => toast.success(message);
+  const notifySuccess = (message, autoCloseTime) =>
+    toast.success(message, { autoClose: autoCloseTime ? autoCloseTime : 5000 });
   const notifyWarning = (message) => toast.warning(message);
 
   const setUserLoadingFalse = () => {
@@ -177,7 +178,7 @@ const AppProvider = ({ children }) => {
         type: LOGIN_USER_SUCCESS,
         payload: { user },
       });
-      notifySuccess("Login successful, redirecting ...");
+      notifySuccess("Login successful, redirecting ...", 2000);
     } catch (error) {
       notifyWarning(error.response.data.msg);
       dispatch({
