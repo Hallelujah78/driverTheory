@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import { useState, useEffect } from "react";
 import {
   LineChart as Chart,
@@ -69,5 +68,3 @@ const LineChart = ({ chartData }) => {
   );
 };
 export default LineChart;
-
-const Wrapper = styled.div``;

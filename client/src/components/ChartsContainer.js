@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import LineChart from "./LineChart.js";
 import { NoData, Loading } from "./index.js";
 import { useAppContext } from "../context/appContext.js";
@@ -9,7 +9,7 @@ const ChartsContainer = (graphFilter) => {
   const { authFetch } = useAppContext();
   const [chartData, setChartData] = useState();
 
-  const getStats = async () => {
+  const getStats = useCallback(async () => {
     setIsLoading(true);
     try {
       const { data } = await authFetch.post("/test/showStats", { graphFilter });
@@ -19,11 +19,11 @@ const ChartsContainer = (graphFilter) => {
       console.log(error.response.data.msg);
     }
     setIsLoading(false);
-  };
+  }, [graphFilter, authFetch]);
 
   useEffect(() => {
     getStats();
-  }, [graphFilter]);
+  }, [graphFilter, getStats]);
 
   if (isLoading || !chartData) {
     return (

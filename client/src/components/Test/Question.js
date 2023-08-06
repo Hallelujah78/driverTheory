@@ -40,7 +40,7 @@ const Question = () => {
           </div>
           {imageURL ? (
             <div className="image-container">
-              <img src={imageURL} />
+              <img src={imageURL} alt="" />
             </div>
           ) : null}
         </div>

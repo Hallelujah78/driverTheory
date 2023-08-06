@@ -19,7 +19,7 @@ const PasswordStrength = ({
     let passStrength = 0;
     let passLength = password.length;
 
-    if (password.length >= 8 && password.length > 0) {
+    if (passLength >= 8 && passLength > 0) {
       passStrength = passStrength + 1;
       setPasswordLength(true);
     } else {
@@ -57,6 +57,8 @@ const PasswordStrength = ({
         setIsStrongPassword(true);
         setPasswordMessage("Good");
         break;
+      default:
+        return;
     }
   };
 

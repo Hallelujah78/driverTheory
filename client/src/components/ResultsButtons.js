@@ -1,6 +1,5 @@
 import { NavLink, Link } from "react-router-dom";
 import { TbList, TbBrowser, TbCategory } from "react-icons/tb";
-import styled from "styled-components";
 
 const ResultsButtons = () => {
   return (
@@ -40,5 +39,3 @@ const ResultsButtons = () => {
   );
 };
 export default ResultsButtons;
-
-const Wrapper = styled.div``;

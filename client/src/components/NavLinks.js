@@ -9,7 +9,7 @@ const NavLinks = ({ toggleSidebar }) => {
       {links.map((link) => {
         const { role } = user;
         if (role !== "admin" && link.adminOnly) {
-          return;
+          return null;
         }
         return (
           <NavLink
